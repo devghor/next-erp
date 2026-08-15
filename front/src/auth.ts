@@ -12,19 +12,40 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' }
       },
-      // Placeholder credential store — swap for a real user table/adapter lookup.
-      authorize(credentials) {
+      // Delegates to the real backend's Sanctum login endpoint.
+      async authorize(credentials) {
         const email = credentials?.email;
         const password = credentials?.password;
-        if (
-          typeof email === 'string' &&
-          typeof password === 'string' &&
-          email === process.env.AUTH_DEMO_EMAIL &&
-          password === process.env.AUTH_DEMO_PASSWORD
-        ) {
-          return { id: '1', email, name: email.split('@')[0] };
+        if (typeof email !== 'string' || typeof password !== 'string') {
+          return null;
         }
-        return null;
+
+        try {
+          const res = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+          });
+
+          if (!res.ok) {
+            return null;
+          }
+
+          const { data, meta } = await res.json();
+
+          return {
+            id: data.id,
+            email: data.attributes.email,
+            name: data.attributes.name,
+            accessToken: meta.access_token
+          };
+        } catch (error) {
+          console.error('Backend login request failed:', error);
+          return null;
+        }
       }
     })
   ],
@@ -32,6 +53,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.accessToken = user.accessToken;
       }
       return token;
     },
@@ -39,6 +61,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (session.user && token.id) {
         session.user.id = token.id as string;
       }
+      session.accessToken = token.accessToken as string;
       return session;
     }
   }

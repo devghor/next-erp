@@ -84,10 +84,7 @@ export default function UserAuthForm({ mode }: UserAuthFormProps) {
       </FieldGroup>
       {mode === 'sign-up' && (
         <p className='text-muted-foreground text-xs'>
-          Registration isn&apos;t wired to a database yet — sign in with the demo credentials from
-          your <code>.env.local</code> (<code>AUTH_DEMO_EMAIL</code> /{' '}
-          <code>AUTH_DEMO_PASSWORD</code>
-          ).
+          Registration isn&apos;t wired up yet — sign in with an account created via the backend.
         </p>
       )}
       <LoadingButton loading={loading} type='submit' className='mt-2 ml-auto w-full'>

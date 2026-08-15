@@ -23,6 +23,7 @@ class LoginController extends Controller
 
         /** @var User $user */
         $user = Auth::user();
+        $user->load('companies');
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -33,5 +34,14 @@ class LoginController extends Controller
                     'token_type' => 'Bearer',
                 ],
             ]);
+    }
+
+    public function authUser()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        $user->load('companies');
+
+        return UserResource::make($user);
     }
 }

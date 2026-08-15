@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 // import { persist } from 'zustand/middleware';
-import type { Attachment, Conversation, Message } from './types';
-import { initialConversations } from './data';
+import type { Attachment, Conversation, Message } from '@/features/chat/utils/types';
+import { initialConversations } from '@/features/chat/utils/data';
 
 type ReplyCursorState = Record<string, number>;
 

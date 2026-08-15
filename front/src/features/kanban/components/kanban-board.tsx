@@ -2,7 +2,7 @@
 
 import { useCallback, useRef } from 'react';
 import { Kanban, KanbanBoard as KanbanBoardPrimitive, KanbanOverlay } from '@/components/ui/kanban';
-import { useTaskStore } from '../utils/store';
+import { useTaskStore } from '@/store/kanban-store';
 import { TaskColumn } from './board-column';
 import { TaskCard } from './task-card';
 import { createRestrictToContainer } from '../utils/restrict-to-container';

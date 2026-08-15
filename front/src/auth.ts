@@ -1,9 +1,10 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { apiClient } from '@/lib/api-client';
+import type { Company } from '@/types';
 
 type LoginResponse = {
-  data: { id: string; attributes: { email: string; name: string } };
+  data: { name: string; email: string; companies: Company[] };
   meta: { access_token: string };
 };
 
@@ -33,10 +34,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           });
 
           return {
-            id: data.id,
-            email: data.attributes.email,
-            name: data.attributes.name,
-            accessToken: meta.access_token
+            id: data.email,
+            email: data.email,
+            name: data.name,
+            accessToken: meta.access_token,
+            companies: data.companies
           };
         } catch (error) {
           console.error('Backend login request failed:', error);
@@ -50,6 +52,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
         token.accessToken = user.accessToken;
+        token.companies = user.companies;
       }
       return token;
     },
@@ -57,6 +60,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (session.user && token.id) {
         session.user.id = token.id as string;
       }
+      session.user.companies = (token.companies as Company[] | undefined) ?? [];
       session.accessToken = token.accessToken as string;
       return session;
     }

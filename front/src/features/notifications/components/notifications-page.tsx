@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { NotificationCard } from '@/components/ui/notification-card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter } from 'next/navigation';
-import { useNotificationStore } from '../utils/store';
+import { useNotificationStore } from '@/store/notifications-store';
 
 const actionRoutes: Record<string, string> = {
   view: '/dashboard/overview',

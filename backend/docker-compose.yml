@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+    user: "${UID:-1000}:${GID:-1000}"
     container_name: next-erp-app
     restart: unless-stopped
     volumes:

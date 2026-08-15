@@ -9,6 +9,7 @@ import {
   IconBrandGithub,
   IconBrandTwitter,
   IconBrightness,
+  IconBuilding,
   IconCalendar,
   IconCheck,
   IconChecks,
@@ -136,6 +137,7 @@ export const Icons = {
   employee: IconUserX,
   userPen: IconUserEdit,
   teams: IconUsers,
+  company: IconBuilding,
 
   // Brand
   github: IconBrandGithub,

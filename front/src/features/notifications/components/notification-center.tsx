@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { NotificationCard } from '@/components/ui/notification-card';
-import { useNotificationStore } from '../utils/store';
+import { useNotificationStore } from '@/store/notifications-store';
 import { useRouter } from 'next/navigation';
 
 const MAX_VISIBLE = 5;

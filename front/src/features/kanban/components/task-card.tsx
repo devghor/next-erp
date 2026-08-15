@@ -2,7 +2,7 @@
 
 import { Badge } from '@/components/ui/badge';
 import { KanbanItem } from '@/components/ui/kanban';
-import type { Task } from '../utils/store';
+import type { Task } from '@/store/kanban-store';
 
 interface TaskCardProps extends Omit<React.ComponentProps<typeof KanbanItem>, 'value'> {
   task: Task;

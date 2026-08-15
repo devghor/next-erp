@@ -1,5 +1,14 @@
 import { Icons } from '@/components/icons';
 
+export interface Company {
+  id: string;
+  name: string | null;
+  short_name?: string | null;
+  code?: string | null;
+  address?: string | null;
+  plan?: string | null;
+}
+
 export interface PermissionCheck {
   permission?: string;
   plan?: string;

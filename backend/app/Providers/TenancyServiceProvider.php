@@ -84,7 +84,10 @@ class TenancyServiceProvider extends ServiceProvider
     {
         InitializeTenancyByRequestData::$queryParameter = null;
 
+        InitializeTenancyByRequestData::$header = 'X-Company-ID';
+
         $this->bootEvents();
+
         $this->mapRoutes();
 
         $this->makeTenancyMiddlewareHighestPriority();

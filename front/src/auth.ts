@@ -1,5 +1,11 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import { apiClient } from '@/lib/api-client';
+
+type LoginResponse = {
+  data: { id: string; attributes: { email: string; name: string } };
+  meta: { access_token: string };
+};
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: 'jwt' },
@@ -21,20 +27,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         try {
-          const res = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
+          const { data, meta } = await apiClient<LoginResponse>('/auth/login', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json'
-            },
-            body: JSON.stringify({ email, password })
+            data: { email, password }
           });
-
-          if (!res.ok) {
-            return null;
-          }
-
-          const { data, meta } = await res.json();
 
           return {
             id: data.id,

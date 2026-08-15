@@ -3,89 +3,76 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: erp-app
+    container_name: next-erp-app
     restart: unless-stopped
     volumes:
       - .:/var/www/html
-    environment:
-      DB_CONNECTION: pgsql
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_DATABASE: ${DB_DATABASE:-erp}
-      DB_USERNAME: ${DB_USERNAME:-erp}
-      DB_PASSWORD: ${DB_PASSWORD:-secret}
-      MAIL_MAILER: smtp
-      MAIL_HOST: mailhog
-      MAIL_PORT: 1025
-      MAIL_USERNAME: null
-      MAIL_PASSWORD: null
-      MAIL_ENCRYPTION: null
     depends_on:
       db:
         condition: service_healthy
     networks:
-      - erp
+      - next-erp
 
   web:
     image: nginx:alpine
-    container_name: erp-web
+    container_name: next-erp-web
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-8000}:80"
+      - "8000:80"
     volumes:
       - .:/var/www/html
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - app
     networks:
-      - erp
+      - next-erp
 
   db:
     image: postgres:17-alpine
-    container_name: erp-db
+    container_name: next-erp-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${DB_DATABASE:-erp}
-      POSTGRES_USER: ${DB_USERNAME:-erp}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "${DB_HOST_PORT:-5432}:5432"
+      - "5432:5432"
     volumes:
-      - erp-db-data:/var/lib/postgresql/data
+      - next-erp-db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-erp} -d ${DB_DATABASE:-erp}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
       interval: 5s
       timeout: 5s
       retries: 10
     networks:
-      - erp
+      - next-erp
 
   mailhog:
     image: mailhog/mailhog
-    container_name: erp-mailhog
+    container_name: next-erp-mailhog
     restart: unless-stopped
     ports:
-      - "${MAILHOG_UI_PORT:-8025}:8025"
-      - "${MAILHOG_SMTP_PORT:-1025}:1025"
+      - "8025:8025"
+      - "1025:1025"
     networks:
-      - erp
+      - next-erp
 
   adminer:
     image: adminer
-    container_name: erp-adminer
+    container_name: next-erp-adminer
     restart: unless-stopped
     environment:
       ADMINER_DEFAULT_SERVER: db
     ports:
-      - "${ADMINER_PORT:-8080}:8080"
+      - "8080:8080"
     depends_on:
       - db
     networks:
-      - erp
+      - next-erp
 
 networks:
-  erp:
+  next-erp:
     driver: bridge
 
 volumes:
-  erp-db-data:
+  next-erp-db:

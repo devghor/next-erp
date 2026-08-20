@@ -88,10 +88,6 @@ A few things you can build with it:
 | [Product List (Table)](https://shadcn-dashboard.kiranism.dev/dashboard/product)                                                                                       | TanStack Table plus React Query (server prefetch, client cache) with nuqs URL state for search, filter, and pagination. `shallow: true` keeps interactions on the client.           |
 | [Create Product Form](https://shadcn-dashboard.kiranism.dev/dashboard/product/new)                                                                                    | TanStack Form and Zod with `useMutation` for create and update. Cache is invalidated on success.                                                                                    |
 | [Users (Table)](https://shadcn-dashboard.kiranism.dev/dashboard/users)                                                                                                | Same setup as Products: React Query with nuqs, server prefetch, and client-side pagination and filtering.                                                                           |
-| [React Query Demo](https://shadcn-dashboard.kiranism.dev/dashboard/react-query)                                                                                       | A Pokemon API example showing the server prefetch, `HydrationBoundary`, and `useSuspenseQuery` pattern with client-side cache. |
-| [Kanban Board](https://shadcn-dashboard.kiranism.dev/dashboard/kanban)                                                                                                | Drag-and-drop task board built with dnd-kit and Zustand. Column sorting, priority badges, assignees, and due dates. |
-| [Chat](https://shadcn-dashboard.kiranism.dev/dashboard/chat)                                                                                                          | Messaging UI with a conversation list, message bubbles, quick replies, attachments, and an auto-reply demo. Multi-panel layout that works on mobile. |
-| [AI Chat](https://shadcn-dashboard.kiranism.dev/dashboard/ai-chat)                                                                                                    | Scripted AI chat that streams a predefined conversation through the real `useChat` lifecycle — no model, API route, or key. Built with the shadcn chat components (MessageScroller, Bubble, Marker). |
 | [Notifications](https://shadcn-dashboard.kiranism.dev/dashboard/notifications)                                                                                        | Notification center with a header badge, popover preview, and a full page with All / Unread / Read tabs. Includes mark-as-read and mark-all-as-read. |
 | [Not Found](https://shadcn-dashboard.kiranism.dev/dashboard/notfound)                                                                                                 | A root-level not-found page.                                                                                                                                                        |
 | [Global Error](https://sentry.io/for/nextjs/?utm_source=github&utm_medium=paid-community&utm_campaign=general-fy26q2-nextjs&utm_content=github-banner-project-tryfree) | A shared error page wired to Sentry for logging, reports, and session replay. |
@@ -105,10 +101,6 @@ src/
 │   │   ├── overview/              # Analytics with parallel routes
 │   │   ├── product/               # Product CRUD pages (React Query)
 │   │   ├── users/                 # Users table (React Query + nuqs)
-│   │   ├── react-query/           # React Query demo page
-│   │   ├── kanban/                # Task board page
-│   │   ├── chat/                  # Messaging page
-│   │   ├── ai-chat/               # AI chat streaming demo
 │   │   ├── notifications/         # Notifications page
 │   └── api/                       # API routes
 │
@@ -122,10 +114,6 @@ src/
 │   ├── overview/                  # Dashboard analytics (charts, cards)
 │   ├── products/                  # Product listing, form, tables (React Query)
 │   ├── users/                     # User management table (React Query)
-│   ├── react-query-demo/          # React Query demo (Pokemon API)
-│   ├── kanban/                    # Drag-drop task board
-│   ├── chat/                      # Messaging (conversations, bubbles, composer)
-│   ├── ai-chat/                   # Scripted useChat streaming demo (shadcn chat UI)
 │   ├── notifications/             # Notification center & store
 │
 ├── lib/                           # Core utilities (query-client, searchparams, etc.)

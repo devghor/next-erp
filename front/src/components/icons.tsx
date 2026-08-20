@@ -6,7 +6,6 @@ import {
   IconBell,
   IconBold,
   IconBox,
-  IconBrandGithub,
   IconBrandTwitter,
   IconBrightness,
   IconBuilding,
@@ -31,11 +30,13 @@ import {
   IconCreditCard,
   IconDeviceLaptop,
   IconDots,
+  IconDownload,
   IconDotsVertical,
   IconEdit,
   IconExternalLink,
   IconEyeOff,
   IconFile,
+  IconFilter,
   IconFileText,
   IconFileTypePdf,
   IconFileTypeDoc,
@@ -140,7 +141,6 @@ export const Icons = {
   company: IconBuilding,
 
   // Brand
-  github: IconBrandGithub,
   twitter: IconBrandTwitter,
   logo: IconCommand,
 
@@ -166,6 +166,7 @@ export const Icons = {
   add: IconPlus,
   edit: IconEdit,
   upload: IconUpload,
+  download: IconDownload,
   share: IconShare,
   login: IconLogin,
   logout: IconLogout,
@@ -200,6 +201,7 @@ export const Icons = {
   trendingUp: IconTrendingUp,
   eyeOff: IconEyeOff,
   adjustments: IconAdjustmentsHorizontal,
+  filter: IconFilter,
 
   // Text formatting
   bold: IconBold,

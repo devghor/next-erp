@@ -59,13 +59,17 @@ export default function PageContainer({
   return (
     <div className='flex flex-1 flex-col px-4 pt-2 pb-4 md:px-6 md:pt-4'>
       {hasHeader && (
-        <div className='mb-4 flex items-start justify-between gap-4'>
+        <div className='mb-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between'>
           <Heading
             title={pageTitle ?? ''}
             description={pageDescription ?? ''}
             infoContent={infoContent}
           />
-          {pageHeaderAction && <div className='shrink-0'>{pageHeaderAction}</div>}
+          {pageHeaderAction && (
+            <div className='flex w-full flex-wrap gap-2 sm:w-auto sm:justify-end'>
+              {pageHeaderAction}
+            </div>
+          )}
         </div>
       )}
       {content}

@@ -36,6 +36,15 @@ axiosClient.interceptors.request.use(async (config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  if (typeof window !== 'undefined') {
+    const { useCompanyStore } = await import('@/store/company-store');
+    const activeCompanyId = useCompanyStore.getState().activeCompanyId;
+    if (activeCompanyId) {
+      config.headers['X-Company-ID'] = activeCompanyId;
+    }
+  }
+
   return config;
 });
 

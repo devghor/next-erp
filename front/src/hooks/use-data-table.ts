@@ -30,7 +30,6 @@ import {
 } from 'nuqs';
 import * as React from 'react';
 
-import { useDebouncedCallback } from '@/hooks/use-debounced-callback';
 import { getSortingStateParser } from '@/lib/parsers';
 import type { ExtendedColumnSort } from '@/types/data-table';
 
@@ -186,11 +185,6 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 
   const [filterValues, setFilterValues] = useQueryStates(filterParsers);
 
-  const debouncedSetFilterValues = useDebouncedCallback((values: typeof filterValues) => {
-    void setPage(1);
-    void setFilterValues(values);
-  }, debounceMs);
-
   const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
     if (enableAdvancedFilter) return [];
 
@@ -213,6 +207,18 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 
   const [columnFilters, setColumnFilters] =
     React.useState<ColumnFiltersState>(initialColumnFilters);
+
+  const pendingFilterUpdatesRef = React.useRef<Record<string, string | string[] | null>>(
+    initialColumnFilters.reduce<Record<string, string | string[] | null>>((acc, filter) => {
+      acc[filter.id] = filter.value as string | string[];
+      return acc;
+    }, {})
+  );
+
+  const applyColumnFilters = React.useCallback(() => {
+    void setPage(1);
+    void setFilterValues(pendingFilterUpdatesRef.current);
+  }, [setPage, setFilterValues]);
 
   const onColumnFiltersChange = React.useCallback(
     (updaterOrValue: Updater<ColumnFiltersState>) => {
@@ -237,12 +243,24 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
           }
         }
 
-        debouncedSetFilterValues(filterUpdates);
+        pendingFilterUpdatesRef.current = filterUpdates;
         return next;
       });
     },
-    [debouncedSetFilterValues, filterableColumns, enableAdvancedFilter]
+    [filterableColumns, enableAdvancedFilter]
   );
+
+  const resetColumnFilters = React.useCallback(() => {
+    const filterUpdates = columnFilters.reduce<Record<string, null>>((acc, filter) => {
+      acc[filter.id] = null;
+      return acc;
+    }, {});
+
+    pendingFilterUpdatesRef.current = filterUpdates;
+    setColumnFilters([]);
+    void setPage(1);
+    void setFilterValues(filterUpdates);
+  }, [columnFilters, setPage, setFilterValues]);
 
   const table = useReactTable({
     ...tableProps,
@@ -280,5 +298,5 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     manualFiltering: true
   });
 
-  return { table, shallow, debounceMs, throttleMs };
+  return { table, shallow, debounceMs, throttleMs, applyColumnFilters, resetColumnFilters };
 }

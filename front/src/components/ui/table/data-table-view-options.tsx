@@ -37,7 +37,7 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
             aria-label='Toggle columns'
             variant='outline'
             size='sm'
-            className='ml-auto hidden h-8 lg:flex'
+            className='flex h-8'
           />
         }
       >

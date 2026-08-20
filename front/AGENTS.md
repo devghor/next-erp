@@ -78,9 +78,6 @@ The project follows a feature-based folder structure designed for scalability in
 │   ├── dashboard/         # Dashboard routes
 │   │   ├── overview/      # Parallel routes (@area_stats, @bar_stats, etc.)
 │   │   ├── product/       # Product management pages
-│   │   ├── kanban/        # Kanban board page
-│   │   ├── chat/          # Messaging page
-│   │   ├── ai-chat/       # AI chat streaming demo
 │   │   ├── notifications/ # Notifications page
 │   ├── api/               # API routes (if any)
 │   ├── layout.tsx         # Root layout with providers
@@ -110,10 +107,6 @@ The project follows a feature-based folder structure designed for scalability in
 │   ├── users/             # User management (React Query + nuqs)
 │   │   ├── api/           # Same pattern: types.ts → service.ts → queries.ts
 │   │   └── components/    # Listing, table components
-│   ├── react-query-demo/  # React Query showcase (Pokemon API)
-│   ├── kanban/            # Kanban board with dnd-kit
-│   ├── chat/              # Messaging UI (conversations, bubbles, composer)
-│   ├── ai-chat/           # Scripted useChat streaming demo
 │   ├── notifications/     # Notification center & store
 │
 ├── config/                # Configuration files
@@ -520,9 +513,6 @@ A single `scripts/cleanup.js` file handles removal of optional features:
 node scripts/cleanup.js --interactive
 
 # Remove specific features
-node scripts/cleanup.js kanban          # Remove kanban board
-node scripts/cleanup.js chat            # Remove messaging UI
-node scripts/cleanup.js ai-chat         # Remove AI chat demo
 node scripts/cleanup.js notifications   # Remove notification center
 node scripts/cleanup.js themes          # Keep one theme, remove rest
 node scripts/cleanup.js sentry          # Remove error tracking
@@ -594,10 +584,6 @@ export const Icons = {
 | Theme           | `sun`, `moon`, `brightness`, `laptop`, `palette`                              |
 | Text formatting | `bold`, `italic`, `underline`, `text`                                         |
 | Data / Charts   | `trendingUp`, `trendingDown`, `eyeOff`, `adjustments`                         |
-
-### Icon Showcase Page
-
-Browse all available icons at `/dashboard/elements/icons` — a searchable grid of every icon in the registry.
 
 ### Why This Pattern?
 

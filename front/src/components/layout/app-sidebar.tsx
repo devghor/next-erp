@@ -150,7 +150,7 @@ export default function AppSidebar() {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
+                  <DropdownMenuItem onClick={() => router.push('/dashboard/settings/profile')}>
                     <Icons.account className='mr-2 h-4 w-4' />
                     Profile
                   </DropdownMenuItem>

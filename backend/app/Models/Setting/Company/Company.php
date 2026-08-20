@@ -2,6 +2,8 @@
 
 namespace App\Models\Setting\Company;
 
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 
 class Company extends BaseTenant
@@ -18,5 +20,10 @@ class Company extends BaseTenant
             'address',
             'plan',
         ];
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'company_user', 'company_id', 'user_id');
     }
 }

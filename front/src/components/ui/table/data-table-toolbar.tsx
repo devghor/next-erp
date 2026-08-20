@@ -9,20 +9,35 @@ import { DataTableSliderFilter } from '@/components/ui/table/data-table-slider-f
 import { DataTableViewOptions } from '@/components/ui/table/data-table-view-options';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle
+} from '@/components/ui/sheet';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 
 interface DataTableToolbarProps<TData> extends React.ComponentProps<'div'> {
   table: Table<TData>;
+  onApplyFilters?: () => void;
+  onResetFilters?: () => void;
 }
 
 export function DataTableToolbar<TData>({
   table,
   children,
   className,
+  onApplyFilters,
+  onResetFilters,
   ...props
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+  const [filterOpen, setFilterOpen] = React.useState(true);
+  const isMobile = useIsMobile();
+  const filterCount = table.getState().columnFilters.length;
+  const isFiltered = filterCount > 0;
 
   const columns = React.useMemo(
     () => table.getAllColumns().filter((column) => column.getCanFilter()),
@@ -30,37 +45,83 @@ export function DataTableToolbar<TData>({
   );
 
   const onReset = React.useCallback(() => {
-    table.resetColumnFilters();
-  }, [table]);
+    if (onResetFilters) {
+      onResetFilters();
+    } else {
+      table.resetColumnFilters();
+    }
+  }, [table, onResetFilters]);
+
+  const filterFields = (
+    <>
+      {columns.map((column) => (
+        <DataTableToolbarFilter key={column.id} column={column} />
+      ))}
+      {onApplyFilters && (
+        <Button aria-label='Apply filters' onClick={onApplyFilters}>
+          <Icons.check />
+          Apply
+        </Button>
+      )}
+      {isFiltered && (
+        <Button
+          aria-label='Reset filters'
+          variant='outline'
+          className='border-dashed'
+          onClick={onReset}
+        >
+          <Icons.close />
+          Reset
+        </Button>
+      )}
+    </>
+  );
 
   return (
     <div
       role='toolbar'
       aria-orientation='horizontal'
-      className={cn('flex w-full items-start justify-between gap-2 p-1', className)}
+      className={cn('flex w-full flex-col gap-2 p-1', className)}
       {...props}
     >
-      <div className='flex flex-1 flex-wrap items-center gap-2'>
-        {columns.map((column) => (
-          <DataTableToolbarFilter key={column.id} column={column} />
-        ))}
-        {isFiltered && (
-          <Button
-            aria-label='Reset filters'
-            variant='outline'
-            size='sm'
-            className='border-dashed'
-            onClick={onReset}
-          >
-            <Icons.close />
-            Reset
-          </Button>
-        )}
+      {!isMobile && filterOpen && (
+        <div className='flex flex-wrap items-center gap-2'>{filterFields}</div>
+      )}
+
+      <div className='flex flex-wrap items-center justify-between gap-2'>
+        <Button
+          aria-label='Toggle filters'
+          aria-pressed={filterOpen}
+          variant='outline'
+          size='sm'
+          className='border-dashed'
+          onClick={() => setFilterOpen((prev) => !prev)}
+        >
+          <Icons.filter />
+          Filter
+          {isFiltered && (
+            <span className='bg-primary text-primary-foreground rounded-full px-1.5 text-xs'>
+              {filterCount}
+            </span>
+          )}
+        </Button>
+        <div className='flex flex-wrap items-center gap-2'>
+          {children}
+          <DataTableViewOptions table={table} />
+        </div>
       </div>
-      <div className='flex items-center gap-2'>
-        {children}
-        <DataTableViewOptions table={table} />
-      </div>
+
+      {isMobile && (
+        <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
+          <SheetContent side='bottom' className='max-h-[80vh]'>
+            <SheetHeader>
+              <SheetTitle>Filters</SheetTitle>
+              <SheetDescription>Narrow down the results below.</SheetDescription>
+            </SheetHeader>
+            <div className='flex flex-col gap-3 overflow-auto p-4'>{filterFields}</div>
+          </SheetContent>
+        </Sheet>
+      )}
     </div>
   );
 }
@@ -83,13 +144,13 @@ function DataTableToolbarFilter<TData>({ column }: DataTableToolbarFilterProps<T
               aria-label={columnMeta.label ?? 'Filter'}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(event) => column.setFilterValue(event.target.value)}
-              className='h-8 w-40 lg:w-56'
+              className='h-8 w-full sm:w-40 lg:w-56'
             />
           );
 
         case 'number':
           return (
-            <div className='relative'>
+            <div className='relative w-full sm:w-auto'>
               <Input
                 type='number'
                 inputMode='numeric'
@@ -97,7 +158,7 @@ function DataTableToolbarFilter<TData>({ column }: DataTableToolbarFilterProps<T
                 aria-label={columnMeta.label ?? 'Filter'}
                 value={(column.getFilterValue() as string) ?? ''}
                 onChange={(event) => column.setFilterValue(event.target.value)}
-                className={cn('h-8 w-[120px]', columnMeta.unit && 'pr-8')}
+                className={cn('h-8 w-full sm:w-[120px]', columnMeta.unit && 'pr-8')}
               />
               {columnMeta.unit && (
                 <span className='bg-accent text-muted-foreground absolute top-0 right-0 bottom-0 flex items-center rounded-r-md px-2 text-sm'>

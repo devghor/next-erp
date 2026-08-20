@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Api\V1\Web\Auth;
 
-use App\Http\Resources\Api\V1\Web\Setting\Company\CompanyResource;
+use App\Http\Resources\Api\V1\Web\Setting\CompanyResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

@@ -33,12 +33,7 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
     <Popover>
       <PopoverTrigger
         render={
-          <Button
-            aria-label='Toggle columns'
-            variant='outline'
-            size='sm'
-            className='flex h-8'
-          />
+          <Button aria-label='Toggle columns' variant='outline' size='sm' className='flex h-8' />
         }
       >
         <Icons.adjustments />

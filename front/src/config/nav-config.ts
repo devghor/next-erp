@@ -1,4 +1,4 @@
-import { NavGroup } from "@/types";
+import { NavGroup } from '@/types';
 
 /**
  * Navigation configuration.
@@ -12,45 +12,51 @@ import { NavGroup } from "@/types";
  */
 export const navGroups: NavGroup[] = [
   {
-    label: "",
+    label: '',
     items: [
       {
-        title: "Dashboard",
-        url: "/dashboard/overview",
-        icon: "dashboard",
+        title: 'Dashboard',
+        url: '/dashboard/overview',
+        icon: 'dashboard',
         isActive: false,
-        shortcut: ["d", "d"],
-        items: [],
-      },
-    ],
+        shortcut: ['d', 'd'],
+        items: []
+      }
+    ]
   },
   {
-    label: "Settings",
+    label: 'Settings',
     items: [
       {
-        title: "Users",
-        url: "/dashboard/settings/users",
-        icon: "teams",
+        title: 'Users',
+        url: '/dashboard/settings/users',
+        icon: 'teams',
         isActive: true,
-        items: [],
+        items: []
       },
       {
-        title: "Profile",
-        url: "/dashboard/settings/profile",
-        icon: "profile",
-        shortcut: ["m", "m"],
+        title: 'Roles',
+        url: '/dashboard/settings/roles',
+        icon: 'lock',
+        items: []
       },
-    ],
+      {
+        title: 'Profile',
+        url: '/dashboard/settings/profile',
+        icon: 'profile',
+        shortcut: ['m', 'm']
+      }
+    ]
   },
   {
-    label: "Others",
+    label: 'Others',
     items: [
       {
-        title: "Notifications",
-        url: "/dashboard/notifications",
-        icon: "notification",
-        shortcut: ["n", "n"],
-      },
-    ],
-  },
+        title: 'Notifications',
+        url: '/dashboard/notifications',
+        icon: 'notification',
+        shortcut: ['n', 'n']
+      }
+    ]
+  }
 ];

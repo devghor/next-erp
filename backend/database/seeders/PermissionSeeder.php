@@ -33,10 +33,18 @@ class PermissionSeeder extends Seeder
              */
 
             // User
+            ['module' => 'Settings', 'group' => 'Settings > Users', 'name' => PermissionEnum::ListSettingsUsers->value, 'label' => self::LABEL_READ_ALL],
             ['module' => 'Settings', 'group' => 'Settings > Users', 'name' => PermissionEnum::CreateSettingsUsers->value, 'label' => self::LABEL_CREATE],
             ['module' => 'Settings', 'group' => 'Settings > Users', 'name' => PermissionEnum::ReadSettingsUsers->value, 'label' => self::LABEL_READ],
             ['module' => 'Settings', 'group' => 'Settings > Users', 'name' => PermissionEnum::UpdateSettingsUsers->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'Settings', 'group' => 'Settings > Users', 'name' => PermissionEnum::DeleteSettingsUsers->value, 'label' => self::LABEL_DELETE],
+
+            // Role
+            ['module' => 'Settings', 'group' => 'Settings > Roles', 'name' => PermissionEnum::ListSettingsRoles->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Settings', 'group' => 'Settings > Roles', 'name' => PermissionEnum::CreateSettingsRoles->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Settings', 'group' => 'Settings > Roles', 'name' => PermissionEnum::ReadSettingsRoles->value, 'label' => self::LABEL_READ],
+            ['module' => 'Settings', 'group' => 'Settings > Roles', 'name' => PermissionEnum::UpdateSettingsRoles->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Settings', 'group' => 'Settings > Roles', 'name' => PermissionEnum::DeleteSettingsRoles->value, 'label' => self::LABEL_DELETE],
 
         ];
 
@@ -44,7 +52,7 @@ class PermissionSeeder extends Seeder
             Permission::updateOrCreate(
                 ['name' => $permission['name']],
                 [
-                    'guard_name' => 'api',
+                    'guard_name' => 'sanctum',
                     'module' => $permission['module'],
                     'group' => $permission['group'],
                     'label' => $permission['label'],

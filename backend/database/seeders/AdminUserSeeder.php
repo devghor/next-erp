@@ -26,19 +26,19 @@ class AdminUserSeeder extends Seeder
         );
 
         $c = Company::create([
-                'name' => 'Intellygo',
-                'short_name' => 'ig',
-                'code' => 'INTELLYGO',
-                'address' => '',
-                'plan' => 'basic',
+            'name' => 'Intellygo',
+            'short_name' => 'ig',
+            'code' => 'INTELLYGO',
+            'address' => '',
+            'plan' => 'basic',
         ]);
 
         $c2 = Company::create([
-                'name' => 'Intellygo 2',
-                'short_name' => 'ig2',
-                'code' => 'INTELLYGO2',
-                'address' => '',
-                'plan' => 'basic',
+            'name' => 'Intellygo 2',
+            'short_name' => 'ig2',
+            'code' => 'INTELLYGO2',
+            'address' => '',
+            'plan' => 'basic',
         ]);
 
         $user->companies()->attach($c->id);
@@ -47,9 +47,9 @@ class AdminUserSeeder extends Seeder
 
         setPermissionsTeamId($c->id);
 
-        $role = Role::firstOrCreate(['name' => 'SUPER_ADMIN', 'company_id' => $c->id]);
+        $role = Role::firstOrCreate(['name' => 'SUPER_ADMIN', 'company_id' => $c->id, 'guard_name' => 'sanctum']);
 
-        $role->getPermissionNames(PermissionEnum::cases());
+        $role->givePermissionTo(array_column(PermissionEnum::cases(), 'value'));
 
         $user->assignRole($role);
     }

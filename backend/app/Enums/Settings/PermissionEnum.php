@@ -19,4 +19,11 @@ enum PermissionEnum: string
     case ReadSettingsUsers = 'READ_SETTINGS_USERS';
     case UpdateSettingsUsers = 'UPDATE_SETTINGS_USERS';
     case DeleteSettingsUsers = 'DELETE_SETTINGS_USERS';
+
+    // roles
+    case ListSettingsRoles = 'LIST_SETTINGS_ROLES';
+    case CreateSettingsRoles = 'CREATE_SETTINGS_ROLES';
+    case ReadSettingsRoles = 'READ_SETTINGS_ROLES';
+    case UpdateSettingsRoles = 'UPDATE_SETTINGS_ROLES';
+    case DeleteSettingsRoles = 'DELETE_SETTINGS_ROLES';
 }

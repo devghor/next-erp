@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         $users = $this->userService->forExport($request->only(['id', 'name', 'email', 'date_from', 'date_to']));
 
-        return Pdf::loadView('pdf.setting.users', [
+        return Pdf::loadView('settings.users', [
             'users' => $users,
             'company' => tenant(),
         ])->download('users-'.now()->format('Y-m-d').'.pdf');

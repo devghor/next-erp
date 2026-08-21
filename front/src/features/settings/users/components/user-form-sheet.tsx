@@ -15,7 +15,9 @@ import {
 } from '@/components/ui/sheet';
 import { AddButton } from '@/components/buttons/add-button';
 import { useMutation } from '@tanstack/react-query';
+import { getQueryClient } from '@/lib/query-client';
 import { createUserMutation, updateUserMutation } from '../api/mutations';
+import { userKeys } from '../api/queries';
 import type { User } from '../api/types';
 import { toast } from 'sonner';
 import { createUserSchema, updateUserSchema } from '../schemas/user';
@@ -32,6 +34,7 @@ export function UserFormSheet({ user, open, onOpenChange }: UserFormSheetProps) 
   const createMutation = useMutation({
     ...createUserMutation,
     onSuccess: () => {
+      getQueryClient().invalidateQueries({ queryKey: userKeys.all });
       toast.success('User created');
       onOpenChange(false);
       form.reset();
@@ -42,6 +45,7 @@ export function UserFormSheet({ user, open, onOpenChange }: UserFormSheetProps) 
   const updateMutation = useMutation({
     ...updateUserMutation,
     onSuccess: () => {
+      getQueryClient().invalidateQueries({ queryKey: userKeys.all });
       toast.success('User updated');
       onOpenChange(false);
     },

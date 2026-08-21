@@ -9,7 +9,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import { getQueryClient } from '@/lib/query-client';
 import { deleteUserMutation } from '../../api/mutations';
+import { userKeys } from '../../api/queries';
 import type { User } from '../../api/types';
 import { Icons } from '@/components/icons';
 import { useState } from 'react';
@@ -28,6 +30,7 @@ export function CellAction({ data }: CellActionProps) {
   const deleteMutation = useMutation({
     ...deleteUserMutation,
     onSuccess: () => {
+      getQueryClient().invalidateQueries({ queryKey: userKeys.all });
       toast.success('User deleted successfully');
       setDeleteOpen(false);
     },

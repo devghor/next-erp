@@ -6,7 +6,9 @@ import { toast } from 'sonner';
 import { AlertModal } from '@/components/modal/alert-modal';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
+import { getQueryClient } from '@/lib/query-client';
 import { bulkDeleteUsersMutation } from '../../api/mutations';
+import { userKeys } from '../../api/queries';
 import type { User } from '../../api/types';
 
 interface UsersTableActionBarProps {
@@ -20,6 +22,7 @@ export function UsersTableActionBar({ table }: UsersTableActionBarProps) {
   const bulkDeleteMutation = useMutation({
     ...bulkDeleteUsersMutation,
     onSuccess: () => {
+      getQueryClient().invalidateQueries({ queryKey: userKeys.all });
       toast.success(`${selectedRows.length} user(s) deleted successfully`);
       setDeleteOpen(false);
       table.resetRowSelection();

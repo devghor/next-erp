@@ -63,6 +63,7 @@ Route::prefix('v1')
                                 Route::delete('{id}', [RoleController::class, 'destroy'])->name('destroy');
                             });
 
+                        // Permissions
                         Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
                     });
             });

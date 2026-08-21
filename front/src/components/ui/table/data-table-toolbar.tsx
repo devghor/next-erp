@@ -34,7 +34,7 @@ export function DataTableToolbar<TData>({
   onResetFilters,
   ...props
 }: DataTableToolbarProps<TData>) {
-  const [filterOpen, setFilterOpen] = React.useState(true);
+  const [filterOpen, setFilterOpen] = React.useState(false);
   const isMobile = useIsMobile();
   const filterCount = table.getState().columnFilters.length;
   const isFiltered = filterCount > 0;

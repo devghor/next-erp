@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Imports\Setting;
+namespace App\Imports\Settings;
 
-use App\Models\Setting\Company\Company;
+use App\Models\Settings\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;

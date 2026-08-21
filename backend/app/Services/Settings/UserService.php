@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Setting;
+namespace App\Services\Settings;
 
-use App\Imports\Setting\UsersImport;
-use App\Models\Setting\Company\Company;
+use App\Imports\Settings\UsersImport;
+use App\Models\Settings\Company;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;

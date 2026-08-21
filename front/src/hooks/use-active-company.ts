@@ -13,7 +13,8 @@ export function useActiveCompany() {
   const activeCompany = companies.find((company) => company.id === activeCompanyId) ?? companies[0];
 
   React.useEffect(() => {
-    if (!activeCompanyId && companies[0]) {
+    const isStale = activeCompanyId && !companies.some((company) => company.id === activeCompanyId);
+    if ((!activeCompanyId || isStale) && companies[0]) {
       setActiveCompanyId(companies[0].id);
     }
   }, [activeCompanyId, companies, setActiveCompanyId]);

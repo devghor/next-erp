@@ -43,7 +43,7 @@ export const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: "",
+    label: "Others",
     items: [
       {
         title: "Notifications",

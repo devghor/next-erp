@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports\Setting;
+namespace App\Exports\Settings;
 
 use App\Models\User;
 use Illuminate\Support\Collection;

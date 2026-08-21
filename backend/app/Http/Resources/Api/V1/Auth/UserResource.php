@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Api\V1\Web\Setting;
+namespace App\Http\Resources\Api\V1\Auth;
 
+use App\Http\Resources\Api\V1\Settings\CompanyResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompanyResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +16,9 @@ class CompanyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
-            'short_name' => $this->short_name,
-            'code' => $this->code,
-            'address' => $this->address,
-            'plan' => $this->plan,
+            'email' => $this->email,
+            'companies' => CompanyResource::collection($this->whenLoaded('companies')),
         ];
     }
 }

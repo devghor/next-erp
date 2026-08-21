@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Web\Setting;
+namespace App\Http\Controllers\Api\V1\Settings;
 
-use App\Exports\Setting\UsersExport;
+use App\Exports\Settings\UsersExport;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\Web\Setting\BulkDeleteUserRequest;
-use App\Http\Requests\Api\V1\Web\Setting\ImportUserRequest;
-use App\Http\Requests\Api\V1\Web\Setting\StoreUserRequest;
-use App\Http\Requests\Api\V1\Web\Setting\UpdateUserRequest;
-use App\Http\Resources\Api\V1\Web\Setting\UserResource;
-use App\Services\Setting\UserService;
+use App\Http\Requests\Api\V1\Settings\BulkDeleteUserRequest;
+use App\Http\Requests\Api\V1\Settings\ImportUserRequest;
+use App\Http\Requests\Api\V1\Settings\StoreUserRequest;
+use App\Http\Requests\Api\V1\Settings\UpdateUserRequest;
+use App\Http\Resources\Api\V1\Settings\UserResource;
+use App\Services\Settings\UserService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;

@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Web\Auth\LoginController;
-use App\Http\Controllers\Api\V1\Web\Setting\UserController;
+use App\Http\Controllers\Api\V1\Auth\LoginController;
+use App\Http\Controllers\Api\V1\Settings\UserController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 
-Route::prefix('v1/web')
-    ->name('v1.web.')
+Route::prefix('v1')
+    ->name('v1.')
     ->group(function () {
         /**
          * Auth Module
@@ -26,8 +26,8 @@ Route::prefix('v1/web')
                 /**
                  * Setting Module
                  */
-                Route::prefix('setting')
-                    ->name('setting.')
+                Route::prefix('settings')
+                    ->name('settings.')
                     ->group(function () {
                         Route::prefix('users')
                             ->name('users.')

@@ -8,7 +8,7 @@
 import { apiClient } from '@/lib/api-client';
 import type { User, UserFilters, UsersResponse, UserMutationPayload, ImportResult } from './types';
 
-const BASE = '/setting/users';
+const BASE = '/settings/users';
 
 function toParams(filters: UserFilters) {
   return {

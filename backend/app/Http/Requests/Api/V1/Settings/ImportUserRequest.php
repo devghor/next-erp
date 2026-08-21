@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Web\Setting;
+namespace App\Http\Requests\Api\V1\Settings;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BulkDeleteUserRequest extends FormRequest
+class ImportUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,7 @@ class BulkDeleteUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids' => ['required', 'array', 'min:1'],
-            'ids.*' => ['integer', 'distinct'],
+            'file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:10240'],
         ];
     }
 }

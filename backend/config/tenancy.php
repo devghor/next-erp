@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Models\Setting\Company\Company;
+use App\Models\Settings\Company;
 use Stancl\Tenancy\Database\Models\Domain;
 use Stancl\Tenancy\Database\Models\Tenant;
 use Stancl\Tenancy\TenantDatabaseManagers\MySQLDatabaseManager;

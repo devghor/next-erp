@@ -9,7 +9,7 @@ use App\Http\Requests\Api\V1\Settings\ImportRoleRequest;
 use App\Http\Requests\Api\V1\Settings\StoreRoleRequest;
 use App\Http\Requests\Api\V1\Settings\UpdateRoleRequest;
 use App\Http\Resources\Api\V1\Settings\RoleResource;
-use App\Services\Settings\RoleService;
+use App\Services\Settings\RoleServiceInterface;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
 {
-    public function __construct(protected RoleService $roleService) {}
+    public function __construct(protected RoleServiceInterface $roleService) {}
 
     public function index(Request $request): AnonymousResourceCollection
     {

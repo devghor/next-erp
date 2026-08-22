@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     protected function activeCompany(): Company
     {

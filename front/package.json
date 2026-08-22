@@ -1,22 +1,13 @@
 {
-  "name": "next-shadcn-dashboard-starter",
+  "name": "next-erp",
   "version": "1.0.0",
   "private": true,
-  "author": {
-    "name": "Kiran",
-    "url": "https://github.com/Kiranism"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "cleanup": "node scripts/cleanup.js",
     "typecheck": "tsc --noEmit",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix && bun format",
-    "lint:strict": "oxlint --deny-warnings",
-    "format": "oxfmt --write . '!**/*.md' '!**/*.mdc' '!**/*.mdx' '!**/*.yml' '!**/*.yaml'",
-    "format:check": "oxfmt --check . '!**/*.md' '!**/*.mdc' '!**/*.mdx' '!**/*.yml' '!**/*.yaml'",
     "prepare": "husky"
   },
   "dependencies": {

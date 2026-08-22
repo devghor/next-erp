@@ -12,7 +12,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
-class RoleService
+class RoleService implements RoleServiceInterface
 {
     protected function activeCompany(): Company
     {

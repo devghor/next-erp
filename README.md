@@ -1,33 +1,62 @@
 # next-erp
 
-Two independent, currently unwired projects:
+Multi-tenant ERP system. Laravel API backend, Next.js admin dashboard frontend.
 
-- **[front/](front/)** — Next.js 16 + shadcn/ui admin dashboard (active project). All data currently comes from a mock service layer (`src/constants/mock-api*.ts`); nothing calls `backend/` yet.
-- **[backend/](backend/)** — Laravel 13 API. Multi-tenancy (company-scoped via `X-Company-ID` header) and user/company management with roles and permissions are implemented; treat everything else as scaffolding.
+## Modules
 
-## Frontend
+- **Auth** — Sanctum token login
+- **Settings → Users** — company-scoped user management (CRUD, bulk delete, PDF/Excel export, import)
+- **Settings → Roles & Permissions** — RBAC via `spatie/laravel-permission` (teams = companies)
+- **Multi-company** — every user can belong to multiple companies; the active company scopes every request (`stancl/tenancy`)
 
-```bash
-cd front
-pnpm install
-pnpm dev          # http://localhost:3000
-pnpm build
-pnpm typecheck
-pnpm lint
-pnpm format
+More modules land the same way: Laravel controller/service pair + matching Next.js feature — see `docs/architecture.md`.
+
+## Stack
+
+| | |
+| --- | --- |
+| **Backend** | Laravel 12, PHP 8.4, Sanctum, `stancl/tenancy`, `spatie/laravel-permission`, `maatwebsite/excel`, `barryvdh/laravel-dompdf` |
+| **Frontend** | Next.js 16 (App Router), React 19, TypeScript, Tailwind v4, shadcn/ui, TanStack Query/Table/Form, Zustand, Auth.js |
+
+## Repo layout
+
+```
+next-erp/
+├── backend/    Laravel API           → backend/AGENTS.md, backend/.agents/rules/
+├── front/      Next.js dashboard     → front/AGENTS.md, front/.agents/rules/
+└── docs/
+    └── architecture.md   auth flow, multi-tenancy, API shape across both apps
 ```
 
-## Backend
+## Getting started
+
+### Backend
 
 ```bash
 cd backend
 composer install
-composer run dev     # serve + queue:listen + pail + vite, concurrently
+cp .env.example .env
+php artisan key:generate
 php artisan migrate
-composer run test
-./vendor/bin/pint
+php artisan serve          # http://localhost:8000
 ```
 
-## Status
+Or run everything (server + queue + logs) at once: `composer run dev`.
 
-`front/` and `backend/` are not connected. Wiring them together means adding Next.js route handlers under `front/src/app/api/` that proxy to the Laravel API (BFF pattern) — see `front/`'s data-fetching docs for the pattern to follow.
+### Frontend
+
+```bash
+cd front
+pnpm install
+cp env.example.txt .env.local
+pnpm dev                    # http://localhost:3000
+```
+
+Set `NEXT_PUBLIC_BACKEND_API_URL` in `front/.env.local` to the backend's API
+base (default `http://localhost:8000/api/v1/web`), and `AUTH_SECRET` (generate
+with `npx auth secret`).
+
+## Docs
+
+- [docs/architecture.md](docs/architecture.md) — auth flow, multi-tenancy/RBAC middleware chain, API module shape, real-vs-mock frontend features
+- [AGENTS.md](AGENTS.md) — repo map for AI coding agents, links to both apps' conventions and standing rules

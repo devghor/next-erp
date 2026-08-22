@@ -9,7 +9,7 @@ use App\Http\Requests\Api\V1\Settings\ImportUserRequest;
 use App\Http\Requests\Api\V1\Settings\StoreUserRequest;
 use App\Http\Requests\Api\V1\Settings\UpdateUserRequest;
 use App\Http\Resources\Api\V1\Settings\UserResource;
-use App\Services\Settings\UserService;
+use App\Services\Settings\UserServiceInterface;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    public function __construct(protected UserService $userService) {}
+    public function __construct(protected UserServiceInterface $userService) {}
 
     public function index(Request $request): AnonymousResourceCollection
     {

@@ -144,7 +144,12 @@ export type ProductMutationPayload = {
   wastage_percent?: number | null;
   profit_margin?: number | null;
   product_details?: string | null;
-  variants?: { name: string; item_code: string; additional_cost?: number; additional_price?: number }[];
+  variants?: {
+    name: string;
+    item_code: string;
+    additional_cost?: number;
+    additional_price?: number;
+  }[];
   batches?: { batch_no: string; expired_date?: string | null }[];
   combo_items?: {
     component_product_id: number;
@@ -180,6 +185,15 @@ export type ProductHistory = {
     qty: number;
     net_unit_cost: number;
     total: number;
+  }[];
+  adjustment_history: {
+    adjustment_id: number;
+    reference_no: string | null;
+    date: string | null;
+    warehouse: string | null;
+    action: '+' | '-';
+    qty: number;
+    unit_cost: number | null;
   }[];
   stock_by_warehouse: { warehouse: string | null; qty: number }[];
   total_stock: number;

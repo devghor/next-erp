@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Product\AdjustmentService;
+use App\Services\Product\AdjustmentServiceInterface;
 use App\Services\Product\BarcodeSettingService;
 use App\Services\Product\BarcodeSettingServiceInterface;
 use App\Services\Product\BrandService;
@@ -50,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PurchaseServiceInterface::class, PurchaseService::class);
         $this->app->bind(ProductServiceInterface::class, ProductService::class);
         $this->app->bind(BarcodeSettingServiceInterface::class, BarcodeSettingService::class);
+        $this->app->bind(AdjustmentServiceInterface::class, AdjustmentService::class);
     }
 
     /**

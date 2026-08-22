@@ -124,6 +124,13 @@ export const navGroups: NavGroup[] = [
         icon: 'barcode',
         items: [],
         permissions: ['LIST_PRODUCT_BARCODE_SETTINGS']
+      },
+      {
+        title: 'Adjustments',
+        url: '/dashboard/product/adjustments',
+        icon: 'adjustments',
+        items: [],
+        permissions: ['LIST_PRODUCT_ADJUSTMENTS']
       }
     ]
   },

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Media\MediaController;
+use App\Http\Controllers\Api\V1\Product\AdjustmentController;
 use App\Http\Controllers\Api\V1\Product\BarcodeSettingController;
 use App\Http\Controllers\Api\V1\Product\BrandController;
 use App\Http\Controllers\Api\V1\Product\CategoryController;
@@ -231,6 +232,19 @@ Route::prefix('v1')
                                 Route::put('{id}', [BarcodeSettingController::class, 'update'])->name('update');
                                 Route::delete('{id}', [BarcodeSettingController::class, 'destroy'])->name('destroy');
                                 Route::put('{id}/set-default', [BarcodeSettingController::class, 'setDefault'])->name('set-default');
+                            });
+
+                        // Adjustments
+                        Route::prefix('adjustments')
+                            ->name('adjustments.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [AdjustmentController::class, 'bulkDestroy'])->name('bulk-delete');
+
+                                Route::get('/', [AdjustmentController::class, 'index'])->name('index');
+                                Route::post('/', [AdjustmentController::class, 'store'])->name('store');
+                                Route::get('{id}', [AdjustmentController::class, 'show'])->name('show');
+                                Route::put('{id}', [AdjustmentController::class, 'update'])->name('update');
+                                Route::delete('{id}', [AdjustmentController::class, 'destroy'])->name('destroy');
                             });
                     });
 

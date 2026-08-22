@@ -34,7 +34,9 @@ export function ProductHistoryTab({ productId }: { productId: number }) {
           <CardHeader>
             <CardTitle className='text-sm font-medium'>Average Cost</CardTitle>
           </CardHeader>
-          <CardContent className='text-2xl font-semibold'>{data.average_cost.toFixed(2)}</CardContent>
+          <CardContent className='text-2xl font-semibold'>
+            {data.average_cost.toFixed(2)}
+          </CardContent>
         </Card>
       </div>
 
@@ -102,6 +104,47 @@ export function ProductHistoryTab({ productId }: { productId: number }) {
                 <TableRow>
                   <TableCell colSpan={7} className='text-muted-foreground text-center'>
                     No purchase history yet.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className='text-sm font-medium'>Adjustment History</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Date</TableHead>
+                <TableHead>Reference</TableHead>
+                <TableHead>Warehouse</TableHead>
+                <TableHead>Action</TableHead>
+                <TableHead className='text-right'>Qty</TableHead>
+                <TableHead className='text-right'>Unit Cost</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.adjustment_history.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>{row.date}</TableCell>
+                  <TableCell>{row.reference_no}</TableCell>
+                  <TableCell>{row.warehouse}</TableCell>
+                  <TableCell>{row.action === '+' ? 'Add' : 'Remove'}</TableCell>
+                  <TableCell className='text-right'>{row.qty}</TableCell>
+                  <TableCell className='text-right'>
+                    {row.unit_cost !== null ? row.unit_cost.toFixed(2) : '—'}
+                  </TableCell>
+                </TableRow>
+              ))}
+              {data.adjustment_history.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={6} className='text-muted-foreground text-center'>
+                    No adjustment history yet.
                   </TableCell>
                 </TableRow>
               )}

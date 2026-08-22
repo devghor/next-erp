@@ -5,6 +5,7 @@ namespace App\Services\Product;
 use App\Enums\Media\MediaCollectionEnum;
 use App\Imports\Product\ProductsImport;
 use App\Models\Product\Product;
+use App\Models\Product\ProductAdjustment;
 use App\Models\Product\ProductBatch;
 use App\Models\Product\ProductComboItem;
 use App\Models\Product\ProductVariant;
@@ -371,8 +372,24 @@ class ProductService implements ProductServiceInterface
             ])
             ->values();
 
+        $adjustments = ProductAdjustment::with(['adjustment.warehouse'])
+            ->where('product_id', $product->id)
+            ->whereHas('adjustment', fn (Builder $q) => $q->where('company_id', $this->activeCompany()->id))
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(fn (ProductAdjustment $item) => [
+                'adjustment_id' => $item->adjustment_id,
+                'reference_no' => $item->adjustment?->reference_no,
+                'date' => $item->created_at?->toDateString(),
+                'warehouse' => $item->adjustment?->warehouse?->name,
+                'action' => $item->action,
+                'qty' => (float) $item->qty,
+                'unit_cost' => $item->unit_cost !== null ? (float) $item->unit_cost : null,
+            ]);
+
         return [
             'purchase_history' => $purchases,
+            'adjustment_history' => $adjustments,
             'stock_by_warehouse' => $stockByWarehouse,
             'total_stock' => $this->stockFor($product),
             'average_cost' => $this->averageCost($product->id),

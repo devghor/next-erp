@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Field,
@@ -24,8 +25,7 @@ type PermissionsFieldApi = {
       isValid: boolean;
     };
   };
-  pushValue: (value: string) => void;
-  removeValue: (index: number) => void;
+  handleChange: (value: string[]) => void;
 };
 
 /**
@@ -48,15 +48,32 @@ export function PermissionPicker({
 
   function toggle(name: string, checked: boolean) {
     if (checked) {
-      if (!selected.includes(name)) field.pushValue(name);
+      if (!selected.includes(name)) field.handleChange([...selected, name]);
     } else {
-      const index = selected.indexOf(name);
-      if (index > -1) field.removeValue(index);
+      field.handleChange(selected.filter((value) => value !== name));
     }
   }
 
   function toggleGroup(group: PermissionGroup, checked: boolean) {
-    group.permissions.forEach((permission) => toggle(permission.name, checked));
+    const groupNames = new Set(group.permissions.map((p) => p.name));
+    if (checked) {
+      const additions = group.permissions
+        .map((p) => p.name)
+        .filter((name) => !selected.includes(name));
+      field.handleChange([...selected, ...additions]);
+    } else {
+      field.handleChange(selected.filter((name) => !groupNames.has(name)));
+    }
+  }
+
+  function toggleAll(names: string[], checked: boolean) {
+    if (checked) {
+      const additions = names.filter((name) => !selected.includes(name));
+      field.handleChange([...selected, ...additions]);
+    } else {
+      const nameSet = new Set(names);
+      field.handleChange(selected.filter((name) => !nameSet.has(name)));
+    }
   }
 
   const query = search.trim().toLowerCase();
@@ -74,9 +91,24 @@ export function PermissionPicker({
         .filter((group) => group.permissions.length > 0)
     : groups;
 
+  const visibleNames = filteredGroups.flatMap((group) => group.permissions.map((p) => p.name));
+  const allVisibleSelected =
+    visibleNames.length > 0 && visibleNames.every((name) => selected.includes(name));
+
   return (
     <FieldSet>
-      <FieldLegend variant='label'>Permissions *</FieldLegend>
+      <div className='flex items-center justify-between gap-2'>
+        <FieldLegend variant='label'>Permissions *</FieldLegend>
+        <Button
+          type='button'
+          variant='ghost'
+          size='sm'
+          disabled={visibleNames.length === 0}
+          onClick={() => toggleAll(visibleNames, !allVisibleSelected)}
+        >
+          {allVisibleSelected ? 'Clear all' : 'Select all'}
+        </Button>
+      </div>
       <div className='relative'>
         <Icons.search className='text-muted-foreground pointer-events-none absolute top-2.5 left-2.5 h-4 w-4' />
         <Input
@@ -86,7 +118,7 @@ export function PermissionPicker({
           className='pl-8'
         />
       </div>
-      <div className='space-y-4'>
+      <div className='max-h-[50vh] space-y-4 overflow-y-auto'>
         {filteredGroups.length === 0 && (
           <p className='text-muted-foreground text-sm'>
             No permissions match &quot;{search}&quot;.

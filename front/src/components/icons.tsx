@@ -9,6 +9,7 @@ import {
   IconBrandTwitter,
   IconBrightness,
   IconBuilding,
+  IconBuildingWarehouse,
   IconCalendar,
   IconCheck,
   IconChecks,
@@ -139,6 +140,7 @@ export const Icons = {
   userPen: IconUserEdit,
   teams: IconUsers,
   company: IconBuilding,
+  warehouse: IconBuildingWarehouse,
 
   // Brand
   twitter: IconBrandTwitter,

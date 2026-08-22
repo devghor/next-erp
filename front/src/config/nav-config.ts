@@ -44,6 +44,13 @@ export const navGroups: NavGroup[] = [
         permissions: ['LIST_SETTINGS_ROLES']
       },
       {
+        title: 'Warehouses',
+        url: '/dashboard/settings/warehouses',
+        icon: 'warehouse',
+        items: [],
+        permissions: ['LIST_SETTINGS_WAREHOUSES']
+      },
+      {
         title: 'Profile',
         url: '/dashboard/settings/profile',
         icon: 'profile',

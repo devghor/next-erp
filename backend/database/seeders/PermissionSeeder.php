@@ -46,6 +46,13 @@ class PermissionSeeder extends Seeder
             ['module' => 'Settings', 'group' => 'Settings > Roles', 'name' => PermissionEnum::UpdateSettingsRoles->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'Settings', 'group' => 'Settings > Roles', 'name' => PermissionEnum::DeleteSettingsRoles->value, 'label' => self::LABEL_DELETE],
 
+            // Warehouse
+            ['module' => 'Settings', 'group' => 'Settings > Warehouses', 'name' => PermissionEnum::ListSettingsWarehouses->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Settings', 'group' => 'Settings > Warehouses', 'name' => PermissionEnum::CreateSettingsWarehouses->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Settings', 'group' => 'Settings > Warehouses', 'name' => PermissionEnum::ReadSettingsWarehouses->value, 'label' => self::LABEL_READ],
+            ['module' => 'Settings', 'group' => 'Settings > Warehouses', 'name' => PermissionEnum::UpdateSettingsWarehouses->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Settings', 'group' => 'Settings > Warehouses', 'name' => PermissionEnum::DeleteSettingsWarehouses->value, 'label' => self::LABEL_DELETE],
+
         ];
 
         foreach ($permissions as $permission) {

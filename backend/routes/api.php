@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Media\MediaController;
 use App\Http\Controllers\Api\V1\Settings\PermissionController;
 use App\Http\Controllers\Api\V1\Settings\RoleController;
 use App\Http\Controllers\Api\V1\Settings\UserController;
+use App\Http\Controllers\Api\V1\Settings\WarehouseController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 
@@ -69,6 +70,22 @@ Route::prefix('v1')
                                 Route::get('{id}', [RoleController::class, 'show'])->name('show');
                                 Route::put('{id}', [RoleController::class, 'update'])->name('update');
                                 Route::delete('{id}', [RoleController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Warehouses
+                        Route::prefix('warehouses')
+                            ->name('warehouses.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [WarehouseController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [WarehouseController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [WarehouseController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [WarehouseController::class, 'import'])->name('import');
+
+                                Route::get('/', [WarehouseController::class, 'index'])->name('index');
+                                Route::post('/', [WarehouseController::class, 'store'])->name('store');
+                                Route::get('{id}', [WarehouseController::class, 'show'])->name('show');
+                                Route::put('{id}', [WarehouseController::class, 'update'])->name('update');
+                                Route::delete('{id}', [WarehouseController::class, 'destroy'])->name('destroy');
                             });
 
                         // Permissions

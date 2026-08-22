@@ -4,8 +4,12 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Media\MediaController;
 use App\Http\Controllers\Api\V1\Product\BrandController;
 use App\Http\Controllers\Api\V1\Product\CategoryController;
+use App\Http\Controllers\Api\V1\Product\ProductController;
 use App\Http\Controllers\Api\V1\Product\UnitController;
+use App\Http\Controllers\Api\V1\Purchase\PurchaseController;
+use App\Http\Controllers\Api\V1\Purchase\SupplierController;
 use App\Http\Controllers\Api\V1\Settings\CurrencyController;
+use App\Http\Controllers\Api\V1\Settings\CustomFieldController;
 use App\Http\Controllers\Api\V1\Settings\PermissionController;
 use App\Http\Controllers\Api\V1\Settings\RoleController;
 use App\Http\Controllers\Api\V1\Settings\TaxController;
@@ -125,6 +129,18 @@ Route::prefix('v1')
                                 Route::delete('{id}', [TaxController::class, 'destroy'])->name('destroy');
                             });
 
+                        // Custom Fields
+                        Route::prefix('custom-fields')
+                            ->name('custom-fields.')
+                            ->group(function () {
+                                Route::get('/', [CustomFieldController::class, 'index'])->name('index');
+                                Route::post('/', [CustomFieldController::class, 'store'])->name('store');
+                                Route::get('{id}', [CustomFieldController::class, 'show'])->name('show');
+                                Route::put('{id}', [CustomFieldController::class, 'update'])->name('update');
+                                Route::delete('{id}', [CustomFieldController::class, 'destroy'])->name('destroy');
+                                Route::post('bulk-delete', [CustomFieldController::class, 'bulkDestroy'])->name('bulk-delete');
+                            });
+
                         // Permissions
                         Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
                     });
@@ -181,6 +197,62 @@ Route::prefix('v1')
                                 Route::get('{id}', [UnitController::class, 'show'])->name('show');
                                 Route::put('{id}', [UnitController::class, 'update'])->name('update');
                                 Route::delete('{id}', [UnitController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Products
+                        Route::prefix('products')
+                            ->name('products.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [ProductController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [ProductController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [ProductController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [ProductController::class, 'import'])->name('import');
+
+                                Route::get('/', [ProductController::class, 'index'])->name('index');
+                                Route::post('/', [ProductController::class, 'store'])->name('store');
+                                Route::get('{id}', [ProductController::class, 'show'])->name('show');
+                                Route::put('{id}', [ProductController::class, 'update'])->name('update');
+                                Route::delete('{id}', [ProductController::class, 'destroy'])->name('destroy');
+                                Route::get('{id}/history', [ProductController::class, 'history'])->name('history');
+                                Route::get('{id}/print-barcode', [ProductController::class, 'printBarcode'])->name('print-barcode');
+                            });
+                    });
+
+                /**
+                 * Purchase Module
+                 */
+                Route::prefix('purchase')
+                    ->name('purchase.')
+                    ->group(function () {
+                        // Suppliers
+                        Route::prefix('suppliers')
+                            ->name('suppliers.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [SupplierController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [SupplierController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [SupplierController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [SupplierController::class, 'import'])->name('import');
+
+                                Route::get('/', [SupplierController::class, 'index'])->name('index');
+                                Route::post('/', [SupplierController::class, 'store'])->name('store');
+                                Route::get('{id}', [SupplierController::class, 'show'])->name('show');
+                                Route::put('{id}', [SupplierController::class, 'update'])->name('update');
+                                Route::delete('{id}', [SupplierController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Purchases
+                        Route::prefix('purchases')
+                            ->name('purchases.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [PurchaseController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [PurchaseController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [PurchaseController::class, 'exportExcel'])->name('export.excel');
+
+                                Route::get('/', [PurchaseController::class, 'index'])->name('index');
+                                Route::post('/', [PurchaseController::class, 'store'])->name('store');
+                                Route::get('{id}', [PurchaseController::class, 'show'])->name('show');
+                                Route::put('{id}', [PurchaseController::class, 'update'])->name('update');
+                                Route::delete('{id}', [PurchaseController::class, 'destroy'])->name('destroy');
                             });
                     });
             });

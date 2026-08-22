@@ -29,7 +29,7 @@ class LoginController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $companyId = $user->companies->first()->id ?? null;
-        if($companyId){
+        if ($companyId) {
             setPermissionsTeamId($companyId);
         }
 
@@ -38,7 +38,7 @@ class LoginController extends Controller
                 'meta' => [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
-                    'permissions' => $user->is_super_admin ? PermissionEnum::cases() : $user->getAllPermissions()->pluck('name')
+                    'permissions' => $user->is_super_admin ? PermissionEnum::cases() : $user->getAllPermissions()->pluck('name'),
                 ],
             ]);
     }

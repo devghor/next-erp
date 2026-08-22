@@ -21,6 +21,7 @@ import {
   IconChevronsDown,
   IconChevronsLeft,
   IconChevronsRight,
+  IconClipboardList,
   IconCircle,
   IconCircleCheck,
   IconCirclePlus,
@@ -37,6 +38,7 @@ import {
   IconDotsVertical,
   IconEdit,
   IconExternalLink,
+  IconEye,
   IconEyeOff,
   IconFile,
   IconFilter,
@@ -95,6 +97,8 @@ import {
   IconUsers,
   IconVideo,
   IconCrown,
+  IconTruckDelivery,
+  IconShoppingCart,
   IconX
 } from '@tabler/icons-react';
 
@@ -151,6 +155,9 @@ export const Icons = {
   category: IconCategory,
   brand: IconTag,
   unit: IconRuler2,
+  customField: IconClipboardList,
+  supplier: IconTruckDelivery,
+  purchase: IconShoppingCart,
 
   // Brand
   twitter: IconBrandTwitter,
@@ -211,6 +218,7 @@ export const Icons = {
   // Data / Charts
   trendingDown: IconTrendingDown,
   trendingUp: IconTrendingUp,
+  eye: IconEye,
   eyeOff: IconEyeOff,
   adjustments: IconAdjustmentsHorizontal,
   filter: IconFilter,

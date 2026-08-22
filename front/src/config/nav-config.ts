@@ -65,6 +65,13 @@ export const navGroups: NavGroup[] = [
         permissions: ['LIST_SETTINGS_TAXES']
       },
       {
+        title: 'Custom Fields',
+        url: '/dashboard/settings/custom-fields',
+        icon: 'customField',
+        items: [],
+        permissions: ['LIST_SETTINGS_CUSTOM_FIELDS']
+      },
+      {
         title: 'Profile',
         url: '/dashboard/settings/profile',
         icon: 'profile',
@@ -76,6 +83,13 @@ export const navGroups: NavGroup[] = [
   {
     label: 'Product',
     items: [
+      {
+        title: 'Products',
+        url: '/dashboard/product/products',
+        icon: 'product',
+        items: [],
+        permissions: ['LIST_PRODUCT_PRODUCTS']
+      },
       {
         title: 'Categories',
         url: '/dashboard/product/categories',
@@ -96,6 +110,25 @@ export const navGroups: NavGroup[] = [
         icon: 'unit',
         items: [],
         permissions: ['LIST_PRODUCT_UNITS']
+      }
+    ]
+  },
+  {
+    label: 'Purchase',
+    items: [
+      {
+        title: 'Purchases',
+        url: '/dashboard/purchase/purchases',
+        icon: 'purchase',
+        items: [],
+        permissions: ['LIST_PURCHASE_PURCHASES']
+      },
+      {
+        title: 'Suppliers',
+        url: '/dashboard/purchase/suppliers',
+        icon: 'supplier',
+        items: [],
+        permissions: ['LIST_PURCHASE_SUPPLIERS']
       }
     ]
   },

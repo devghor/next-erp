@@ -48,6 +48,13 @@ enum PermissionEnum: string
     case UpdateSettingsTaxes = 'UPDATE_SETTINGS_TAXES';
     case DeleteSettingsTaxes = 'DELETE_SETTINGS_TAXES';
 
+    // custom fields
+    case ListSettingsCustomFields = 'LIST_SETTINGS_CUSTOM_FIELDS';
+    case CreateSettingsCustomFields = 'CREATE_SETTINGS_CUSTOM_FIELDS';
+    case ReadSettingsCustomFields = 'READ_SETTINGS_CUSTOM_FIELDS';
+    case UpdateSettingsCustomFields = 'UPDATE_SETTINGS_CUSTOM_FIELDS';
+    case DeleteSettingsCustomFields = 'DELETE_SETTINGS_CUSTOM_FIELDS';
+
     /**
      * Product
      */
@@ -72,4 +79,29 @@ enum PermissionEnum: string
     case ReadProductUnits = 'READ_PRODUCT_UNITS';
     case UpdateProductUnits = 'UPDATE_PRODUCT_UNITS';
     case DeleteProductUnits = 'DELETE_PRODUCT_UNITS';
+
+    // products
+    case ListProductProducts = 'LIST_PRODUCT_PRODUCTS';
+    case CreateProductProducts = 'CREATE_PRODUCT_PRODUCTS';
+    case ReadProductProducts = 'READ_PRODUCT_PRODUCTS';
+    case UpdateProductProducts = 'UPDATE_PRODUCT_PRODUCTS';
+    case DeleteProductProducts = 'DELETE_PRODUCT_PRODUCTS';
+
+    /**
+     * Purchase
+     */
+
+    // suppliers
+    case ListPurchaseSuppliers = 'LIST_PURCHASE_SUPPLIERS';
+    case CreatePurchaseSuppliers = 'CREATE_PURCHASE_SUPPLIERS';
+    case ReadPurchaseSuppliers = 'READ_PURCHASE_SUPPLIERS';
+    case UpdatePurchaseSuppliers = 'UPDATE_PURCHASE_SUPPLIERS';
+    case DeletePurchaseSuppliers = 'DELETE_PURCHASE_SUPPLIERS';
+
+    // purchases
+    case ListPurchasePurchases = 'LIST_PURCHASE_PURCHASES';
+    case CreatePurchasePurchases = 'CREATE_PURCHASE_PURCHASES';
+    case ReadPurchasePurchases = 'READ_PURCHASE_PURCHASES';
+    case UpdatePurchasePurchases = 'UPDATE_PURCHASE_PURCHASES';
+    case DeletePurchasePurchases = 'DELETE_PURCHASE_PURCHASES';
 }

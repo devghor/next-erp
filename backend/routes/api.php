@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Media\MediaController;
+use App\Http\Controllers\Api\V1\Product\BarcodeSettingController;
 use App\Http\Controllers\Api\V1\Product\BrandController;
 use App\Http\Controllers\Api\V1\Product\CategoryController;
 use App\Http\Controllers\Api\V1\Product\ProductController;
@@ -215,6 +216,21 @@ Route::prefix('v1')
                                 Route::delete('{id}', [ProductController::class, 'destroy'])->name('destroy');
                                 Route::get('{id}/history', [ProductController::class, 'history'])->name('history');
                                 Route::get('{id}/print-barcode', [ProductController::class, 'printBarcode'])->name('print-barcode');
+                                Route::post('print-barcodes', [ProductController::class, 'printBarcodes'])->name('print-barcodes');
+                            });
+
+                        // Barcode Settings
+                        Route::prefix('barcode-settings')
+                            ->name('barcode-settings.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [BarcodeSettingController::class, 'bulkDestroy'])->name('bulk-delete');
+
+                                Route::get('/', [BarcodeSettingController::class, 'index'])->name('index');
+                                Route::post('/', [BarcodeSettingController::class, 'store'])->name('store');
+                                Route::get('{id}', [BarcodeSettingController::class, 'show'])->name('show');
+                                Route::put('{id}', [BarcodeSettingController::class, 'update'])->name('update');
+                                Route::delete('{id}', [BarcodeSettingController::class, 'destroy'])->name('destroy');
+                                Route::put('{id}/set-default', [BarcodeSettingController::class, 'setDefault'])->name('set-default');
                             });
                     });
 

@@ -4,6 +4,7 @@ namespace App\Services\Product;
 
 use App\Models\Product\Product;
 use App\Services\BaseServiceInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ProductServiceInterface extends BaseServiceInterface
 {
@@ -13,6 +14,12 @@ interface ProductServiceInterface extends BaseServiceInterface
     public function create(array $data): Product;
 
     public function findScoped(int $id): Product;
+
+    /**
+     * @param  array<int, int>  $ids
+     * @return Collection<int, Product>
+     */
+    public function findManyScoped(array $ids): Collection;
 
     /**
      * @param  array<string, mixed>  $data

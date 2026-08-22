@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Product\BarcodeSettingService;
+use App\Services\Product\BarcodeSettingServiceInterface;
 use App\Services\Product\BrandService;
 use App\Services\Product\BrandServiceInterface;
 use App\Services\Product\CategoryService;
@@ -47,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CustomFieldServiceInterface::class, CustomFieldService::class);
         $this->app->bind(PurchaseServiceInterface::class, PurchaseService::class);
         $this->app->bind(ProductServiceInterface::class, ProductService::class);
+        $this->app->bind(BarcodeSettingServiceInterface::class, BarcodeSettingService::class);
     }
 
     /**

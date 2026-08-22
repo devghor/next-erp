@@ -19,7 +19,7 @@ export const navGroups: NavGroup[] = [
         url: '/dashboard/overview',
         icon: 'dashboard',
         isActive: false,
-        shortcut: ['d', 'd'],
+        shortcut: ['d', 'd']
         // for save landing it is commenting
         // permissions:['READ_DASHBOARD_OVERVIEW']
       }
@@ -76,7 +76,7 @@ export const navGroups: NavGroup[] = [
         url: '/dashboard/settings/profile',
         icon: 'profile',
         shortcut: ['m', 'm'],
-        permissions:['LIST_PROFILE']
+        permissions: ['LIST_PROFILE']
       }
     ]
   },
@@ -110,6 +110,20 @@ export const navGroups: NavGroup[] = [
         icon: 'unit',
         items: [],
         permissions: ['LIST_PRODUCT_UNITS']
+      },
+      {
+        title: 'Print Barcodes',
+        url: '/dashboard/product/print-barcodes',
+        icon: 'printer',
+        items: [],
+        permissions: ['READ_PRODUCT_PRODUCTS']
+      },
+      {
+        title: 'Barcode Settings',
+        url: '/dashboard/product/barcode-settings',
+        icon: 'barcode',
+        items: [],
+        permissions: ['LIST_PRODUCT_BARCODE_SETTINGS']
       }
     ]
   },
@@ -140,7 +154,7 @@ export const navGroups: NavGroup[] = [
         url: '/dashboard/notifications',
         icon: 'notification',
         shortcut: ['n', 'n'],
-        permissions:['LIST_NOTIFICATIONS']
+        permissions: ['LIST_NOTIFICATIONS']
       }
     ]
   }

@@ -87,6 +87,13 @@ enum PermissionEnum: string
     case UpdateProductProducts = 'UPDATE_PRODUCT_PRODUCTS';
     case DeleteProductProducts = 'DELETE_PRODUCT_PRODUCTS';
 
+    // barcode settings
+    case ListProductBarcodeSettings = 'LIST_PRODUCT_BARCODE_SETTINGS';
+    case CreateProductBarcodeSettings = 'CREATE_PRODUCT_BARCODE_SETTINGS';
+    case ReadProductBarcodeSettings = 'READ_PRODUCT_BARCODE_SETTINGS';
+    case UpdateProductBarcodeSettings = 'UPDATE_PRODUCT_BARCODE_SETTINGS';
+    case DeleteProductBarcodeSettings = 'DELETE_PRODUCT_BARCODE_SETTINGS';
+
     /**
      * Purchase
      */

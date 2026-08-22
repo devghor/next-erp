@@ -3,6 +3,7 @@ import {
   IconAlertCircle,
   IconAlertTriangle,
   IconArrowRight,
+  IconBarcode,
   IconBell,
   IconBold,
   IconBox,
@@ -67,6 +68,7 @@ import {
   IconPaperclip,
   IconPhone,
   IconPhoto,
+  IconPrinter,
   IconPizza,
   IconPlus,
   IconProps,
@@ -158,6 +160,8 @@ export const Icons = {
   customField: IconClipboardList,
   supplier: IconTruckDelivery,
   purchase: IconShoppingCart,
+  barcode: IconBarcode,
+  printer: IconPrinter,
 
   // Brand
   twitter: IconBrandTwitter,

@@ -120,6 +120,18 @@ class ProductService implements ProductServiceInterface
     }
 
     /**
+     * @param  array<int, int>  $ids
+     * @return Collection<int, Product>
+     */
+    public function findManyScoped(array $ids): Collection
+    {
+        return $this->baseScopedQuery()
+            ->with('brand')
+            ->whereIn('products.id', $ids)
+            ->get();
+    }
+
+    /**
      * @param  array<string, mixed>  $data
      */
     public function update(int $id, array $data): Product

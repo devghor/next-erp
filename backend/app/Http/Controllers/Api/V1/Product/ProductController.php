@@ -7,9 +7,11 @@ use App\Exports\Product\ProductsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Product\BulkDeleteProductRequest;
 use App\Http\Requests\Api\V1\Product\ImportProductRequest;
+use App\Http\Requests\Api\V1\Product\PrintBarcodesRequest;
 use App\Http\Requests\Api\V1\Product\StoreProductRequest;
 use App\Http\Requests\Api\V1\Product\UpdateProductRequest;
 use App\Http\Resources\Api\V1\Product\ProductResource;
+use App\Services\Product\BarcodeSettingServiceInterface;
 use App\Services\Product\ProductServiceInterface;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -23,14 +25,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller implements HasMiddleware
 {
-    public function __construct(protected ProductServiceInterface $productService) {}
+    public function __construct(
+        protected ProductServiceInterface $productService,
+        protected BarcodeSettingServiceInterface $barcodeSettingService,
+    ) {}
 
     public static function middleware(): array
     {
         return [
             new Middleware('permission:'.PermissionEnum::ListProductProducts->value, only: ['index', 'exportPdf', 'exportExcel']),
             new Middleware('permission:'.PermissionEnum::CreateProductProducts->value, only: ['store', 'import']),
-            new Middleware('permission:'.PermissionEnum::ReadProductProducts->value, only: ['show', 'history', 'printBarcode']),
+            new Middleware('permission:'.PermissionEnum::ReadProductProducts->value, only: ['show', 'history', 'printBarcode', 'printBarcodes']),
             new Middleware('permission:'.PermissionEnum::UpdateProductProducts->value, only: ['update']),
             new Middleware('permission:'.PermissionEnum::DeleteProductProducts->value, only: ['destroy', 'bulkDestroy']),
         ];
@@ -114,5 +119,44 @@ class ProductController extends Controller implements HasMiddleware
             'barcode' => $barcode,
             'copies' => $copies,
         ])->download('barcode-'.$product->code.'.pdf');
+    }
+
+    public function printBarcodes(PrintBarcodesRequest $request): Response
+    {
+        $data = $request->validated();
+
+        $barcodeSetting = $this->barcodeSettingService->findScoped($data['barcode_setting_id']);
+        $products = $this->productService->findManyScoped(
+            collect($data['products'])->pluck('product_id')->all()
+        )->keyBy('id');
+
+        $generator = new BarcodeGeneratorPNG;
+        $labels = [];
+
+        foreach ($data['products'] as $row) {
+            $product = $products->get($row['product_id']);
+            if (! $product) {
+                continue;
+            }
+
+            $barcode = base64_encode($generator->getBarcode($product->code, $generator::TYPE_CODE_128));
+
+            for ($i = 0; $i < $row['qty']; $i++) {
+                $labels[] = [
+                    'name' => $product->name,
+                    'code' => $product->code,
+                    'price' => $product->price,
+                    'brand_name' => $product->brand?->name,
+                    'barcode' => $barcode,
+                ];
+            }
+        }
+
+        return Pdf::loadView('product.barcode-labels', [
+            'labels' => $labels,
+            'setting' => $barcodeSetting,
+            'print' => $data['print'] ?? [],
+            'business_name' => tenant()->name,
+        ])->download('barcode-labels-'.now()->format('Y-m-d').'.pdf');
     }
 }

@@ -11,6 +11,7 @@ import {
   IconBuilding,
   IconBuildingWarehouse,
   IconCalendar,
+  IconCategory,
   IconCheck,
   IconChecks,
   IconChevronDown,
@@ -27,6 +28,7 @@ import {
   IconClipboardText,
   IconClock,
   IconCode,
+  IconCoin,
   IconCommand,
   IconCreditCard,
   IconDeviceLaptop,
@@ -66,6 +68,7 @@ import {
   IconPizza,
   IconPlus,
   IconProps,
+  IconReceiptTax,
   IconRosetteDiscountCheck,
   IconSearch,
   IconSelector,
@@ -141,6 +144,9 @@ export const Icons = {
   teams: IconUsers,
   company: IconBuilding,
   warehouse: IconBuildingWarehouse,
+  currency: IconCoin,
+  tax: IconReceiptTax,
+  category: IconCategory,
 
   // Brand
   twitter: IconBrandTwitter,

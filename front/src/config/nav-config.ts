@@ -51,11 +51,37 @@ export const navGroups: NavGroup[] = [
         permissions: ['LIST_SETTINGS_WAREHOUSES']
       },
       {
+        title: 'Currencies',
+        url: '/dashboard/settings/currencies',
+        icon: 'currency',
+        items: [],
+        permissions: ['LIST_SETTINGS_CURRENCIES']
+      },
+      {
+        title: 'Taxes',
+        url: '/dashboard/settings/taxes',
+        icon: 'tax',
+        items: [],
+        permissions: ['LIST_SETTINGS_TAXES']
+      },
+      {
         title: 'Profile',
         url: '/dashboard/settings/profile',
         icon: 'profile',
         shortcut: ['m', 'm'],
         permissions:['LIST_PROFILE']
+      }
+    ]
+  },
+  {
+    label: 'Product',
+    items: [
+      {
+        title: 'Categories',
+        url: '/dashboard/product/categories',
+        icon: 'category',
+        items: [],
+        permissions: ['LIST_PRODUCT_CATEGORIES']
       }
     ]
   },

@@ -33,4 +33,29 @@ enum PermissionEnum: string
     case ReadSettingsWarehouses = 'READ_SETTINGS_WAREHOUSES';
     case UpdateSettingsWarehouses = 'UPDATE_SETTINGS_WAREHOUSES';
     case DeleteSettingsWarehouses = 'DELETE_SETTINGS_WAREHOUSES';
+
+    // currencies
+    case ListSettingsCurrencies = 'LIST_SETTINGS_CURRENCIES';
+    case CreateSettingsCurrencies = 'CREATE_SETTINGS_CURRENCIES';
+    case ReadSettingsCurrencies = 'READ_SETTINGS_CURRENCIES';
+    case UpdateSettingsCurrencies = 'UPDATE_SETTINGS_CURRENCIES';
+    case DeleteSettingsCurrencies = 'DELETE_SETTINGS_CURRENCIES';
+
+    // taxes
+    case ListSettingsTaxes = 'LIST_SETTINGS_TAXES';
+    case CreateSettingsTaxes = 'CREATE_SETTINGS_TAXES';
+    case ReadSettingsTaxes = 'READ_SETTINGS_TAXES';
+    case UpdateSettingsTaxes = 'UPDATE_SETTINGS_TAXES';
+    case DeleteSettingsTaxes = 'DELETE_SETTINGS_TAXES';
+
+    /**
+     * Product
+     */
+
+    // categories
+    case ListProductCategories = 'LIST_PRODUCT_CATEGORIES';
+    case CreateProductCategories = 'CREATE_PRODUCT_CATEGORIES';
+    case ReadProductCategories = 'READ_PRODUCT_CATEGORIES';
+    case UpdateProductCategories = 'UPDATE_PRODUCT_CATEGORIES';
+    case DeleteProductCategories = 'DELETE_PRODUCT_CATEGORIES';
 }

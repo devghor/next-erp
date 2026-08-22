@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Media\MediaController;
+use App\Http\Controllers\Api\V1\Product\CategoryController;
+use App\Http\Controllers\Api\V1\Settings\CurrencyController;
 use App\Http\Controllers\Api\V1\Settings\PermissionController;
 use App\Http\Controllers\Api\V1\Settings\RoleController;
+use App\Http\Controllers\Api\V1\Settings\TaxController;
 use App\Http\Controllers\Api\V1\Settings\UserController;
 use App\Http\Controllers\Api\V1\Settings\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -88,8 +91,63 @@ Route::prefix('v1')
                                 Route::delete('{id}', [WarehouseController::class, 'destroy'])->name('destroy');
                             });
 
+                        // Currencies
+                        Route::prefix('currencies')
+                            ->name('currencies.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [CurrencyController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [CurrencyController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [CurrencyController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [CurrencyController::class, 'import'])->name('import');
+
+                                Route::get('/', [CurrencyController::class, 'index'])->name('index');
+                                Route::post('/', [CurrencyController::class, 'store'])->name('store');
+                                Route::get('{id}', [CurrencyController::class, 'show'])->name('show');
+                                Route::put('{id}', [CurrencyController::class, 'update'])->name('update');
+                                Route::delete('{id}', [CurrencyController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Taxes
+                        Route::prefix('taxes')
+                            ->name('taxes.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [TaxController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [TaxController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [TaxController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [TaxController::class, 'import'])->name('import');
+
+                                Route::get('/', [TaxController::class, 'index'])->name('index');
+                                Route::post('/', [TaxController::class, 'store'])->name('store');
+                                Route::get('{id}', [TaxController::class, 'show'])->name('show');
+                                Route::put('{id}', [TaxController::class, 'update'])->name('update');
+                                Route::delete('{id}', [TaxController::class, 'destroy'])->name('destroy');
+                            });
+
                         // Permissions
                         Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
+                    });
+
+                /**
+                 * Product Module
+                 */
+                Route::prefix('product')
+                    ->name('product.')
+                    ->group(function () {
+                        // Categories
+                        Route::prefix('categories')
+                            ->name('categories.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [CategoryController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [CategoryController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [CategoryController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [CategoryController::class, 'import'])->name('import');
+
+                                Route::get('/', [CategoryController::class, 'index'])->name('index');
+                                Route::post('/', [CategoryController::class, 'store'])->name('store');
+                                Route::get('{id}', [CategoryController::class, 'show'])->name('show');
+                                Route::put('{id}', [CategoryController::class, 'update'])->name('update');
+                                Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
+                            });
                     });
             });
     });

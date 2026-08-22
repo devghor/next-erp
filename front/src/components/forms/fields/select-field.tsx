@@ -40,7 +40,9 @@ export function SelectField({
           aria-invalid={isInvalid}
           aria-describedby={isInvalid ? `${field.name}-error` : undefined}
         >
-          <SelectValue placeholder={placeholder} />
+          <SelectValue placeholder={placeholder}>
+            {(value: string) => options.find((opt) => opt.value === value)?.label}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>

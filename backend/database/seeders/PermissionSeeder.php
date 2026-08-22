@@ -53,6 +53,27 @@ class PermissionSeeder extends Seeder
             ['module' => 'Settings', 'group' => 'Settings > Warehouses', 'name' => PermissionEnum::UpdateSettingsWarehouses->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'Settings', 'group' => 'Settings > Warehouses', 'name' => PermissionEnum::DeleteSettingsWarehouses->value, 'label' => self::LABEL_DELETE],
 
+            // Currency
+            ['module' => 'Settings', 'group' => 'Settings > Currencies', 'name' => PermissionEnum::ListSettingsCurrencies->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Settings', 'group' => 'Settings > Currencies', 'name' => PermissionEnum::CreateSettingsCurrencies->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Settings', 'group' => 'Settings > Currencies', 'name' => PermissionEnum::ReadSettingsCurrencies->value, 'label' => self::LABEL_READ],
+            ['module' => 'Settings', 'group' => 'Settings > Currencies', 'name' => PermissionEnum::UpdateSettingsCurrencies->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Settings', 'group' => 'Settings > Currencies', 'name' => PermissionEnum::DeleteSettingsCurrencies->value, 'label' => self::LABEL_DELETE],
+
+            // Tax
+            ['module' => 'Settings', 'group' => 'Settings > Taxes', 'name' => PermissionEnum::ListSettingsTaxes->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Settings', 'group' => 'Settings > Taxes', 'name' => PermissionEnum::CreateSettingsTaxes->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Settings', 'group' => 'Settings > Taxes', 'name' => PermissionEnum::ReadSettingsTaxes->value, 'label' => self::LABEL_READ],
+            ['module' => 'Settings', 'group' => 'Settings > Taxes', 'name' => PermissionEnum::UpdateSettingsTaxes->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Settings', 'group' => 'Settings > Taxes', 'name' => PermissionEnum::DeleteSettingsTaxes->value, 'label' => self::LABEL_DELETE],
+
+            // Category
+            ['module' => 'Product', 'group' => 'Product > Categories', 'name' => PermissionEnum::ListProductCategories->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Product', 'group' => 'Product > Categories', 'name' => PermissionEnum::CreateProductCategories->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Product', 'group' => 'Product > Categories', 'name' => PermissionEnum::ReadProductCategories->value, 'label' => self::LABEL_READ],
+            ['module' => 'Product', 'group' => 'Product > Categories', 'name' => PermissionEnum::UpdateProductCategories->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Product', 'group' => 'Product > Categories', 'name' => PermissionEnum::DeleteProductCategories->value, 'label' => self::LABEL_DELETE],
+
         ];
 
         foreach ($permissions as $permission) {

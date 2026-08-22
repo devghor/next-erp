@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Settings;
 
+use App\Enums\Settings\PermissionEnum;
 use App\Exports\Settings\RolesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Settings\BulkDeleteRoleRequest;
@@ -13,13 +14,26 @@ use App\Services\Settings\RoleServiceInterface;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleController extends Controller
+class RoleController extends Controller implements HasMiddleware
 {
     public function __construct(protected RoleServiceInterface $roleService) {}
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:'.PermissionEnum::ListSettingsRoles->value, only: ['index', 'exportPdf', 'exportExcel']),
+            new Middleware('permission:'.PermissionEnum::CreateSettingsRoles->value, only: ['store', 'import']),
+            new Middleware('permission:'.PermissionEnum::ReadSettingsRoles->value, only: ['show']),
+            new Middleware('permission:'.PermissionEnum::UpdateSettingsRoles->value, only: ['update']),
+            new Middleware('permission:'.PermissionEnum::DeleteSettingsRoles->value, only: ['destroy', 'bulkDestroy']),
+        ];
+    }
 
     public function index(Request $request): AnonymousResourceCollection
     {

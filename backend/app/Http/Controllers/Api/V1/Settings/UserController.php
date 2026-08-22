@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Settings;
 
+use App\Enums\Settings\PermissionEnum;
 use App\Exports\Settings\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Settings\BulkDeleteUserRequest;
@@ -13,13 +14,26 @@ use App\Services\Settings\UserServiceInterface;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
     public function __construct(protected UserServiceInterface $userService) {}
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:'.PermissionEnum::ListSettingsUsers->value, only: ['index', 'exportPdf', 'exportExcel']),
+            new Middleware('permission:'.PermissionEnum::CreateSettingsUsers->value, only: ['store', 'import']),
+            new Middleware('permission:'.PermissionEnum::ReadSettingsUsers->value, only: ['show']),
+            new Middleware('permission:'.PermissionEnum::UpdateSettingsUsers->value, only: ['update']),
+            new Middleware('permission:'.PermissionEnum::DeleteSettingsUsers->value, only: ['destroy', 'bulkDestroy']),
+        ];
+    }
 
     public function index(Request $request): AnonymousResourceCollection
     {

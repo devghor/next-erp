@@ -19,9 +19,9 @@ export const navGroups: NavGroup[] = [
         url: '/dashboard/overview',
         icon: 'dashboard',
         isActive: false,
-        shortcut: ['d', 'd']
-        // No permissions: safe landing page for any signed-in user, also the
-        // proxy.ts redirect target on permission-denied — must stay unrestricted.
+        shortcut: ['d', 'd'],
+        // for save landing it is commenting
+        // permissions:['READ_DASHBOARD_OVERVIEW']
       }
     ]
   },

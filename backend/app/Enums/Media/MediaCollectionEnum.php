@@ -13,4 +13,5 @@ enum MediaCollectionEnum: string
      * Product
      */
     case ProductCategoriesImage = 'product_categories_image';
+    case ProductBrandsImage = 'product_brands_image';
 }

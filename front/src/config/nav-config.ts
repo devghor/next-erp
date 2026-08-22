@@ -82,6 +82,20 @@ export const navGroups: NavGroup[] = [
         icon: 'category',
         items: [],
         permissions: ['LIST_PRODUCT_CATEGORIES']
+      },
+      {
+        title: 'Brands',
+        url: '/dashboard/product/brands',
+        icon: 'brand',
+        items: [],
+        permissions: ['LIST_PRODUCT_BRANDS']
+      },
+      {
+        title: 'Units',
+        url: '/dashboard/product/units',
+        icon: 'unit',
+        items: [],
+        permissions: ['LIST_PRODUCT_UNITS']
       }
     ]
   },

@@ -70,6 +70,7 @@ import {
   IconProps,
   IconReceiptTax,
   IconRosetteDiscountCheck,
+  IconRuler2,
   IconSearch,
   IconSelector,
   IconSend,
@@ -80,6 +81,7 @@ import {
   IconStack2,
   IconStar,
   IconSun,
+  IconTag,
   IconTrash,
   IconTrendingDown,
   IconTrendingUp,
@@ -147,6 +149,8 @@ export const Icons = {
   currency: IconCoin,
   tax: IconReceiptTax,
   category: IconCategory,
+  brand: IconTag,
+  unit: IconRuler2,
 
   // Brand
   twitter: IconBrandTwitter,

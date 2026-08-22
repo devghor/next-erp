@@ -74,6 +74,20 @@ class PermissionSeeder extends Seeder
             ['module' => 'Product', 'group' => 'Product > Categories', 'name' => PermissionEnum::UpdateProductCategories->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'Product', 'group' => 'Product > Categories', 'name' => PermissionEnum::DeleteProductCategories->value, 'label' => self::LABEL_DELETE],
 
+            // Brand
+            ['module' => 'Product', 'group' => 'Product > Brands', 'name' => PermissionEnum::ListProductBrands->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Product', 'group' => 'Product > Brands', 'name' => PermissionEnum::CreateProductBrands->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Product', 'group' => 'Product > Brands', 'name' => PermissionEnum::ReadProductBrands->value, 'label' => self::LABEL_READ],
+            ['module' => 'Product', 'group' => 'Product > Brands', 'name' => PermissionEnum::UpdateProductBrands->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Product', 'group' => 'Product > Brands', 'name' => PermissionEnum::DeleteProductBrands->value, 'label' => self::LABEL_DELETE],
+
+            // Unit
+            ['module' => 'Product', 'group' => 'Product > Units', 'name' => PermissionEnum::ListProductUnits->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Product', 'group' => 'Product > Units', 'name' => PermissionEnum::CreateProductUnits->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Product', 'group' => 'Product > Units', 'name' => PermissionEnum::ReadProductUnits->value, 'label' => self::LABEL_READ],
+            ['module' => 'Product', 'group' => 'Product > Units', 'name' => PermissionEnum::UpdateProductUnits->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Product', 'group' => 'Product > Units', 'name' => PermissionEnum::DeleteProductUnits->value, 'label' => self::LABEL_DELETE],
+
         ];
 
         foreach ($permissions as $permission) {

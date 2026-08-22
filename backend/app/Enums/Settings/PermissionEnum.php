@@ -58,4 +58,18 @@ enum PermissionEnum: string
     case ReadProductCategories = 'READ_PRODUCT_CATEGORIES';
     case UpdateProductCategories = 'UPDATE_PRODUCT_CATEGORIES';
     case DeleteProductCategories = 'DELETE_PRODUCT_CATEGORIES';
+
+    // brands
+    case ListProductBrands = 'LIST_PRODUCT_BRANDS';
+    case CreateProductBrands = 'CREATE_PRODUCT_BRANDS';
+    case ReadProductBrands = 'READ_PRODUCT_BRANDS';
+    case UpdateProductBrands = 'UPDATE_PRODUCT_BRANDS';
+    case DeleteProductBrands = 'DELETE_PRODUCT_BRANDS';
+
+    // units
+    case ListProductUnits = 'LIST_PRODUCT_UNITS';
+    case CreateProductUnits = 'CREATE_PRODUCT_UNITS';
+    case ReadProductUnits = 'READ_PRODUCT_UNITS';
+    case UpdateProductUnits = 'UPDATE_PRODUCT_UNITS';
+    case DeleteProductUnits = 'DELETE_PRODUCT_UNITS';
 }

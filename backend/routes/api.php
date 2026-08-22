@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Media\MediaController;
+use App\Http\Controllers\Api\V1\Product\BrandController;
 use App\Http\Controllers\Api\V1\Product\CategoryController;
+use App\Http\Controllers\Api\V1\Product\UnitController;
 use App\Http\Controllers\Api\V1\Settings\CurrencyController;
 use App\Http\Controllers\Api\V1\Settings\PermissionController;
 use App\Http\Controllers\Api\V1\Settings\RoleController;
@@ -147,6 +149,38 @@ Route::prefix('v1')
                                 Route::get('{id}', [CategoryController::class, 'show'])->name('show');
                                 Route::put('{id}', [CategoryController::class, 'update'])->name('update');
                                 Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Brands
+                        Route::prefix('brands')
+                            ->name('brands.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [BrandController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [BrandController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [BrandController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [BrandController::class, 'import'])->name('import');
+
+                                Route::get('/', [BrandController::class, 'index'])->name('index');
+                                Route::post('/', [BrandController::class, 'store'])->name('store');
+                                Route::get('{id}', [BrandController::class, 'show'])->name('show');
+                                Route::put('{id}', [BrandController::class, 'update'])->name('update');
+                                Route::delete('{id}', [BrandController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Units
+                        Route::prefix('units')
+                            ->name('units.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [UnitController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [UnitController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [UnitController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [UnitController::class, 'import'])->name('import');
+
+                                Route::get('/', [UnitController::class, 'index'])->name('index');
+                                Route::post('/', [UnitController::class, 'store'])->name('store');
+                                Route::get('{id}', [UnitController::class, 'show'])->name('show');
+                                Route::put('{id}', [UnitController::class, 'update'])->name('update');
+                                Route::delete('{id}', [UnitController::class, 'destroy'])->name('destroy');
                             });
                     });
             });

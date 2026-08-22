@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Services\Product\BrandService;
+use App\Services\Product\BrandServiceInterface;
 use App\Services\Product\CategoryService;
 use App\Services\Product\CategoryServiceInterface;
+use App\Services\Product\UnitService;
+use App\Services\Product\UnitServiceInterface;
 use App\Services\Settings\CurrencyService;
 use App\Services\Settings\CurrencyServiceInterface;
 use App\Services\Settings\RoleService;
@@ -29,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CurrencyServiceInterface::class, CurrencyService::class);
         $this->app->bind(TaxServiceInterface::class, TaxService::class);
         $this->app->bind(CategoryServiceInterface::class, CategoryService::class);
+        $this->app->bind(BrandServiceInterface::class, BrandService::class);
+        $this->app->bind(UnitServiceInterface::class, UnitService::class);
     }
 
     /**

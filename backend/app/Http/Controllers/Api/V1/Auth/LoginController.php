@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use App\Enums\Settings\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\LoginRequest;
 use App\Http\Resources\Api\V1\Auth\UserResource;
@@ -37,7 +38,7 @@ class LoginController extends Controller
                 'meta' => [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
-                    'permissions' => $user->getAllPermissions()->pluck('name')
+                    'permissions' => $user->is_super_admin ? PermissionEnum::cases() : $user->getAllPermissions()->pluck('name')
                 ],
             ]);
     }

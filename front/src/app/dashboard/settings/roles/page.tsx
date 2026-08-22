@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/page-container';
+import { Can } from '@/components/can';
 import RoleListingPage from '@/features/settings/roles/components/role-listing';
 import { RoleFormSheetTrigger } from '@/features/settings/roles/components/role-form-sheet';
 import { RoleImportDialogTrigger } from '@/features/settings/roles/components/role-import-dialog';
@@ -15,9 +16,13 @@ export default function RolesPage() {
       pageDescription='Role & permission management'
       pageHeaderAction={
         <>
-          <RoleExportButtons />
-          <RoleImportDialogTrigger />
-          <RoleFormSheetTrigger />
+          <Can permission='LIST_SETTINGS_ROLES'>
+            <RoleExportButtons />
+          </Can>
+          <Can permission='CREATE_SETTINGS_ROLES'>
+            <RoleImportDialogTrigger />
+            <RoleFormSheetTrigger />
+          </Can>
         </>
       }
     >

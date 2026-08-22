@@ -10,6 +10,7 @@ import { getQueryClient } from '@/lib/query-client';
 import { bulkDeleteRolesMutation } from '../../api/mutations';
 import { roleKeys } from '../../api/queries';
 import type { Role } from '../../api/types';
+import { Can } from '@/components/can';
 
 interface RolesTableActionBarProps {
   table: Table<Role>;
@@ -43,9 +44,11 @@ export function RolesTableActionBar({ table }: RolesTableActionBarProps) {
         description='This action cannot be undone.'
         confirmLabel='Delete'
       />
-      <Button variant='destructive' size='sm' onClick={() => setDeleteOpen(true)}>
-        <Icons.trash className='mr-2 h-4 w-4' /> Delete ({selectedRows.length})
-      </Button>
+      <Can permission='DELETE_SETTINGS_ROLES'>
+        <Button variant='destructive' size='sm' onClick={() => setDeleteOpen(true)}>
+          <Icons.trash className='mr-2 h-4 w-4' /> Delete ({selectedRows.length})
+        </Button>
+      </Can>
     </>
   );
 }

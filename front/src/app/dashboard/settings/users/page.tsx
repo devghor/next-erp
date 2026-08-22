@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/page-container';
+import { Can } from '@/components/can';
 import UserListingPage from '@/features/settings/users/components/user-listing';
 import { UserFormSheetTrigger } from '@/features/settings/users/components/user-form-sheet';
 import { UserImportDialogTrigger } from '@/features/settings/users/components/user-import-dialog';
@@ -15,9 +16,13 @@ export default function UsersPage() {
       pageDescription='User management'
       pageHeaderAction={
         <>
-          <UserExportButtons />
-          <UserImportDialogTrigger />
-          <UserFormSheetTrigger />
+          <Can permission='LIST_SETTINGS_USERS'>
+            <UserExportButtons />
+          </Can>
+          <Can permission='CREATE_SETTINGS_USERS'>
+            <UserImportDialogTrigger />
+            <UserFormSheetTrigger />
+          </Can>
         </>
       }
     >

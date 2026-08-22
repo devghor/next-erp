@@ -27,11 +27,17 @@ class LoginController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        $companyId = $user->companies->first()->id ?? null;
+        if($companyId){
+            setPermissionsTeamId($companyId);
+        }
+
         return UserResource::make($user)
             ->additional([
                 'meta' => [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
+                    'permissions' => $user->getAllPermissions()->pluck('name')
                 ],
             ]);
     }
@@ -41,6 +47,7 @@ class LoginController extends Controller
         /** @var User $user */
         $user = Auth::user();
         $user->load('companies');
+        $user->load('permissions');
 
         return UserResource::make($user);
     }

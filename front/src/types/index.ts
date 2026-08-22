@@ -9,13 +9,6 @@ export interface Company {
   plan?: string | null;
 }
 
-export interface PermissionCheck {
-  permission?: string;
-  plan?: string;
-  feature?: string;
-  role?: string;
-}
-
 export interface NavItem {
   title: string;
   url: string;
@@ -27,7 +20,7 @@ export interface NavItem {
   description?: string;
   isActive?: boolean;
   items?: NavItem[];
-  access?: PermissionCheck;
+  permissions?: string[];
 }
 
 export interface NavGroup {

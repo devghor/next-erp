@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { UserFormSheet } from '../user-form-sheet';
+import { Can } from '@/components/can';
 
 interface CellActionProps {
   data: User;
@@ -48,25 +49,31 @@ export function CellAction({ data }: CellActionProps) {
         loading={deleteMutation.isPending}
       />
       <UserFormSheet user={data} open={editOpen} onOpenChange={setEditOpen} />
-      <DropdownMenu modal={false}>
-        <DropdownMenuTrigger render={<Button variant='ghost' className='h-8 w-8 p-0' />}>
-          <span className='sr-only'>Open menu</span>
-          <Icons.ellipsis className='h-4 w-4' />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align='end'>
-          <DropdownMenuGroup>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          </DropdownMenuGroup>
-          <DropdownMenuGroup>
-            <DropdownMenuItem onClick={() => setEditOpen(true)}>
-              <Icons.edit className='mr-2 h-4 w-4' /> Update
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
-              <Icons.trash className='mr-2 h-4 w-4' /> Delete
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <Can permission={['UPDATE_SETTINGS_USERS', 'DELETE_SETTINGS_USERS']}>
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger render={<Button variant='ghost' className='h-8 w-8 p-0' />}>
+            <span className='sr-only'>Open menu</span>
+            <Icons.ellipsis className='h-4 w-4' />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            </DropdownMenuGroup>
+            <DropdownMenuGroup>
+              <Can permission='UPDATE_SETTINGS_USERS'>
+                <DropdownMenuItem onClick={() => setEditOpen(true)}>
+                  <Icons.edit className='mr-2 h-4 w-4' /> Update
+                </DropdownMenuItem>
+              </Can>
+              <Can permission='DELETE_SETTINGS_USERS'>
+                <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+                  <Icons.trash className='mr-2 h-4 w-4' /> Delete
+                </DropdownMenuItem>
+              </Can>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </Can>
     </>
   );
 }

@@ -10,6 +10,7 @@ import { getQueryClient } from '@/lib/query-client';
 import { bulkDeleteUsersMutation } from '../../api/mutations';
 import { userKeys } from '../../api/queries';
 import type { User } from '../../api/types';
+import { Can } from '@/components/can';
 
 interface UsersTableActionBarProps {
   table: Table<User>;
@@ -43,9 +44,11 @@ export function UsersTableActionBar({ table }: UsersTableActionBarProps) {
         description='This action cannot be undone.'
         confirmLabel='Delete'
       />
-      <Button variant='destructive' size='sm' onClick={() => setDeleteOpen(true)}>
-        <Icons.trash className='mr-2 h-4 w-4' /> Delete ({selectedRows.length})
-      </Button>
+      <Can permission='DELETE_SETTINGS_USERS'>
+        <Button variant='destructive' size='sm' onClick={() => setDeleteOpen(true)}>
+          <Icons.trash className='mr-2 h-4 w-4' /> Delete ({selectedRows.length})
+        </Button>
+      </Can>
     </>
   );
 }

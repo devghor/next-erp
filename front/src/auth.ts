@@ -5,7 +5,7 @@ import type { Company } from '@/types';
 
 type LoginResponse = {
   data: { name: string; email: string; companies: Company[] };
-  meta: { access_token: string };
+  meta: { access_token: string; permissions: string[] };
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -38,7 +38,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             email: data.email,
             name: data.name,
             accessToken: meta.access_token,
-            companies: data.companies
+            companies: data.companies,
+            permissions: meta.permissions
           };
         } catch (error) {
           console.error('Backend login request failed:', error);
@@ -53,6 +54,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.id = user.id;
         token.accessToken = user.accessToken;
         token.companies = user.companies;
+        token.permissions = user.permissions;
       }
       return token;
     },
@@ -62,6 +64,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       session.user.companies = (token.companies as Company[] | undefined) ?? [];
       session.accessToken = token.accessToken as string;
+      session.permissions = (token.permissions as string[] | undefined) ?? [];
       return session;
     }
   }

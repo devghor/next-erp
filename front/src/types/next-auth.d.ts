@@ -8,11 +8,13 @@ declare module 'next-auth' {
       companies: Company[];
     } & DefaultSession['user'];
     accessToken: string;
+    permissions: string[];
   }
 
   interface User {
     accessToken?: string;
     companies?: Company[];
+    permissions?: string[];
   }
 }
 
@@ -21,5 +23,6 @@ declare module 'next-auth/jwt' {
     id?: string;
     accessToken?: string;
     companies?: Company[];
+    permissions?: string[];
   }
 }

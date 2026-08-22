@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
+use App\Http\Controllers\Api\V1\Media\MediaController;
 use App\Http\Controllers\Api\V1\Settings\PermissionController;
 use App\Http\Controllers\Api\V1\Settings\RoleController;
 use App\Http\Controllers\Api\V1\Settings\UserController;
@@ -22,6 +23,13 @@ Route::prefix('v1')
                     ->middleware('auth:sanctum')
                     ->name('auth-user');
             });
+
+        // Signed media streaming — deliberately outside the auth:sanctum
+        // group. Browsers can't attach a Bearer token to <img src>, so
+        // private media is authorized by the URL signature instead.
+        Route::get('media/{media}', [MediaController::class, 'show'])
+            ->middleware('signed')
+            ->name('media.show');
 
         Route::middleware(['auth:sanctum', InitializeTenancyByRequestData::class, 'set-permissions-team-id'])
             ->group(function () {

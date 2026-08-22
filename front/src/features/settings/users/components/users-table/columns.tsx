@@ -1,5 +1,6 @@
 'use client';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
 import { Icons } from '@/components/icons';
 import { formatDate } from '@/lib/format';
@@ -47,6 +48,15 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: 'name',
     header: ({ column }: { column: Column<User, unknown> }) => (
       <DataTableColumnHeader column={column} title='Name' />
+    ),
+    cell: ({ row }) => (
+      <div className='flex items-center gap-2'>
+        <Avatar size='sm'>
+          <AvatarImage src={row.original.profile_picture ?? undefined} alt={row.original.name} />
+          <AvatarFallback>{row.original.name.charAt(0).toUpperCase()}</AvatarFallback>
+        </Avatar>
+        {row.original.name}
+      </div>
     ),
     meta: {
       label: 'Name',

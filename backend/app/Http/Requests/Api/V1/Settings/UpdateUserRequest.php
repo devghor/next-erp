@@ -27,6 +27,7 @@ class UpdateUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->route('id'))],
             'password' => ['nullable', 'string', 'min:8'],
+            'profile_picture' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }

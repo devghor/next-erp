@@ -2,6 +2,7 @@ export type User = {
   id: number;
   name: string;
   email: string;
+  profile_picture: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -30,6 +31,7 @@ export type UserMutationPayload = {
   name: string;
   email: string;
   password?: string;
+  profile_picture?: File | null;
 };
 
 export type ImportFailure = {

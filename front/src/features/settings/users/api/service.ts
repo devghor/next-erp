@@ -26,12 +26,44 @@ export async function getUsers(filters: UserFilters): Promise<UsersResponse> {
   return apiClient<UsersResponse>(BASE, { params: toParams(filters) });
 }
 
+function toFormData(data: UserMutationPayload): FormData {
+  const formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('email', data.email);
+  if (data.password) formData.append('password', data.password);
+  if (data.profile_picture) formData.append('profile_picture', data.profile_picture);
+  return formData;
+}
+
 export async function createUser(data: UserMutationPayload): Promise<User> {
+  if (data.profile_picture) {
+    const res = await apiClient<{ data: User }>(BASE, {
+      method: 'POST',
+      data: toFormData(data),
+      headers: { 'Content-Type': null }
+    });
+    return res.data;
+  }
+
   const res = await apiClient<{ data: User }>(BASE, { method: 'POST', data });
   return res.data;
 }
 
 export async function updateUser(id: number, data: UserMutationPayload): Promise<User> {
+  if (data.profile_picture) {
+    // Laravel doesn't parse multipart bodies on PUT, so spoof the method
+    // via `_method` on a POST request instead — same trick as classic
+    // Laravel form uploads.
+    const formData = toFormData(data);
+    formData.append('_method', 'PUT');
+    const res = await apiClient<{ data: User }>(`${BASE}/${id}`, {
+      method: 'POST',
+      data: formData,
+      headers: { 'Content-Type': null }
+    });
+    return res.data;
+  }
+
   const res = await apiClient<{ data: User }>(`${BASE}/${id}`, { method: 'PUT', data });
   return res.data;
 }

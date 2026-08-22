@@ -15,14 +15,14 @@ interface UserServiceInterface extends BaseServiceInterface
     public function forExport(array $filters): Collection;
 
     /**
-     * @param  array{name: string, email: string, password: string}  $data
+     * @param  array{name: string, email: string, password: string, profile_picture?: UploadedFile|null}  $data
      */
     public function create(array $data): User;
 
     public function findScoped(int $id): User;
 
     /**
-     * @param  array{name: string, email: string, password?: string|null}  $data
+     * @param  array{name: string, email: string, password?: string|null, profile_picture?: UploadedFile|null}  $data
      */
     public function update(int $id, array $data): User;
 

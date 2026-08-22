@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { FieldGroup } from '@/components/ui/field';
 import { useAppForm } from '@/lib/form';
 import { LoadingButton } from '@/components/ui/loading-button';
@@ -56,23 +57,27 @@ export function UserFormSheet({ user, open, onOpenChange }: UserFormSheetProps) 
     defaultValues: {
       name: user?.name ?? '',
       email: user?.email ?? '',
-      password: ''
+      password: '',
+      profile_picture: [] as File[]
     },
     validators: {
       onSubmit: (isEdit ? updateUserSchema : createUserSchema) as typeof createUserSchema
     },
     onSubmit: async ({ value }) => {
+      const profile_picture = value.profile_picture?.[0] ?? null;
+
       if (isEdit) {
         await updateMutation.mutateAsync({
           id: user.id,
           values: {
             name: value.name,
             email: value.email,
-            ...(value.password && { password: value.password })
+            ...(value.password && { password: value.password }),
+            ...(profile_picture && { profile_picture })
           }
         });
       } else {
-        await createMutation.mutateAsync(value);
+        await createMutation.mutateAsync({ ...value, profile_picture });
       }
     }
   });
@@ -101,6 +106,28 @@ export function UserFormSheet({ user, open, onOpenChange }: UserFormSheetProps) 
             }}
           >
             <FieldGroup>
+              {isEdit && (
+                <div className='flex items-center gap-3'>
+                  <Avatar size='lg'>
+                    <AvatarImage src={user.profile_picture ?? undefined} alt={user.name} />
+                    <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                  <p className='text-muted-foreground text-sm'>Current profile picture</p>
+                </div>
+              )}
+
+              <form.AppField
+                name='profile_picture'
+                children={(field) => (
+                  <field.FileUploadField
+                    label='Profile Picture'
+                    description='PNG or JPG up to 2MB.'
+                    maxSize={2 * 1024 * 1024}
+                    maxFiles={1}
+                  />
+                )}
+              />
+
               <form.AppField
                 name='name'
                 children={(field) => (

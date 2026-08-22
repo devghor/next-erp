@@ -2,6 +2,7 @@
 
 namespace App\Services\Settings;
 
+use App\Enums\Media\MediaCollectionEnum;
 use App\Imports\Settings\UsersImport;
 use App\Models\Settings\Company;
 use App\Models\User;
@@ -70,7 +71,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param  array{name: string, email: string, password: string}  $data
+     * @param  array{name: string, email: string, password: string, profile_picture?: UploadedFile|null}  $data
      */
     public function create(array $data): User
     {
@@ -83,6 +84,8 @@ class UserService implements UserServiceInterface
 
             $this->activeCompany()->users()->syncWithoutDetaching([$user->id]);
 
+            $this->syncProfilePicture($user, $data);
+
             return $user;
         });
     }
@@ -93,7 +96,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param  array{name: string, email: string, password?: string|null}  $data
+     * @param  array{name: string, email: string, password?: string|null, profile_picture?: UploadedFile|null}  $data
      */
     public function update(int $id, array $data): User
     {
@@ -106,7 +109,22 @@ class UserService implements UserServiceInterface
 
         $user->save();
 
+        $this->syncProfilePicture($user, $data);
+
         return $user;
+    }
+
+    /**
+     * @param  array{profile_picture?: UploadedFile|null}  $data
+     */
+    protected function syncProfilePicture(User $user, array $data): void
+    {
+        if (empty($data['profile_picture'])) {
+            return;
+        }
+
+        $user->addMedia($data['profile_picture'])
+            ->toMediaCollection(MediaCollectionEnum::SettingsUsersProfilePicture->value);
     }
 
     public function delete(int $id): void

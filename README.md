@@ -55,8 +55,3 @@ pnpm dev                    # http://localhost:3000
 Set `NEXT_PUBLIC_BACKEND_API_URL` in `front/.env.local` to the backend's API
 base (default `http://localhost:8000/api/v1/web`), and `AUTH_SECRET` (generate
 with `npx auth secret`).
-
-## Docs
-
-- [docs/architecture.md](docs/architecture.md) — auth flow, multi-tenancy/RBAC middleware chain, API module shape, real-vs-mock frontend features
-- [AGENTS.md](AGENTS.md) — repo map for AI coding agents, links to both apps' conventions and standing rules

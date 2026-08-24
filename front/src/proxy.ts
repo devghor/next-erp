@@ -3,7 +3,7 @@ import { auth } from '@/auth';
 import { routePermissions } from '@/config/nav-config';
 import { can } from '@/lib/can';
 
-const isProtectedRoute = (pathname: string) => pathname.startsWith('/dashboard');
+const isProtectedRoute = (pathname: string) => pathname.startsWith('/dashboard') || pathname.startsWith('/pos');
 const FALLBACK_PATH = '/dashboard/overview';
 
 export default auth((req) => {

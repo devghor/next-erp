@@ -194,6 +194,93 @@ export const navGroups: NavGroup[] = [
     ]
   },
   {
+    label: 'Sale',
+    items: [
+      {
+        title: 'POS',
+        url: '/pos',
+        icon: 'pos',
+        permissions: ['ACCESS_SALE_POS']
+      },
+      {
+        title: 'Sales',
+        url: '/dashboard/sales',
+        icon: 'sale',
+        items: [],
+        permissions: ['LIST_SALE_SALES']
+      },
+      {
+        title: 'Sale by CSV',
+        url: '/dashboard/sales/sale_by_csv',
+        icon: 'upload',
+        permissions: ['CREATE_SALE_SALES']
+      },
+      {
+        title: 'Gift Cards',
+        url: '/dashboard/gift_cards',
+        icon: 'giftCard',
+        items: [],
+        permissions: ['LIST_SALE_GIFT_CARDS']
+      },
+      {
+        title: 'Coupons',
+        url: '/dashboard/coupons',
+        icon: 'coupon',
+        items: [],
+        permissions: ['LIST_SALE_COUPONS']
+      },
+      {
+        title: 'Couriers',
+        url: '/dashboard/couriers',
+        icon: 'courier',
+        items: [],
+        permissions: ['LIST_SALE_COURIERS']
+      },
+      {
+        title: 'Installment Plans',
+        url: '/dashboard/installmentplan',
+        icon: 'billing',
+        items: [],
+        permissions: ['LIST_SALE_INSTALLMENT_PLANS']
+      },
+      {
+        title: 'Packing Slips',
+        url: '/dashboard/packing-slips',
+        icon: 'fileTypeDoc',
+        items: [],
+        permissions: ['LIST_SALE_PACKING_SLIPS']
+      },
+      {
+        title: 'Deliveries',
+        url: '/dashboard/delivery',
+        icon: 'supplier',
+        items: [],
+        permissions: ['LIST_SALE_DELIVERIES']
+      },
+      {
+        title: 'Sale Returns',
+        url: '/dashboard/return-sale',
+        icon: 'refresh',
+        items: [],
+        permissions: ['LIST_SALE_SALE_RETURNS']
+      },
+      {
+        title: 'Exchanges',
+        url: '/dashboard/exchange',
+        icon: 'refresh',
+        items: [],
+        permissions: ['LIST_SALE_EXCHANGES']
+      },
+      {
+        title: 'Challans',
+        url: '/dashboard/challans',
+        icon: 'fileTypeDoc',
+        items: [],
+        permissions: ['LIST_SALE_CHALLANS']
+      }
+    ]
+  },
+  {
     label: 'Others',
     items: [
       {

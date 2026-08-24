@@ -6,6 +6,7 @@ use App\Models\Product\Product;
 use App\Models\Purchase\Purchase;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 
 interface PurchaseServiceInterface
 {
@@ -37,6 +38,13 @@ interface PurchaseServiceInterface
      * @param  array<int, int>  $ids
      */
     public function bulkDelete(array $ids): int;
+
+    /**
+     * CSV columns (no header row): product_code, qty, unit_code (or 'n/a'), cost, discount_per_unit, tax_name (or 'No Tax').
+     *
+     * @param  array{warehouse_id: int, supplier_id?: int|null, status?: string, order_tax?: float, paid_amount?: float, paying_method?: string, note?: string|null}  $meta
+     */
+    public function importCsv(UploadedFile $file, array $meta): Purchase;
 
     /**
      * Direct-receive stock for a product's initial-stock lines, wrapped in its

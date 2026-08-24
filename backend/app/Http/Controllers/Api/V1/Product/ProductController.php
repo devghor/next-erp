@@ -44,7 +44,7 @@ class ProductController extends Controller implements HasMiddleware
     public function index(Request $request): AnonymousResourceCollection
     {
         return ProductResource::collection(
-            $this->productService->list($request->only(['id', 'name', 'category_id', 'brand_id', 'unit_id', 'tax_id', 'type', 'stock_filter', 'date_from', 'date_to', 'per_page']))
+            $this->productService->list($request->only(['id', 'name', 'category_id', 'brand_id', 'unit_id', 'tax_id', 'type', 'stock_filter', 'warehouse_id', 'date_from', 'date_to', 'per_page']))
         );
     }
 

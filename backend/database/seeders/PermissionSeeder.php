@@ -137,6 +137,82 @@ class PermissionSeeder extends Seeder
             ['module' => 'People', 'group' => 'People > Billers', 'name' => PermissionEnum::UpdatePeopleBillers->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'People', 'group' => 'People > Billers', 'name' => PermissionEnum::DeletePeopleBillers->value, 'label' => self::LABEL_DELETE],
 
+            // Purchase
+            ['module' => 'Purchase', 'group' => 'Purchase > Purchases', 'name' => PermissionEnum::ListPurchasePurchases->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Purchase', 'group' => 'Purchase > Purchases', 'name' => PermissionEnum::CreatePurchasePurchases->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Purchase', 'group' => 'Purchase > Purchases', 'name' => PermissionEnum::ReadPurchasePurchases->value, 'label' => self::LABEL_READ],
+            ['module' => 'Purchase', 'group' => 'Purchase > Purchases', 'name' => PermissionEnum::UpdatePurchasePurchases->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Purchase', 'group' => 'Purchase > Purchases', 'name' => PermissionEnum::DeletePurchasePurchases->value, 'label' => self::LABEL_DELETE],
+
+            // Sale
+            ['module' => 'Sale', 'group' => 'Sale > Sales', 'name' => PermissionEnum::ListSaleSales->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Sales', 'name' => PermissionEnum::CreateSaleSales->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Sales', 'name' => PermissionEnum::ReadSaleSales->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Sales', 'name' => PermissionEnum::UpdateSaleSales->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Sale', 'group' => 'Sale > Sales', 'name' => PermissionEnum::DeleteSaleSales->value, 'label' => self::LABEL_DELETE],
+
+            // Gift Cards
+            ['module' => 'Sale', 'group' => 'Sale > Gift Cards', 'name' => PermissionEnum::ListSaleGiftCards->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Gift Cards', 'name' => PermissionEnum::CreateSaleGiftCards->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Gift Cards', 'name' => PermissionEnum::ReadSaleGiftCards->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Gift Cards', 'name' => PermissionEnum::UpdateSaleGiftCards->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Sale', 'group' => 'Sale > Gift Cards', 'name' => PermissionEnum::DeleteSaleGiftCards->value, 'label' => self::LABEL_DELETE],
+
+            // Coupons
+            ['module' => 'Sale', 'group' => 'Sale > Coupons', 'name' => PermissionEnum::ListSaleCoupons->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Coupons', 'name' => PermissionEnum::CreateSaleCoupons->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Coupons', 'name' => PermissionEnum::ReadSaleCoupons->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Coupons', 'name' => PermissionEnum::UpdateSaleCoupons->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Sale', 'group' => 'Sale > Coupons', 'name' => PermissionEnum::DeleteSaleCoupons->value, 'label' => self::LABEL_DELETE],
+
+            // Couriers
+            ['module' => 'Sale', 'group' => 'Sale > Couriers', 'name' => PermissionEnum::ListSaleCouriers->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Couriers', 'name' => PermissionEnum::CreateSaleCouriers->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Couriers', 'name' => PermissionEnum::ReadSaleCouriers->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Couriers', 'name' => PermissionEnum::UpdateSaleCouriers->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Sale', 'group' => 'Sale > Couriers', 'name' => PermissionEnum::DeleteSaleCouriers->value, 'label' => self::LABEL_DELETE],
+
+            // Installment Plans
+            ['module' => 'Sale', 'group' => 'Sale > Installment Plans', 'name' => PermissionEnum::ListSaleInstallmentPlans->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Installment Plans', 'name' => PermissionEnum::ReadSaleInstallmentPlans->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Installment Plans', 'name' => PermissionEnum::UpdateSaleInstallmentPlans->value, 'label' => self::LABEL_UPDATE],
+
+            // Packing Slips
+            ['module' => 'Sale', 'group' => 'Sale > Packing Slips', 'name' => PermissionEnum::ListSalePackingSlips->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Packing Slips', 'name' => PermissionEnum::CreateSalePackingSlips->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Packing Slips', 'name' => PermissionEnum::ReadSalePackingSlips->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Packing Slips', 'name' => PermissionEnum::DeleteSalePackingSlips->value, 'label' => self::LABEL_DELETE],
+
+            // Deliveries
+            ['module' => 'Sale', 'group' => 'Sale > Deliveries', 'name' => PermissionEnum::ListSaleDeliveries->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Deliveries', 'name' => PermissionEnum::CreateSaleDeliveries->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Deliveries', 'name' => PermissionEnum::ReadSaleDeliveries->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Deliveries', 'name' => PermissionEnum::UpdateSaleDeliveries->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Sale', 'group' => 'Sale > Deliveries', 'name' => PermissionEnum::DeleteSaleDeliveries->value, 'label' => self::LABEL_DELETE],
+
+            // Sale Returns
+            ['module' => 'Sale', 'group' => 'Sale > Sale Returns', 'name' => PermissionEnum::ListSaleSaleReturns->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Sale Returns', 'name' => PermissionEnum::CreateSaleSaleReturns->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Sale Returns', 'name' => PermissionEnum::ReadSaleSaleReturns->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Sale Returns', 'name' => PermissionEnum::DeleteSaleSaleReturns->value, 'label' => self::LABEL_DELETE],
+
+            // Sale Exchanges
+            ['module' => 'Sale', 'group' => 'Sale > Sale Exchanges', 'name' => PermissionEnum::ListSaleExchanges->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Sale Exchanges', 'name' => PermissionEnum::CreateSaleExchanges->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Sale Exchanges', 'name' => PermissionEnum::ReadSaleExchanges->value, 'label' => self::LABEL_READ],
+
+            // Challans
+            ['module' => 'Sale', 'group' => 'Sale > Challans', 'name' => PermissionEnum::ListSaleChallans->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Sale', 'group' => 'Sale > Challans', 'name' => PermissionEnum::CreateSaleChallans->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Sale', 'group' => 'Sale > Challans', 'name' => PermissionEnum::ReadSaleChallans->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > Challans', 'name' => PermissionEnum::UpdateSaleChallans->value, 'label' => self::LABEL_UPDATE],
+
+            // POS
+            ['module' => 'Sale', 'group' => 'Sale > POS', 'name' => PermissionEnum::AccessSalePos->value, 'label' => 'Access'],
+            ['module' => 'Sale', 'group' => 'Sale > POS', 'name' => PermissionEnum::ReadSalePosSettings->value, 'label' => self::LABEL_READ],
+            ['module' => 'Sale', 'group' => 'Sale > POS', 'name' => PermissionEnum::UpdateSalePosSettings->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Sale', 'group' => 'Sale > POS', 'name' => PermissionEnum::ManageSaleCashRegister->value, 'label' => 'Manage Cash Register'],
+
         ];
 
         foreach ($permissions as $permission) {

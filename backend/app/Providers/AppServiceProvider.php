@@ -28,6 +28,28 @@ use App\Services\Product\UnitService;
 use App\Services\Product\UnitServiceInterface;
 use App\Services\Purchase\PurchaseService;
 use App\Services\Purchase\PurchaseServiceInterface;
+use App\Services\Sale\CashRegisterService;
+use App\Services\Sale\CashRegisterServiceInterface;
+use App\Services\Sale\ChallanService;
+use App\Services\Sale\ChallanServiceInterface;
+use App\Services\Sale\CouponService;
+use App\Services\Sale\CouponServiceInterface;
+use App\Services\Sale\CourierService;
+use App\Services\Sale\CourierServiceInterface;
+use App\Services\Sale\DeliveryService;
+use App\Services\Sale\DeliveryServiceInterface;
+use App\Services\Sale\GiftCardService;
+use App\Services\Sale\GiftCardServiceInterface;
+use App\Services\Sale\InstallmentPlanService;
+use App\Services\Sale\InstallmentPlanServiceInterface;
+use App\Services\Sale\PackingSlipService;
+use App\Services\Sale\PackingSlipServiceInterface;
+use App\Services\Sale\SaleExchangeService;
+use App\Services\Sale\SaleExchangeServiceInterface;
+use App\Services\Sale\SaleReturnService;
+use App\Services\Sale\SaleReturnServiceInterface;
+use App\Services\Sale\SaleService;
+use App\Services\Sale\SaleServiceInterface;
 use App\Services\Settings\CurrencyService;
 use App\Services\Settings\CurrencyServiceInterface;
 use App\Services\Settings\CustomFieldService;
@@ -68,6 +90,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdjustmentServiceInterface::class, AdjustmentService::class);
         $this->app->bind(StockCountServiceInterface::class, StockCountService::class);
         $this->app->bind(DamageStockServiceInterface::class, DamageStockService::class);
+        $this->app->bind(SaleServiceInterface::class, SaleService::class);
+        $this->app->bind(GiftCardServiceInterface::class, GiftCardService::class);
+        $this->app->bind(CouponServiceInterface::class, CouponService::class);
+        $this->app->bind(CourierServiceInterface::class, CourierService::class);
+        $this->app->bind(InstallmentPlanServiceInterface::class, InstallmentPlanService::class);
+        $this->app->bind(PackingSlipServiceInterface::class, PackingSlipService::class);
+        $this->app->bind(DeliveryServiceInterface::class, DeliveryService::class);
+        $this->app->bind(SaleReturnServiceInterface::class, SaleReturnService::class);
+        $this->app->bind(SaleExchangeServiceInterface::class, SaleExchangeService::class);
+        $this->app->bind(ChallanServiceInterface::class, ChallanService::class);
+        $this->app->bind(CashRegisterServiceInterface::class, CashRegisterService::class);
     }
 
     /**

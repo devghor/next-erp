@@ -6,7 +6,13 @@
 // ============================================================
 
 import { apiClient } from '@/lib/api-client';
-import type { Purchase, PurchaseFilters, PurchasesResponse, PurchaseMutationPayload } from './types';
+import type {
+  Purchase,
+  PurchaseFilters,
+  PurchasesResponse,
+  PurchaseMutationPayload,
+  PurchaseCsvImportPayload
+} from './types';
 
 const BASE = '/purchase/purchases';
 
@@ -57,5 +63,28 @@ export async function exportPurchasesPdf(filters: PurchaseFilters): Promise<Blob
 }
 
 export async function exportPurchasesExcel(filters: PurchaseFilters): Promise<Blob> {
-  return apiClient<Blob>(`${BASE}/export/excel`, { params: toParams(filters), responseType: 'blob' });
+  return apiClient<Blob>(`${BASE}/export/excel`, {
+    params: toParams(filters),
+    responseType: 'blob'
+  });
+}
+
+export async function importPurchaseCsv(payload: PurchaseCsvImportPayload): Promise<Purchase> {
+  const formData = new FormData();
+  formData.append('file', payload.file);
+  formData.append('warehouse_id', String(payload.warehouse_id));
+  if (payload.supplier_id) formData.append('supplier_id', String(payload.supplier_id));
+  if (payload.status) formData.append('status', payload.status);
+  if (payload.order_tax !== undefined) formData.append('order_tax', String(payload.order_tax));
+  if (payload.paid_amount !== undefined)
+    formData.append('paid_amount', String(payload.paid_amount));
+  if (payload.paying_method) formData.append('paying_method', payload.paying_method);
+  if (payload.note) formData.append('note', payload.note);
+
+  const res = await apiClient<{ data: Purchase }>(`${BASE}/import`, {
+    method: 'POST',
+    data: formData,
+    headers: { 'Content-Type': undefined }
+  });
+  return res.data;
 }

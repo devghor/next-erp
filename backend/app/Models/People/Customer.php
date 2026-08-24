@@ -21,11 +21,17 @@ class Customer extends Model
         'country',
         'tax_number',
         'credit_limit',
+        'opening_balance',
+        'deposit',
+        'points',
         'is_active',
     ];
 
     protected $casts = [
         'credit_limit' => 'decimal:2',
+        'opening_balance' => 'decimal:2',
+        'deposit' => 'decimal:2',
+        'points' => 'integer',
         'is_active' => 'boolean',
     ];
 

@@ -27,6 +27,7 @@ function toParams(filters: ProductFilters) {
     tax_id: filters.tax_id,
     type: filters.type,
     stock_filter: filters.stock_filter,
+    warehouse_id: filters.warehouse_id,
     date_from: filters.date_from,
     date_to: filters.date_to,
     page: filters.page,

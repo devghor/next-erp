@@ -9,6 +9,7 @@ use App\Models\Product\ProductAdjustment;
 use App\Models\Product\ProductBatch;
 use App\Models\Product\ProductComboItem;
 use App\Models\Product\ProductVariant;
+use App\Models\Product\ProductWarehouse;
 use App\Models\Product\Variant;
 use App\Models\Purchase\ProductPurchase;
 use App\Models\Settings\Company;
@@ -64,6 +65,16 @@ class ProductService implements ProductServiceInterface
                 } elseif ($filter === 'without') {
                     $query->whereRaw("{$stockSubQuery} <= 0");
                 }
+            })
+            ->when($filters['warehouse_id'] ?? null, function (Builder $query, string $warehouseId) {
+                $warehouseStock = ProductWarehouse::query()
+                    ->selectRaw('product_id, COALESCE(SUM(qty), 0) as qty')
+                    ->where('warehouse_id', $warehouseId)
+                    ->groupBy('product_id');
+
+                $query->select('products.*')
+                    ->leftJoinSub($warehouseStock, 'warehouse_stock', 'warehouse_stock.product_id', '=', 'products.id')
+                    ->addSelect('warehouse_stock.qty as warehouse_stock_qty');
             })
             ->when($filters['date_from'] ?? null, fn (Builder $query, string $date) => $query->whereDate('products.created_at', '>=', $date))
             ->when($filters['date_to'] ?? null, fn (Builder $query, string $date) => $query->whereDate('products.created_at', '<=', $date));

@@ -78,3 +78,14 @@ export type PurchaseMutationPayload = {
     tax_rate?: number;
   }[];
 };
+
+export type PurchaseCsvImportPayload = {
+  file: File;
+  warehouse_id: number;
+  supplier_id?: number | null;
+  status?: 'pending' | 'received';
+  order_tax?: number;
+  paid_amount?: number;
+  paying_method?: string;
+  note?: string | null;
+};

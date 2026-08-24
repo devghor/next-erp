@@ -157,4 +157,78 @@ enum PermissionEnum: string
     case ReadPurchasePurchases = 'READ_PURCHASE_PURCHASES';
     case UpdatePurchasePurchases = 'UPDATE_PURCHASE_PURCHASES';
     case DeletePurchasePurchases = 'DELETE_PURCHASE_PURCHASES';
+
+    /**
+     * Sale
+     */
+
+    // sales
+    case ListSaleSales = 'LIST_SALE_SALES';
+    case CreateSaleSales = 'CREATE_SALE_SALES';
+    case ReadSaleSales = 'READ_SALE_SALES';
+    case UpdateSaleSales = 'UPDATE_SALE_SALES';
+    case DeleteSaleSales = 'DELETE_SALE_SALES';
+
+    // gift cards
+    case ListSaleGiftCards = 'LIST_SALE_GIFT_CARDS';
+    case CreateSaleGiftCards = 'CREATE_SALE_GIFT_CARDS';
+    case ReadSaleGiftCards = 'READ_SALE_GIFT_CARDS';
+    case UpdateSaleGiftCards = 'UPDATE_SALE_GIFT_CARDS';
+    case DeleteSaleGiftCards = 'DELETE_SALE_GIFT_CARDS';
+
+    // coupons
+    case ListSaleCoupons = 'LIST_SALE_COUPONS';
+    case CreateSaleCoupons = 'CREATE_SALE_COUPONS';
+    case ReadSaleCoupons = 'READ_SALE_COUPONS';
+    case UpdateSaleCoupons = 'UPDATE_SALE_COUPONS';
+    case DeleteSaleCoupons = 'DELETE_SALE_COUPONS';
+
+    // couriers
+    case ListSaleCouriers = 'LIST_SALE_COURIERS';
+    case CreateSaleCouriers = 'CREATE_SALE_COURIERS';
+    case ReadSaleCouriers = 'READ_SALE_COURIERS';
+    case UpdateSaleCouriers = 'UPDATE_SALE_COURIERS';
+    case DeleteSaleCouriers = 'DELETE_SALE_COURIERS';
+
+    // installment plans (created programmatically from a sale — no create/delete permission)
+    case ListSaleInstallmentPlans = 'LIST_SALE_INSTALLMENT_PLANS';
+    case ReadSaleInstallmentPlans = 'READ_SALE_INSTALLMENT_PLANS';
+    case UpdateSaleInstallmentPlans = 'UPDATE_SALE_INSTALLMENT_PLANS';
+
+    // packing slips (no update — create/delete only)
+    case ListSalePackingSlips = 'LIST_SALE_PACKING_SLIPS';
+    case CreateSalePackingSlips = 'CREATE_SALE_PACKING_SLIPS';
+    case ReadSalePackingSlips = 'READ_SALE_PACKING_SLIPS';
+    case DeleteSalePackingSlips = 'DELETE_SALE_PACKING_SLIPS';
+
+    // deliveries
+    case ListSaleDeliveries = 'LIST_SALE_DELIVERIES';
+    case CreateSaleDeliveries = 'CREATE_SALE_DELIVERIES';
+    case ReadSaleDeliveries = 'READ_SALE_DELIVERIES';
+    case UpdateSaleDeliveries = 'UPDATE_SALE_DELIVERIES';
+    case DeleteSaleDeliveries = 'DELETE_SALE_DELIVERIES';
+
+    // sale returns (no update — create/delete only)
+    case ListSaleSaleReturns = 'LIST_SALE_SALE_RETURNS';
+    case CreateSaleSaleReturns = 'CREATE_SALE_SALE_RETURNS';
+    case ReadSaleSaleReturns = 'READ_SALE_SALE_RETURNS';
+    case DeleteSaleSaleReturns = 'DELETE_SALE_SALE_RETURNS';
+
+    // sale exchanges (no update/delete — immutable ledger entries)
+    case ListSaleExchanges = 'LIST_SALE_EXCHANGES';
+    case CreateSaleExchanges = 'CREATE_SALE_EXCHANGES';
+    case ReadSaleExchanges = 'READ_SALE_EXCHANGES';
+
+    // challans (no delete — closed challans are an audit trail)
+    case ListSaleChallans = 'LIST_SALE_CHALLANS';
+    case CreateSaleChallans = 'CREATE_SALE_CHALLANS';
+    case ReadSaleChallans = 'READ_SALE_CHALLANS';
+    case UpdateSaleChallans = 'UPDATE_SALE_CHALLANS';
+
+    // POS (page access + settings + cash register — POS sale creation itself
+    // reuses CreateSaleSales, no separate permission)
+    case AccessSalePos = 'ACCESS_SALE_POS';
+    case ReadSalePosSettings = 'READ_SALE_POS_SETTINGS';
+    case UpdateSalePosSettings = 'UPDATE_SALE_POS_SETTINGS';
+    case ManageSaleCashRegister = 'MANAGE_SALE_CASH_REGISTER';
 }

@@ -1,8 +1,14 @@
 import { mutationOptions } from '@tanstack/react-query';
 import { getQueryClient } from '@/lib/query-client';
-import { createPurchase, updatePurchase, deletePurchase, bulkDeletePurchases } from './service';
+import {
+  createPurchase,
+  updatePurchase,
+  deletePurchase,
+  bulkDeletePurchases,
+  importPurchaseCsv
+} from './service';
 import { purchaseKeys } from './queries';
-import type { PurchaseMutationPayload } from './types';
+import type { PurchaseMutationPayload, PurchaseCsvImportPayload } from './types';
 
 export const createPurchaseMutation = mutationOptions({
   mutationFn: (data: PurchaseMutationPayload) => createPurchase(data),
@@ -28,6 +34,13 @@ export const deletePurchaseMutation = mutationOptions({
 
 export const bulkDeletePurchasesMutation = mutationOptions({
   mutationFn: (ids: number[]) => bulkDeletePurchases(ids),
+  onSuccess: () => {
+    getQueryClient().invalidateQueries({ queryKey: purchaseKeys.all });
+  }
+});
+
+export const importPurchaseCsvMutation = mutationOptions({
+  mutationFn: (payload: PurchaseCsvImportPayload) => importPurchaseCsv(payload),
   onSuccess: () => {
     getQueryClient().invalidateQueries({ queryKey: purchaseKeys.all });
   }

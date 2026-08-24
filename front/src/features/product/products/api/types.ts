@@ -97,6 +97,8 @@ export type ProductFilters = {
   tax_id?: string;
   type?: string;
   stock_filter?: 'with' | 'without' | 'all';
+  /** Scopes stock/price to a warehouse — used by the POS product grid. */
+  warehouse_id?: string;
   date_from?: string;
   date_to?: string;
   page?: number;

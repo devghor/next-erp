@@ -4,16 +4,20 @@ namespace App\Services\Purchase;
 
 use App\Models\Product\Product;
 use App\Models\Product\ProductWarehouse;
+use App\Models\Product\Unit;
 use App\Models\Purchase\Payment;
 use App\Models\Purchase\ProductPurchase;
 use App\Models\Purchase\Purchase;
 use App\Models\Settings\Company;
+use App\Models\Settings\Tax;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class PurchaseService implements PurchaseServiceInterface
 {
@@ -283,6 +287,96 @@ class PurchaseService implements PurchaseServiceInterface
             }
 
             return $purchases->count();
+        });
+    }
+
+    /**
+     * CSV columns (no header row): product_code, qty, unit_code (or 'n/a'), cost, discount_per_unit, tax_name (or 'No Tax').
+     * Any row failure rolls back the whole import with a row-numbered error message.
+     *
+     * @param  array{warehouse_id: int, supplier_id?: int|null, status?: string, order_tax?: float, paid_amount?: float, paying_method?: string, note?: string|null}  $meta
+     */
+    public function importCsv(UploadedFile $file, array $meta): Purchase
+    {
+        return DB::transaction(function () use ($file, $meta) {
+            $rows = array_map('str_getcsv', file($file->getRealPath()));
+            $status = $meta['status'] ?? 'received';
+            $paidAmount = (float) ($meta['paid_amount'] ?? 0);
+
+            $purchase = Purchase::create([
+                'company_id' => $this->activeCompany()->id,
+                'reference_no' => 'PR-'.now()->format('Ymd').'-'.now()->format('His'),
+                'supplier_id' => $meta['supplier_id'] ?? null,
+                'warehouse_id' => $meta['warehouse_id'],
+                'user_id' => $this->currentUserId(),
+                'status' => $status,
+                'order_tax' => (float) ($meta['order_tax'] ?? 0),
+                'paid_amount' => $paidAmount,
+                'note' => $meta['note'] ?? null,
+            ]);
+
+            $items = [];
+            $rowNumber = 0;
+
+            foreach ($rows as $row) {
+                $rowNumber++;
+                if (count($row) < 6 || $row[0] === '') {
+                    continue;
+                }
+
+                [$code, $qty, $unitCode, $cost, $discount, $taxName] = array_map('trim', $row);
+
+                $product = Product::query()->where('company_id', $this->activeCompany()->id)->where('code', $code)->first();
+                if (! $product) {
+                    throw ValidationException::withMessages(['file' => "Error in row {$rowNumber}: product code \"{$code}\" not found."]);
+                }
+
+                $unitId = null;
+                if (strtolower($unitCode) !== 'n/a' && $unitCode !== '') {
+                    $unit = Unit::query()->where('company_id', $this->activeCompany()->id)->where('code', $unitCode)->first();
+                    if (! $unit) {
+                        throw ValidationException::withMessages(['file' => "Error in row {$rowNumber}: unit code \"{$unitCode}\" not found."]);
+                    }
+                    $unitId = $unit->id;
+                }
+
+                $taxRate = 0;
+                if (strtolower($taxName) !== 'no tax' && $taxName !== '') {
+                    $tax = Tax::query()->where('company_id', $this->activeCompany()->id)->whereRaw('LOWER(name) = ?', [strtolower($taxName)])->first();
+                    if (! $tax) {
+                        throw ValidationException::withMessages(['file' => "Error in row {$rowNumber}: tax \"{$taxName}\" not found."]);
+                    }
+                    $taxRate = (float) $tax->rate;
+                }
+
+                $lineQty = (float) $qty;
+                $lineDiscount = $lineQty * (float) $discount;
+
+                $items[] = [
+                    'product_id' => $product->id,
+                    'purchase_unit_id' => $unitId,
+                    'qty' => $lineQty,
+                    'received' => $lineQty,
+                    'net_unit_cost' => (float) $cost,
+                    'discount' => $lineDiscount,
+                    'tax_rate' => $taxRate,
+                ];
+            }
+
+            if (empty($items)) {
+                throw ValidationException::withMessages(['file' => 'The CSV file contains no valid rows.']);
+            }
+
+            $this->persistItems($purchase, $items);
+
+            $purchase->refresh();
+            $purchase->update([
+                'payment_status' => $paidAmount >= (float) $purchase->grand_total ? 'paid' : ($paidAmount > 0 ? 'partial' : 'due'),
+            ]);
+
+            $this->recordPayment($purchase, $paidAmount, $meta['paying_method'] ?? 'Cash');
+
+            return $purchase->fresh(['items', 'supplier', 'warehouse']);
         });
     }
 

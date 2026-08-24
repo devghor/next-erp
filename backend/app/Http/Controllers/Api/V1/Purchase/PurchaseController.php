@@ -6,6 +6,7 @@ use App\Enums\Settings\PermissionEnum;
 use App\Exports\Purchase\PurchasesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Purchase\BulkDeletePurchaseRequest;
+use App\Http\Requests\Api\V1\Purchase\ImportPurchaseRequest;
 use App\Http\Requests\Api\V1\Purchase\StorePurchaseRequest;
 use App\Http\Requests\Api\V1\Purchase\UpdatePurchaseRequest;
 use App\Http\Resources\Api\V1\Purchase\PurchaseResource;
@@ -27,7 +28,7 @@ class PurchaseController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('permission:'.PermissionEnum::ListPurchasePurchases->value, only: ['index', 'exportPdf', 'exportExcel']),
-            new Middleware('permission:'.PermissionEnum::CreatePurchasePurchases->value, only: ['store']),
+            new Middleware('permission:'.PermissionEnum::CreatePurchasePurchases->value, only: ['store', 'import']),
             new Middleware('permission:'.PermissionEnum::ReadPurchasePurchases->value, only: ['show']),
             new Middleware('permission:'.PermissionEnum::UpdatePurchasePurchases->value, only: ['update']),
             new Middleware('permission:'.PermissionEnum::DeletePurchasePurchases->value, only: ['destroy', 'bulkDestroy']),
@@ -46,6 +47,13 @@ class PurchaseController extends Controller implements HasMiddleware
         return PurchaseResource::make($this->purchaseService->create($request->validated()))
             ->response()
             ->setStatusCode(201);
+    }
+
+    public function import(ImportPurchaseRequest $request): Response
+    {
+        $purchase = $this->purchaseService->importCsv($request->file('file'), $request->safe()->except('file'));
+
+        return PurchaseResource::make($purchase)->response()->setStatusCode(201);
     }
 
     public function show(int $id): PurchaseResource

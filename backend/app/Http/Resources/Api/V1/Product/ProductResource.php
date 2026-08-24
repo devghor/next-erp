@@ -95,6 +95,10 @@ class ProductResource extends JsonResource
             ])),
 
             'stock' => $productService->stockFor($this->resource),
+            'warehouse_stock' => $this->when(
+                array_key_exists('warehouse_stock_qty', $this->resource->getAttributes()),
+                fn () => (float) $this->warehouse_stock_qty
+            ),
             'average_cost' => $productService->averageCost($this->id),
 
             'created_at' => $this->created_at,

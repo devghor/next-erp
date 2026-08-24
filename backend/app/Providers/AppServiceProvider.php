@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Services\People\BillerService;
+use App\Services\People\BillerServiceInterface;
+use App\Services\People\CustomerService;
+use App\Services\People\CustomerServiceInterface;
+use App\Services\People\SaleAgentService;
+use App\Services\People\SaleAgentServiceInterface;
+use App\Services\People\SupplierService;
+use App\Services\People\SupplierServiceInterface;
 use App\Services\Product\AdjustmentService;
 use App\Services\Product\AdjustmentServiceInterface;
 use App\Services\Product\BarcodeSettingService;
@@ -10,14 +18,16 @@ use App\Services\Product\BrandService;
 use App\Services\Product\BrandServiceInterface;
 use App\Services\Product\CategoryService;
 use App\Services\Product\CategoryServiceInterface;
+use App\Services\Product\DamageStockService;
+use App\Services\Product\DamageStockServiceInterface;
 use App\Services\Product\ProductService;
 use App\Services\Product\ProductServiceInterface;
+use App\Services\Product\StockCountService;
+use App\Services\Product\StockCountServiceInterface;
 use App\Services\Product\UnitService;
 use App\Services\Product\UnitServiceInterface;
 use App\Services\Purchase\PurchaseService;
 use App\Services\Purchase\PurchaseServiceInterface;
-use App\Services\Purchase\SupplierService;
-use App\Services\Purchase\SupplierServiceInterface;
 use App\Services\Settings\CurrencyService;
 use App\Services\Settings\CurrencyServiceInterface;
 use App\Services\Settings\CustomFieldService;
@@ -48,11 +58,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BrandServiceInterface::class, BrandService::class);
         $this->app->bind(UnitServiceInterface::class, UnitService::class);
         $this->app->bind(SupplierServiceInterface::class, SupplierService::class);
+        $this->app->bind(CustomerServiceInterface::class, CustomerService::class);
+        $this->app->bind(SaleAgentServiceInterface::class, SaleAgentService::class);
+        $this->app->bind(BillerServiceInterface::class, BillerService::class);
         $this->app->bind(CustomFieldServiceInterface::class, CustomFieldService::class);
         $this->app->bind(PurchaseServiceInterface::class, PurchaseService::class);
         $this->app->bind(ProductServiceInterface::class, ProductService::class);
         $this->app->bind(BarcodeSettingServiceInterface::class, BarcodeSettingService::class);
         $this->app->bind(AdjustmentServiceInterface::class, AdjustmentService::class);
+        $this->app->bind(StockCountServiceInterface::class, StockCountService::class);
+        $this->app->bind(DamageStockServiceInterface::class, DamageStockService::class);
     }
 
     /**

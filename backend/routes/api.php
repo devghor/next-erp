@@ -2,14 +2,19 @@
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Media\MediaController;
+use App\Http\Controllers\Api\V1\People\BillerController;
+use App\Http\Controllers\Api\V1\People\CustomerController;
+use App\Http\Controllers\Api\V1\People\SaleAgentController;
+use App\Http\Controllers\Api\V1\People\SupplierController;
 use App\Http\Controllers\Api\V1\Product\AdjustmentController;
 use App\Http\Controllers\Api\V1\Product\BarcodeSettingController;
 use App\Http\Controllers\Api\V1\Product\BrandController;
 use App\Http\Controllers\Api\V1\Product\CategoryController;
+use App\Http\Controllers\Api\V1\Product\DamageStockController;
 use App\Http\Controllers\Api\V1\Product\ProductController;
+use App\Http\Controllers\Api\V1\Product\StockCountController;
 use App\Http\Controllers\Api\V1\Product\UnitController;
 use App\Http\Controllers\Api\V1\Purchase\PurchaseController;
-use App\Http\Controllers\Api\V1\Purchase\SupplierController;
 use App\Http\Controllers\Api\V1\Settings\CurrencyController;
 use App\Http\Controllers\Api\V1\Settings\CustomFieldController;
 use App\Http\Controllers\Api\V1\Settings\PermissionController;
@@ -148,6 +153,77 @@ Route::prefix('v1')
                     });
 
                 /**
+                 * People Module
+                 */
+                Route::prefix('people')
+                    ->name('people.')
+                    ->group(function () {
+                        // Suppliers
+                        Route::prefix('suppliers')
+                            ->name('suppliers.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [SupplierController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [SupplierController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [SupplierController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [SupplierController::class, 'import'])->name('import');
+
+                                Route::get('/', [SupplierController::class, 'index'])->name('index');
+                                Route::post('/', [SupplierController::class, 'store'])->name('store');
+                                Route::get('{id}', [SupplierController::class, 'show'])->name('show');
+                                Route::put('{id}', [SupplierController::class, 'update'])->name('update');
+                                Route::delete('{id}', [SupplierController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Customers
+                        Route::prefix('customers')
+                            ->name('customers.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [CustomerController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [CustomerController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [CustomerController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [CustomerController::class, 'import'])->name('import');
+
+                                Route::get('/', [CustomerController::class, 'index'])->name('index');
+                                Route::post('/', [CustomerController::class, 'store'])->name('store');
+                                Route::get('{id}', [CustomerController::class, 'show'])->name('show');
+                                Route::put('{id}', [CustomerController::class, 'update'])->name('update');
+                                Route::delete('{id}', [CustomerController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Sale Agents
+                        Route::prefix('sale-agents')
+                            ->name('sale-agents.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [SaleAgentController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [SaleAgentController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [SaleAgentController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [SaleAgentController::class, 'import'])->name('import');
+
+                                Route::get('/', [SaleAgentController::class, 'index'])->name('index');
+                                Route::post('/', [SaleAgentController::class, 'store'])->name('store');
+                                Route::get('{id}', [SaleAgentController::class, 'show'])->name('show');
+                                Route::put('{id}', [SaleAgentController::class, 'update'])->name('update');
+                                Route::delete('{id}', [SaleAgentController::class, 'destroy'])->name('destroy');
+                            });
+
+                        // Billers
+                        Route::prefix('billers')
+                            ->name('billers.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [BillerController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [BillerController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [BillerController::class, 'exportExcel'])->name('export.excel');
+                                Route::post('import', [BillerController::class, 'import'])->name('import');
+
+                                Route::get('/', [BillerController::class, 'index'])->name('index');
+                                Route::post('/', [BillerController::class, 'store'])->name('store');
+                                Route::get('{id}', [BillerController::class, 'show'])->name('show');
+                                Route::put('{id}', [BillerController::class, 'update'])->name('update');
+                                Route::delete('{id}', [BillerController::class, 'destroy'])->name('destroy');
+                            });
+                    });
+
+                /**
                  * Product Module
                  */
                 Route::prefix('product')
@@ -246,6 +322,34 @@ Route::prefix('v1')
                                 Route::put('{id}', [AdjustmentController::class, 'update'])->name('update');
                                 Route::delete('{id}', [AdjustmentController::class, 'destroy'])->name('destroy');
                             });
+
+                        // Stock Counts
+                        Route::prefix('stock-counts')
+                            ->name('stock-counts.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [StockCountController::class, 'bulkDestroy'])->name('bulk-delete');
+
+                                Route::get('/', [StockCountController::class, 'index'])->name('index');
+                                Route::post('/', [StockCountController::class, 'store'])->name('store');
+                                Route::get('{id}', [StockCountController::class, 'show'])->name('show');
+                                Route::put('{id}', [StockCountController::class, 'update'])->name('update');
+                                Route::delete('{id}', [StockCountController::class, 'destroy'])->name('destroy');
+                                Route::post('{id}/submit-count', [StockCountController::class, 'submitCount'])->name('submit-count');
+                                Route::post('{id}/adjust', [StockCountController::class, 'adjust'])->name('adjust');
+                            });
+
+                        // Damage Stocks
+                        Route::prefix('damage-stocks')
+                            ->name('damage-stocks.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [DamageStockController::class, 'bulkDestroy'])->name('bulk-delete');
+
+                                Route::get('/', [DamageStockController::class, 'index'])->name('index');
+                                Route::post('/', [DamageStockController::class, 'store'])->name('store');
+                                Route::get('{id}', [DamageStockController::class, 'show'])->name('show');
+                                Route::put('{id}', [DamageStockController::class, 'update'])->name('update');
+                                Route::delete('{id}', [DamageStockController::class, 'destroy'])->name('destroy');
+                            });
                     });
 
                 /**
@@ -254,22 +358,6 @@ Route::prefix('v1')
                 Route::prefix('purchase')
                     ->name('purchase.')
                     ->group(function () {
-                        // Suppliers
-                        Route::prefix('suppliers')
-                            ->name('suppliers.')
-                            ->group(function () {
-                                Route::post('bulk-delete', [SupplierController::class, 'bulkDestroy'])->name('bulk-delete');
-                                Route::get('export/pdf', [SupplierController::class, 'exportPdf'])->name('export.pdf');
-                                Route::get('export/excel', [SupplierController::class, 'exportExcel'])->name('export.excel');
-                                Route::post('import', [SupplierController::class, 'import'])->name('import');
-
-                                Route::get('/', [SupplierController::class, 'index'])->name('index');
-                                Route::post('/', [SupplierController::class, 'store'])->name('store');
-                                Route::get('{id}', [SupplierController::class, 'show'])->name('show');
-                                Route::put('{id}', [SupplierController::class, 'update'])->name('update');
-                                Route::delete('{id}', [SupplierController::class, 'destroy'])->name('destroy');
-                            });
-
                         // Purchases
                         Route::prefix('purchases')
                             ->name('purchases.')

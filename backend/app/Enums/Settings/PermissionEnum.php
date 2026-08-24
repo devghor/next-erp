@@ -101,16 +101,55 @@ enum PermissionEnum: string
     case UpdateProductAdjustments = 'UPDATE_PRODUCT_ADJUSTMENTS';
     case DeleteProductAdjustments = 'DELETE_PRODUCT_ADJUSTMENTS';
 
+    // stock counts
+    case ListProductStockCounts = 'LIST_PRODUCT_STOCK_COUNTS';
+    case CreateProductStockCounts = 'CREATE_PRODUCT_STOCK_COUNTS';
+    case ReadProductStockCounts = 'READ_PRODUCT_STOCK_COUNTS';
+    case UpdateProductStockCounts = 'UPDATE_PRODUCT_STOCK_COUNTS';
+    case DeleteProductStockCounts = 'DELETE_PRODUCT_STOCK_COUNTS';
+
+    // damage stocks
+    case ListProductDamageStocks = 'LIST_PRODUCT_DAMAGE_STOCKS';
+    case CreateProductDamageStocks = 'CREATE_PRODUCT_DAMAGE_STOCKS';
+    case ReadProductDamageStocks = 'READ_PRODUCT_DAMAGE_STOCKS';
+    case UpdateProductDamageStocks = 'UPDATE_PRODUCT_DAMAGE_STOCKS';
+    case DeleteProductDamageStocks = 'DELETE_PRODUCT_DAMAGE_STOCKS';
+
     /**
-     * Purchase
+     * People
      */
 
     // suppliers
-    case ListPurchaseSuppliers = 'LIST_PURCHASE_SUPPLIERS';
-    case CreatePurchaseSuppliers = 'CREATE_PURCHASE_SUPPLIERS';
-    case ReadPurchaseSuppliers = 'READ_PURCHASE_SUPPLIERS';
-    case UpdatePurchaseSuppliers = 'UPDATE_PURCHASE_SUPPLIERS';
-    case DeletePurchaseSuppliers = 'DELETE_PURCHASE_SUPPLIERS';
+    case ListPeopleSuppliers = 'LIST_PEOPLE_SUPPLIERS';
+    case CreatePeopleSuppliers = 'CREATE_PEOPLE_SUPPLIERS';
+    case ReadPeopleSuppliers = 'READ_PEOPLE_SUPPLIERS';
+    case UpdatePeopleSuppliers = 'UPDATE_PEOPLE_SUPPLIERS';
+    case DeletePeopleSuppliers = 'DELETE_PEOPLE_SUPPLIERS';
+
+    // customers
+    case ListPeopleCustomers = 'LIST_PEOPLE_CUSTOMERS';
+    case CreatePeopleCustomers = 'CREATE_PEOPLE_CUSTOMERS';
+    case ReadPeopleCustomers = 'READ_PEOPLE_CUSTOMERS';
+    case UpdatePeopleCustomers = 'UPDATE_PEOPLE_CUSTOMERS';
+    case DeletePeopleCustomers = 'DELETE_PEOPLE_CUSTOMERS';
+
+    // sale agents
+    case ListPeopleSaleAgents = 'LIST_PEOPLE_SALE_AGENTS';
+    case CreatePeopleSaleAgents = 'CREATE_PEOPLE_SALE_AGENTS';
+    case ReadPeopleSaleAgents = 'READ_PEOPLE_SALE_AGENTS';
+    case UpdatePeopleSaleAgents = 'UPDATE_PEOPLE_SALE_AGENTS';
+    case DeletePeopleSaleAgents = 'DELETE_PEOPLE_SALE_AGENTS';
+
+    // billers
+    case ListPeopleBillers = 'LIST_PEOPLE_BILLERS';
+    case CreatePeopleBillers = 'CREATE_PEOPLE_BILLERS';
+    case ReadPeopleBillers = 'READ_PEOPLE_BILLERS';
+    case UpdatePeopleBillers = 'UPDATE_PEOPLE_BILLERS';
+    case DeletePeopleBillers = 'DELETE_PEOPLE_BILLERS';
+
+    /**
+     * Purchase
+     */
 
     // purchases
     case ListPurchasePurchases = 'LIST_PURCHASE_PURCHASES';

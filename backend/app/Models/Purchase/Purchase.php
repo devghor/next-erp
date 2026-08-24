@@ -2,6 +2,7 @@
 
 namespace App\Models\Purchase;
 
+use App\Models\People\Supplier;
 use App\Models\Settings\Company;
 use App\Models\Settings\Warehouse;
 use App\Models\User;

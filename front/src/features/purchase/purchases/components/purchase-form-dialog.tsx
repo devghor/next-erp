@@ -18,7 +18,7 @@ import { AddButton } from '@/components/buttons/add-button';
 import { useAppForm } from '@/lib/form';
 import { getQueryClient } from '@/lib/query-client';
 import { warehousesQueryOptions } from '@/features/settings/warehouses/api/queries';
-import { suppliersQueryOptions } from '@/features/purchase/suppliers/api/queries';
+import { suppliersQueryOptions } from '@/features/people/suppliers/api/queries';
 import { productsQueryOptions } from '@/features/product/products/api/queries';
 import { createPurchaseMutation, updatePurchaseMutation } from '../api/mutations';
 import { purchaseKeys } from '../api/queries';

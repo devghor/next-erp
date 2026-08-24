@@ -23,6 +23,7 @@ import {
   IconChevronsLeft,
   IconChevronsRight,
   IconClipboardList,
+  IconAlertTriangleFilled,
   IconCircle,
   IconCircleCheck,
   IconCirclePlus,
@@ -101,6 +102,9 @@ import {
   IconCrown,
   IconTruckDelivery,
   IconShoppingCart,
+  IconAddressBook,
+  IconUserDollar,
+  IconReceipt2,
   IconX
 } from '@tabler/icons-react';
 
@@ -159,6 +163,9 @@ export const Icons = {
   unit: IconRuler2,
   customField: IconClipboardList,
   supplier: IconTruckDelivery,
+  customer: IconAddressBook,
+  saleAgent: IconUserDollar,
+  biller: IconReceipt2,
   purchase: IconShoppingCart,
   barcode: IconBarcode,
   printer: IconPrinter,
@@ -225,6 +232,8 @@ export const Icons = {
   eye: IconEye,
   eyeOff: IconEyeOff,
   adjustments: IconAdjustmentsHorizontal,
+  stockCount: IconClipboardList,
+  damageStock: IconAlertTriangleFilled,
   filter: IconFilter,
 
   // Text formatting

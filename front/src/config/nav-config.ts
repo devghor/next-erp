@@ -131,6 +131,53 @@ export const navGroups: NavGroup[] = [
         icon: 'adjustments',
         items: [],
         permissions: ['LIST_PRODUCT_ADJUSTMENTS']
+      },
+      {
+        title: 'Stock Counts',
+        url: '/dashboard/product/stock-counts',
+        icon: 'stockCount',
+        items: [],
+        permissions: ['LIST_PRODUCT_STOCK_COUNTS']
+      },
+      {
+        title: 'Damage Stocks',
+        url: '/dashboard/product/damage-stocks',
+        icon: 'damageStock',
+        items: [],
+        permissions: ['LIST_PRODUCT_DAMAGE_STOCKS']
+      }
+    ]
+  },
+  {
+    label: 'People',
+    items: [
+      {
+        title: 'Suppliers',
+        url: '/dashboard/people/suppliers',
+        icon: 'supplier',
+        items: [],
+        permissions: ['LIST_PEOPLE_SUPPLIERS']
+      },
+      {
+        title: 'Customers',
+        url: '/dashboard/people/customers',
+        icon: 'customer',
+        items: [],
+        permissions: ['LIST_PEOPLE_CUSTOMERS']
+      },
+      {
+        title: 'Sale Agents',
+        url: '/dashboard/people/sale-agents',
+        icon: 'saleAgent',
+        items: [],
+        permissions: ['LIST_PEOPLE_SALE_AGENTS']
+      },
+      {
+        title: 'Billers',
+        url: '/dashboard/people/billers',
+        icon: 'biller',
+        items: [],
+        permissions: ['LIST_PEOPLE_BILLERS']
       }
     ]
   },
@@ -143,13 +190,6 @@ export const navGroups: NavGroup[] = [
         icon: 'purchase',
         items: [],
         permissions: ['LIST_PURCHASE_PURCHASES']
-      },
-      {
-        title: 'Suppliers',
-        url: '/dashboard/purchase/suppliers',
-        icon: 'supplier',
-        items: [],
-        permissions: ['LIST_PURCHASE_SUPPLIERS']
       }
     ]
   },

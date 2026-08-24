@@ -95,6 +95,48 @@ class PermissionSeeder extends Seeder
             ['module' => 'Product', 'group' => 'Product > Adjustments', 'name' => PermissionEnum::UpdateProductAdjustments->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'Product', 'group' => 'Product > Adjustments', 'name' => PermissionEnum::DeleteProductAdjustments->value, 'label' => self::LABEL_DELETE],
 
+            // Stock Count
+            ['module' => 'Product', 'group' => 'Product > Stock Counts', 'name' => PermissionEnum::ListProductStockCounts->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Product', 'group' => 'Product > Stock Counts', 'name' => PermissionEnum::CreateProductStockCounts->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Product', 'group' => 'Product > Stock Counts', 'name' => PermissionEnum::ReadProductStockCounts->value, 'label' => self::LABEL_READ],
+            ['module' => 'Product', 'group' => 'Product > Stock Counts', 'name' => PermissionEnum::UpdateProductStockCounts->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Product', 'group' => 'Product > Stock Counts', 'name' => PermissionEnum::DeleteProductStockCounts->value, 'label' => self::LABEL_DELETE],
+
+            // Damage Stock
+            ['module' => 'Product', 'group' => 'Product > Damage Stocks', 'name' => PermissionEnum::ListProductDamageStocks->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Product', 'group' => 'Product > Damage Stocks', 'name' => PermissionEnum::CreateProductDamageStocks->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Product', 'group' => 'Product > Damage Stocks', 'name' => PermissionEnum::ReadProductDamageStocks->value, 'label' => self::LABEL_READ],
+            ['module' => 'Product', 'group' => 'Product > Damage Stocks', 'name' => PermissionEnum::UpdateProductDamageStocks->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Product', 'group' => 'Product > Damage Stocks', 'name' => PermissionEnum::DeleteProductDamageStocks->value, 'label' => self::LABEL_DELETE],
+
+            // Supplier
+            ['module' => 'People', 'group' => 'People > Suppliers', 'name' => PermissionEnum::ListPeopleSuppliers->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'People', 'group' => 'People > Suppliers', 'name' => PermissionEnum::CreatePeopleSuppliers->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'People', 'group' => 'People > Suppliers', 'name' => PermissionEnum::ReadPeopleSuppliers->value, 'label' => self::LABEL_READ],
+            ['module' => 'People', 'group' => 'People > Suppliers', 'name' => PermissionEnum::UpdatePeopleSuppliers->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'People', 'group' => 'People > Suppliers', 'name' => PermissionEnum::DeletePeopleSuppliers->value, 'label' => self::LABEL_DELETE],
+
+            // Customer
+            ['module' => 'People', 'group' => 'People > Customers', 'name' => PermissionEnum::ListPeopleCustomers->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'People', 'group' => 'People > Customers', 'name' => PermissionEnum::CreatePeopleCustomers->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'People', 'group' => 'People > Customers', 'name' => PermissionEnum::ReadPeopleCustomers->value, 'label' => self::LABEL_READ],
+            ['module' => 'People', 'group' => 'People > Customers', 'name' => PermissionEnum::UpdatePeopleCustomers->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'People', 'group' => 'People > Customers', 'name' => PermissionEnum::DeletePeopleCustomers->value, 'label' => self::LABEL_DELETE],
+
+            // Sale Agent
+            ['module' => 'People', 'group' => 'People > Sale Agents', 'name' => PermissionEnum::ListPeopleSaleAgents->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'People', 'group' => 'People > Sale Agents', 'name' => PermissionEnum::CreatePeopleSaleAgents->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'People', 'group' => 'People > Sale Agents', 'name' => PermissionEnum::ReadPeopleSaleAgents->value, 'label' => self::LABEL_READ],
+            ['module' => 'People', 'group' => 'People > Sale Agents', 'name' => PermissionEnum::UpdatePeopleSaleAgents->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'People', 'group' => 'People > Sale Agents', 'name' => PermissionEnum::DeletePeopleSaleAgents->value, 'label' => self::LABEL_DELETE],
+
+            // Biller
+            ['module' => 'People', 'group' => 'People > Billers', 'name' => PermissionEnum::ListPeopleBillers->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'People', 'group' => 'People > Billers', 'name' => PermissionEnum::CreatePeopleBillers->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'People', 'group' => 'People > Billers', 'name' => PermissionEnum::ReadPeopleBillers->value, 'label' => self::LABEL_READ],
+            ['module' => 'People', 'group' => 'People > Billers', 'name' => PermissionEnum::UpdatePeopleBillers->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'People', 'group' => 'People > Billers', 'name' => PermissionEnum::DeletePeopleBillers->value, 'label' => self::LABEL_DELETE],
+
         ];
 
         foreach ($permissions as $permission) {

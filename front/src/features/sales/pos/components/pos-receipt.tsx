@@ -36,7 +36,7 @@ export interface PosReceiptProps {
 
 /** Print-preview dialog for the just-completed (or reprinted) sale's receipt, thermal (58mm/80mm) or normal. */
 export function PosReceipt({ open, onOpenChange, data, invoiceOption, thermalSize, autoPrint }: PosReceiptProps) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const autoPrintedRef = useRef(false);
 
   function handlePrint() {
@@ -44,9 +44,8 @@ export function PosReceipt({ open, onOpenChange, data, invoiceOption, thermalSiz
     iframeRef.current?.contentWindow?.print();
   }
 
-  useEffect(() => {
+  function writeReceipt() {
     if (!open || !data || !iframeRef.current) return;
-    autoPrintedRef.current = false;
     const html = buildReceiptHtml(data, invoiceOption, thermalSize);
     const doc = iframeRef.current.contentDocument;
     if (doc) {
@@ -54,7 +53,21 @@ export function PosReceipt({ open, onOpenChange, data, invoiceOption, thermalSiz
       doc.write(html);
       doc.close();
     }
+  }
+
+  useEffect(() => {
+    autoPrintedRef.current = false;
+    writeReceipt();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, data, invoiceOption, thermalSize]);
+
+  /** Radix mounts a fresh `<iframe>` DOM node each time the dialog opens, and that mount can land in a
+   * render pass after the effect above already ran with `open`/`data` set — leaving the ref null when the
+   * effect fires and the receipt never written. Writing again the instant the node itself attaches closes that gap. */
+  function attachIframeRef(node: HTMLIFrameElement | null) {
+    iframeRef.current = node;
+    if (node) writeReceipt();
+  }
 
   function handleIframeLoad() {
     if (!autoPrint || autoPrintedRef.current) return;
@@ -74,7 +87,7 @@ export function PosReceipt({ open, onOpenChange, data, invoiceOption, thermalSiz
 
         <div className='bg-muted flex-1 overflow-auto rounded-md'>
           <iframe
-            ref={iframeRef}
+            ref={attachIframeRef}
             title='Receipt preview'
             sandbox='allow-same-origin allow-modals'
             className='h-[60vh] w-full border-0 bg-white'

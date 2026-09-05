@@ -43,6 +43,17 @@ export default function AppSidebar() {
   const router = useRouter();
   const filteredGroups = useFilteredNavGroups(navGroups);
 
+  const [openItem, setOpenItem] = React.useState<string | null>(() => {
+    // Uses the static navGroups config, not the permission-filtered
+    // filteredGroups: permissions come from useSession(), which resolves
+    // async (no server-hydrated session), so on first paint filteredGroups'
+    // children are still empty and would always miss the active item here.
+    const activeItem = navGroups
+      .flatMap((group) => group.items)
+      .find((item) => item.isActive || item.items?.some((subItem) => pathname === subItem.url));
+    return activeItem?.title ?? null;
+  });
+
   React.useEffect(() => {
     // Side effects based on sidebar state changes
   }, [isOpen]);
@@ -59,17 +70,19 @@ export default function AppSidebar() {
             <SidebarMenu>
               {group.items.map((item) => {
                 const Icon = item.icon ? Icons[item.icon] : Icons.logo;
+                const hasActiveChild = item.items?.some((subItem) => pathname === subItem.url);
                 return item?.items && item?.items?.length > 0 ? (
                   <Collapsible
                     key={item.title}
-                    defaultOpen={item.isActive}
+                    open={openItem === item.title}
+                    onOpenChange={(isOpen) => setOpenItem(isOpen ? item.title : null)}
                     render={<SidebarMenuItem />}
                   >
                     <CollapsibleTrigger
                       render={
                         <SidebarMenuButton
                           tooltip={item.title}
-                          isActive={pathname === item.url}
+                          isActive={pathname === item.url || hasActiveChild}
                           className='group/collapsible'
                         />
                       }

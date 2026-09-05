@@ -15,8 +15,6 @@
 // not the admin-configurable builder.
 // ============================================================
 
-import { formatMoney } from './money';
-
 export type ReceiptLine = {
   name: string;
   qty: number;
@@ -56,8 +54,14 @@ export type ReceiptData = {
 const PRIMARY_COLOR = '#014b94';
 const TOTALS_BG = 'rgb(205, 218, 235)';
 
+/** salespro's invoice templates format amounts via `format_currency()` — plain `CODE amount` text (currency
+ * code prefix + fixed-decimal number), not a locale currency symbol — see
+ * salespro/app/Helpers/helpers.php:format_currency(). Matches that here instead of the Intl symbol style
+ * `formatMoney()` uses elsewhere in the POS UI. */
 function money(data: ReceiptData, amount: number): string {
-  return formatMoney(amount, { currencyCode: data.currencyCode });
+  const numericAmount = typeof amount === 'number' ? amount : Number(amount);
+  const formatted = (Number.isFinite(numericAmount) ? numericAmount : 0).toFixed(2);
+  return data.currencyCode ? `${data.currencyCode} ${formatted}` : formatted;
 }
 
 function escapeHtml(value: string): string {
@@ -133,11 +137,17 @@ export function numberToWords(amount: number): string {
   return parts.join(' ').trim();
 }
 
+/** Header row is 7 columns (#, Description, Qty, Unit Price, Discount, Tax, Subtotal). The blank leading
+ * cell pushes the label to start under Unit Price and the value to land under Subtotal — matching
+ * a4.blade.php's column math (a leading colspan-3 cell + colspan-3 label + single-column value = 7).
+ * That leading cell is where a4.blade.php puts sale/payment-note text — kept plain white the whole way
+ * down (Total Before Tax through Due) since there's no note content to justify tinting it. */
 function totalsRow(label: string, value: string, bold = false): string {
   return `
     <tr>
+      <td style="border:1px solid #222;" colspan="3"></td>
       <td class="td-text" colspan="3">${escapeHtml(label)}</td>
-      <td class="td-text${bold ? ' grand' : ''}" style="text-align:center;">${value}</td>
+      <td class="td-text${bold ? ' grand' : ''}" style="text-align:right;">${value}</td>
     </tr>`;
 }
 
@@ -231,11 +241,11 @@ export function buildNormalReceiptHtml(data: ReceiptData): string {
       ${lineRows}
       ${totalsRow('Total Before Tax', money(data, totalBeforeTax))}
       ${totalsRow('Tax', money(data, data.tax))}
-      ${data.discount > 0 ? totalsRow('Discount', money(data, data.discount)) : ''}
-      ${data.shipping > 0 ? totalsRow('Shipping Cost', money(data, data.shipping)) : ''}
+      ${totalsRow('Discount', money(data, data.discount))}
+      ${totalsRow('Shipping Cost', money(data, data.shipping))}
       ${totalsRow('Grand Total', money(data, data.grandTotal), true)}
       <tr>
-        <td class="td-text" colspan="4" style="vertical-align:top;">
+        <td style="border:1px solid #222;text-align:left;vertical-align:top;" colspan="3">
           In Words:<br /><span style="text-transform:capitalize;">${escapeHtml(numberToWords(data.grandTotal))}</span> ${escapeHtml(data.currencyCode ?? '')} only
         </td>
       </tr>

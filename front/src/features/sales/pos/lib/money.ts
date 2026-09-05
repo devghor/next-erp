@@ -17,7 +17,10 @@ export type FormatMoneyOptions = {
 /** Formats an amount as currency when a code is available, else as a plain decimal (optionally symbol-prefixed). */
 export function formatMoney(amount: number, options: FormatMoneyOptions = {}): string {
   const { currencyCode, symbol, locale = 'en-US', decimals = 2 } = options;
-  const value = Number.isFinite(amount) ? amount : 0;
+  // Laravel's `decimal:N` model casts serialize as numeric strings (e.g. "65656.00") over the API,
+  // so coerce before the finite check — Number.isFinite (unlike the global isFinite) rejects strings outright.
+  const numericAmount = typeof amount === 'string' ? Number(amount) : amount;
+  const value = Number.isFinite(numericAmount) ? numericAmount : 0;
 
   if (currencyCode) {
     try {
@@ -42,7 +45,8 @@ export function formatMoney(amount: number, options: FormatMoneyOptions = {}): s
 
 /** Plain fixed-decimal formatting, no currency symbol — for table cells and inputs. */
 export function formatDecimal(amount: number, decimals = 2): string {
-  return (Number.isFinite(amount) ? amount : 0).toFixed(decimals);
+  const numericAmount = typeof amount === 'string' ? Number(amount) : amount;
+  return (Number.isFinite(numericAmount) ? numericAmount : 0).toFixed(decimals);
 }
 
 /** Rounds to the given decimal precision (default 2) without the float drift of a plain `.toFixed` round-trip. */

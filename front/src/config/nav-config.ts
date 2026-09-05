@@ -22,267 +22,240 @@ export const navGroups: NavGroup[] = [
         shortcut: ['d', 'd']
         // for save landing it is commenting
         // permissions:['READ_DASHBOARD_OVERVIEW']
+      },
+      {
+        title: 'Settings',
+        url: '/dashboard/settings',
+        icon: 'settings',
+        isActive: false,
+        items: [
+          {
+            title: 'Users',
+            url: '/dashboard/settings/users',
+            icon: 'teams',
+            permissions: ['LIST_SETTINGS_USERS']
+          },
+          {
+            title: 'Roles',
+            url: '/dashboard/settings/roles',
+            icon: 'lock',
+            permissions: ['LIST_SETTINGS_ROLES']
+          },
+          {
+            title: 'Warehouses',
+            url: '/dashboard/settings/warehouses',
+            icon: 'warehouse',
+            permissions: ['LIST_SETTINGS_WAREHOUSES']
+          },
+          {
+            title: 'Currencies',
+            url: '/dashboard/settings/currencies',
+            icon: 'currency',
+            permissions: ['LIST_SETTINGS_CURRENCIES']
+          },
+          {
+            title: 'Taxes',
+            url: '/dashboard/settings/taxes',
+            icon: 'tax',
+            permissions: ['LIST_SETTINGS_TAXES']
+          },
+          {
+            title: 'Custom Fields',
+            url: '/dashboard/settings/custom-fields',
+            icon: 'customField',
+            permissions: ['LIST_SETTINGS_CUSTOM_FIELDS']
+          },
+          {
+            title: 'Profile',
+            url: '/dashboard/settings/profile',
+            icon: 'profile',
+            shortcut: ['m', 'm'],
+            permissions: ['LIST_PROFILE']
+          }
+        ]
       }
     ]
   },
   {
-    label: 'Settings',
+    label: '',
     items: [
       {
-        title: 'Users',
-        url: '/dashboard/settings/users',
-        icon: 'teams',
-        isActive: true,
-        items: [],
-        permissions: ['LIST_SETTINGS_USERS']
-      },
-      {
-        title: 'Roles',
-        url: '/dashboard/settings/roles',
-        icon: 'lock',
-        items: [],
-        permissions: ['LIST_SETTINGS_ROLES']
-      },
-      {
-        title: 'Warehouses',
-        url: '/dashboard/settings/warehouses',
-        icon: 'warehouse',
-        items: [],
-        permissions: ['LIST_SETTINGS_WAREHOUSES']
-      },
-      {
-        title: 'Currencies',
-        url: '/dashboard/settings/currencies',
-        icon: 'currency',
-        items: [],
-        permissions: ['LIST_SETTINGS_CURRENCIES']
-      },
-      {
-        title: 'Taxes',
-        url: '/dashboard/settings/taxes',
-        icon: 'tax',
-        items: [],
-        permissions: ['LIST_SETTINGS_TAXES']
-      },
-      {
-        title: 'Custom Fields',
-        url: '/dashboard/settings/custom-fields',
-        icon: 'customField',
-        items: [],
-        permissions: ['LIST_SETTINGS_CUSTOM_FIELDS']
-      },
-      {
-        title: 'Profile',
-        url: '/dashboard/settings/profile',
-        icon: 'profile',
-        shortcut: ['m', 'm'],
-        permissions: ['LIST_PROFILE']
-      }
-    ]
-  },
-  {
-    label: 'Product',
-    items: [
-      {
-        title: 'Products',
+        title: 'Product',
         url: '/dashboard/product/products',
         icon: 'product',
-        items: [],
-        permissions: ['LIST_PRODUCT_PRODUCTS']
+        items: [
+          {
+            title: 'Products',
+            url: '/dashboard/product/products',
+            icon: 'product',
+            permissions: ['LIST_PRODUCT_PRODUCTS']
+          },
+          {
+            title: 'Categories',
+            url: '/dashboard/product/categories',
+            icon: 'category',
+            permissions: ['LIST_PRODUCT_CATEGORIES']
+          },
+          {
+            title: 'Brands',
+            url: '/dashboard/product/brands',
+            icon: 'brand',
+            permissions: ['LIST_PRODUCT_BRANDS']
+          },
+          {
+            title: 'Units',
+            url: '/dashboard/product/units',
+            icon: 'unit',
+            permissions: ['LIST_PRODUCT_UNITS']
+          },
+          {
+            title: 'Print Barcodes',
+            url: '/dashboard/product/print-barcodes',
+            icon: 'printer',
+            permissions: ['READ_PRODUCT_PRODUCTS']
+          },
+          {
+            title: 'Barcode Settings',
+            url: '/dashboard/product/barcode-settings',
+            icon: 'barcode',
+            permissions: ['LIST_PRODUCT_BARCODE_SETTINGS']
+          },
+          {
+            title: 'Adjustments',
+            url: '/dashboard/product/adjustments',
+            icon: 'adjustments',
+            permissions: ['LIST_PRODUCT_ADJUSTMENTS']
+          },
+          {
+            title: 'Stock Counts',
+            url: '/dashboard/product/stock-counts',
+            icon: 'stockCount',
+            permissions: ['LIST_PRODUCT_STOCK_COUNTS']
+          },
+          {
+            title: 'Damage Stocks',
+            url: '/dashboard/product/damage-stocks',
+            icon: 'damageStock',
+            permissions: ['LIST_PRODUCT_DAMAGE_STOCKS']
+          }
+        ]
       },
       {
-        title: 'Categories',
-        url: '/dashboard/product/categories',
-        icon: 'category',
-        items: [],
-        permissions: ['LIST_PRODUCT_CATEGORIES']
-      },
-      {
-        title: 'Brands',
-        url: '/dashboard/product/brands',
-        icon: 'brand',
-        items: [],
-        permissions: ['LIST_PRODUCT_BRANDS']
-      },
-      {
-        title: 'Units',
-        url: '/dashboard/product/units',
-        icon: 'unit',
-        items: [],
-        permissions: ['LIST_PRODUCT_UNITS']
-      },
-      {
-        title: 'Print Barcodes',
-        url: '/dashboard/product/print-barcodes',
-        icon: 'printer',
-        items: [],
-        permissions: ['READ_PRODUCT_PRODUCTS']
-      },
-      {
-        title: 'Barcode Settings',
-        url: '/dashboard/product/barcode-settings',
-        icon: 'barcode',
-        items: [],
-        permissions: ['LIST_PRODUCT_BARCODE_SETTINGS']
-      },
-      {
-        title: 'Adjustments',
-        url: '/dashboard/product/adjustments',
-        icon: 'adjustments',
-        items: [],
-        permissions: ['LIST_PRODUCT_ADJUSTMENTS']
-      },
-      {
-        title: 'Stock Counts',
-        url: '/dashboard/product/stock-counts',
-        icon: 'stockCount',
-        items: [],
-        permissions: ['LIST_PRODUCT_STOCK_COUNTS']
-      },
-      {
-        title: 'Damage Stocks',
-        url: '/dashboard/product/damage-stocks',
-        icon: 'damageStock',
-        items: [],
-        permissions: ['LIST_PRODUCT_DAMAGE_STOCKS']
-      }
-    ]
-  },
-  {
-    label: 'People',
-    items: [
-      {
-        title: 'Suppliers',
+        title: 'People',
         url: '/dashboard/people/suppliers',
         icon: 'supplier',
-        items: [],
-        permissions: ['LIST_PEOPLE_SUPPLIERS']
+        items: [
+          {
+            title: 'Suppliers',
+            url: '/dashboard/people/suppliers',
+            icon: 'supplier',
+            permissions: ['LIST_PEOPLE_SUPPLIERS']
+          },
+          {
+            title: 'Customers',
+            url: '/dashboard/people/customers',
+            icon: 'customer',
+            permissions: ['LIST_PEOPLE_CUSTOMERS']
+          },
+          {
+            title: 'Sale Agents',
+            url: '/dashboard/people/sale-agents',
+            icon: 'saleAgent',
+            permissions: ['LIST_PEOPLE_SALE_AGENTS']
+          },
+          {
+            title: 'Billers',
+            url: '/dashboard/people/billers',
+            icon: 'biller',
+            permissions: ['LIST_PEOPLE_BILLERS']
+          }
+        ]
       },
-      {
-        title: 'Customers',
-        url: '/dashboard/people/customers',
-        icon: 'customer',
-        items: [],
-        permissions: ['LIST_PEOPLE_CUSTOMERS']
-      },
-      {
-        title: 'Sale Agents',
-        url: '/dashboard/people/sale-agents',
-        icon: 'saleAgent',
-        items: [],
-        permissions: ['LIST_PEOPLE_SALE_AGENTS']
-      },
-      {
-        title: 'Billers',
-        url: '/dashboard/people/billers',
-        icon: 'biller',
-        items: [],
-        permissions: ['LIST_PEOPLE_BILLERS']
-      }
-    ]
-  },
-  {
-    label: 'Purchase',
-    items: [
       {
         title: 'Purchases',
         url: '/dashboard/purchase/purchases',
         icon: 'purchase',
-        items: [],
         permissions: ['LIST_PURCHASE_PURCHASES']
-      }
-    ]
-  },
-  {
-    label: 'Sale',
-    items: [
-      {
-        title: 'POS',
-        url: '/pos',
-        icon: 'pos',
-        permissions: ['ACCESS_SALE_POS']
       },
       {
-        title: 'Sales',
+        title: 'Sale',
         url: '/dashboard/sales',
         icon: 'sale',
-        items: [],
-        permissions: ['LIST_SALE_SALES']
+        items: [
+          {
+            title: 'POS',
+            url: '/pos',
+            icon: 'pos',
+            permissions: ['ACCESS_SALE_POS']
+          },
+          {
+            title: 'Sales',
+            url: '/dashboard/sales',
+            icon: 'sale',
+            permissions: ['LIST_SALE_SALES']
+          },
+          {
+            title: 'Sale by CSV',
+            url: '/dashboard/sales/sale_by_csv',
+            icon: 'upload',
+            permissions: ['CREATE_SALE_SALES']
+          },
+          {
+            title: 'Gift Cards',
+            url: '/dashboard/gift_cards',
+            icon: 'giftCard',
+            permissions: ['LIST_SALE_GIFT_CARDS']
+          },
+          {
+            title: 'Coupons',
+            url: '/dashboard/coupons',
+            icon: 'coupon',
+            permissions: ['LIST_SALE_COUPONS']
+          },
+          {
+            title: 'Couriers',
+            url: '/dashboard/couriers',
+            icon: 'courier',
+            permissions: ['LIST_SALE_COURIERS']
+          },
+          {
+            title: 'Installment Plans',
+            url: '/dashboard/installmentplan',
+            icon: 'billing',
+            permissions: ['LIST_SALE_INSTALLMENT_PLANS']
+          },
+          {
+            title: 'Packing Slips',
+            url: '/dashboard/packing-slips',
+            icon: 'fileTypeDoc',
+            permissions: ['LIST_SALE_PACKING_SLIPS']
+          },
+          {
+            title: 'Deliveries',
+            url: '/dashboard/delivery',
+            icon: 'supplier',
+            permissions: ['LIST_SALE_DELIVERIES']
+          },
+          {
+            title: 'Sale Returns',
+            url: '/dashboard/return-sale',
+            icon: 'refresh',
+            permissions: ['LIST_SALE_SALE_RETURNS']
+          },
+          {
+            title: 'Exchanges',
+            url: '/dashboard/exchange',
+            icon: 'refresh',
+            permissions: ['LIST_SALE_EXCHANGES']
+          },
+          {
+            title: 'Challans',
+            url: '/dashboard/challans',
+            icon: 'fileTypeDoc',
+            permissions: ['LIST_SALE_CHALLANS']
+          }
+        ]
       },
-      {
-        title: 'Sale by CSV',
-        url: '/dashboard/sales/sale_by_csv',
-        icon: 'upload',
-        permissions: ['CREATE_SALE_SALES']
-      },
-      {
-        title: 'Gift Cards',
-        url: '/dashboard/gift_cards',
-        icon: 'giftCard',
-        items: [],
-        permissions: ['LIST_SALE_GIFT_CARDS']
-      },
-      {
-        title: 'Coupons',
-        url: '/dashboard/coupons',
-        icon: 'coupon',
-        items: [],
-        permissions: ['LIST_SALE_COUPONS']
-      },
-      {
-        title: 'Couriers',
-        url: '/dashboard/couriers',
-        icon: 'courier',
-        items: [],
-        permissions: ['LIST_SALE_COURIERS']
-      },
-      {
-        title: 'Installment Plans',
-        url: '/dashboard/installmentplan',
-        icon: 'billing',
-        items: [],
-        permissions: ['LIST_SALE_INSTALLMENT_PLANS']
-      },
-      {
-        title: 'Packing Slips',
-        url: '/dashboard/packing-slips',
-        icon: 'fileTypeDoc',
-        items: [],
-        permissions: ['LIST_SALE_PACKING_SLIPS']
-      },
-      {
-        title: 'Deliveries',
-        url: '/dashboard/delivery',
-        icon: 'supplier',
-        items: [],
-        permissions: ['LIST_SALE_DELIVERIES']
-      },
-      {
-        title: 'Sale Returns',
-        url: '/dashboard/return-sale',
-        icon: 'refresh',
-        items: [],
-        permissions: ['LIST_SALE_SALE_RETURNS']
-      },
-      {
-        title: 'Exchanges',
-        url: '/dashboard/exchange',
-        icon: 'refresh',
-        items: [],
-        permissions: ['LIST_SALE_EXCHANGES']
-      },
-      {
-        title: 'Challans',
-        url: '/dashboard/challans',
-        icon: 'fileTypeDoc',
-        items: [],
-        permissions: ['LIST_SALE_CHALLANS']
-      }
-    ]
-  },
-  {
-    label: 'Others',
-    items: [
       {
         title: 'Notifications',
         url: '/dashboard/notifications',

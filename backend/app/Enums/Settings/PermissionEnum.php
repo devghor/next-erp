@@ -231,4 +231,11 @@ enum PermissionEnum: string
     case ReadSalePosSettings = 'READ_SALE_POS_SETTINGS';
     case UpdateSalePosSettings = 'UPDATE_SALE_POS_SETTINGS';
     case ManageSaleCashRegister = 'MANAGE_SALE_CASH_REGISTER';
+
+    /**
+     * Notification
+     */
+    case ListNotifications = 'LIST_NOTIFICATIONS';
+    case UpdateNotifications = 'UPDATE_NOTIFICATIONS';
+    case DeleteNotifications = 'DELETE_NOTIFICATIONS';
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Media\MediaController;
+use App\Http\Controllers\Api\V1\Notification\NotificationController;
 use App\Http\Controllers\Api\V1\People\BillerController;
 use App\Http\Controllers\Api\V1\People\CustomerController;
 use App\Http\Controllers\Api\V1\People\SaleAgentController;
@@ -71,6 +72,25 @@ Route::prefix('v1')
 
         Route::middleware(['auth:sanctum', InitializeTenancyByRequestData::class, 'set-permissions-team-id'])
             ->group(function () {
+                /**
+                 * Notification Module
+                 */
+                Route::prefix('notification')
+                    ->name('notification.')
+                    ->group(function () {
+                        Route::prefix('notifications')
+                            ->name('notifications.')
+                            ->group(function () {
+                                Route::get('unread-count', [NotificationController::class, 'unreadCount'])->name('unread-count');
+                                Route::post('mark-all-read', [NotificationController::class, 'markAllRead'])->name('mark-all-read');
+
+                                Route::get('/', [NotificationController::class, 'index'])->name('index');
+                                Route::put('{id}/read', [NotificationController::class, 'markRead'])->name('read');
+                                Route::post('{id}/actions/{actionId}', [NotificationController::class, 'runAction'])->name('actions.run');
+                                Route::delete('{id}', [NotificationController::class, 'destroy'])->name('destroy');
+                            });
+                    });
+
                 /**
                  * Setting Module
                  */

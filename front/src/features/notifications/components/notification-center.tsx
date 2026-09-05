@@ -2,29 +2,27 @@
 
 import { Icons } from '@/components/icons';
 import Link from 'next/link';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { NotificationCard } from '@/components/ui/notification-card';
-import { useNotificationStore } from '@/store/notifications-store';
+import { notificationsQueryOptions, unreadCountQueryOptions } from '../api/queries';
+import { markReadMutation, markAllReadMutation, runActionMutation } from '../api/mutations';
 import { useRouter } from 'next/navigation';
 
 const MAX_VISIBLE = 5;
 
-const actionRoutes: Record<string, string> = {
-  view: '/dashboard/overview',
-  'view-product': '/dashboard/overview',
-  billing: '/dashboard/overview',
-  open: '/dashboard/overview',
-  'open-chat': '/dashboard/overview'
-};
-
 export function NotificationCenter() {
-  const { notifications, markAsRead, markAllAsRead, unreadCount } = useNotificationStore();
   const router = useRouter();
-  const count = unreadCount();
-  const visibleNotifications = notifications.slice(0, MAX_VISIBLE);
+  const { data } = useQuery(notificationsQueryOptions({ per_page: MAX_VISIBLE }));
+  const { data: count = 0 } = useQuery(unreadCountQueryOptions());
+  const markRead = useMutation(markReadMutation);
+  const markAllRead = useMutation(markAllReadMutation);
+  const runAction = useMutation(runActionMutation);
+
+  const notifications = data?.data ?? [];
 
   return (
     <Popover>
@@ -54,7 +52,7 @@ export function NotificationCenter() {
                 variant='ghost'
                 size='sm'
                 className='text-muted-foreground h-auto px-2 py-1 text-xs'
-                onClick={markAllAsRead}
+                onClick={() => markAllRead.mutate()}
               >
                 Mark all as read
               </Button>
@@ -70,21 +68,21 @@ export function NotificationCenter() {
             </div>
           ) : (
             <div className='flex flex-col gap-1 p-2'>
-              {visibleNotifications.map((notification) => (
+              {notifications.map((notification) => (
                 <NotificationCard
                   key={notification.id}
-                  id={notification.id}
+                  id={String(notification.id)}
                   title={notification.title}
                   body={notification.body}
                   status={notification.status}
-                  createdAt={notification.createdAt}
-                  actions={notification.actions}
-                  onMarkAsRead={markAsRead}
-                  onAction={(notifId, actionId) => {
-                    const route = actionRoutes[actionId];
-                    if (route) {
-                      markAsRead(notifId);
-                      router.push(route);
+                  createdAt={notification.created_at}
+                  actions={notification.actions ?? undefined}
+                  onMarkAsRead={(id) => markRead.mutate(Number(id))}
+                  onAction={(notifId, actionId, actionType) => {
+                    runAction.mutate({ id: Number(notifId), actionId });
+                    if (actionType === 'redirect') {
+                      const action = notification.actions?.find((a) => a.id === actionId);
+                      if (action?.url) router.push(action.url);
                     }
                   }}
                 />

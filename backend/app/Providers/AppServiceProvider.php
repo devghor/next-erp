@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Notification\NotificationService;
+use App\Services\Notification\NotificationServiceInterface;
 use App\Services\People\BillerService;
 use App\Services\People\BillerServiceInterface;
 use App\Services\People\CustomerService;
@@ -71,6 +73,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(NotificationServiceInterface::class, NotificationService::class);
         $this->app->bind(RoleServiceInterface::class, RoleService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(WarehouseServiceInterface::class, WarehouseService::class);

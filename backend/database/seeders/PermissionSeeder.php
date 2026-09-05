@@ -213,6 +213,11 @@ class PermissionSeeder extends Seeder
             ['module' => 'Sale', 'group' => 'Sale > POS', 'name' => PermissionEnum::UpdateSalePosSettings->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'Sale', 'group' => 'Sale > POS', 'name' => PermissionEnum::ManageSaleCashRegister->value, 'label' => 'Manage Cash Register'],
 
+            // Notifications
+            ['module' => 'Notification', 'group' => 'Notifications', 'name' => PermissionEnum::ListNotifications->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Notification', 'group' => 'Notifications', 'name' => PermissionEnum::UpdateNotifications->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Notification', 'group' => 'Notifications', 'name' => PermissionEnum::DeleteNotifications->value, 'label' => self::LABEL_DELETE],
+
         ];
 
         foreach ($permissions as $permission) {

@@ -18,6 +18,7 @@ import { createSaleMutation, updateSaleMutation } from '../api/mutations';
 import { saleSchema } from '../schemas/sale';
 import type { SaleItemFormValues } from '../schemas/sale';
 import type { Sale, SalePaymentInput } from '../api/types';
+import type { Quotation } from '@/features/quotation/quotations/api/types';
 import { SaleItemsEditor, rowTotal } from './sale-items-editor';
 import { SalePaymentsEditor } from './sale-payments-editor';
 
@@ -25,11 +26,13 @@ const NONE = 'none';
 
 interface SaleFormProps {
   sale?: Sale;
+  /** Prefills a new sale from a quotation being converted — client-side only, nothing quotation-related is sent to the backend. */
+  initialFromQuotation?: Quotation;
   onSuccess: (sale: Sale) => void;
   onCancel: () => void;
 }
 
-export function SaleForm({ sale, onSuccess, onCancel }: SaleFormProps) {
+export function SaleForm({ sale, initialFromQuotation, onSuccess, onCancel }: SaleFormProps) {
   const isEdit = !!sale;
 
   const { data: warehousesData } = useQuery(warehousesQueryOptions({ per_page: 100 }));
@@ -62,7 +65,16 @@ export function SaleForm({ sale, onSuccess, onCancel }: SaleFormProps) {
       net_unit_price: item.net_unit_price,
       discount: item.discount ?? 0,
       tax_rate: item.tax_rate ?? 0
-    })) ?? []
+    })) ??
+      initialFromQuotation?.items?.map((item) => ({
+        product_id: item.product_id,
+        product_name: item.product_name,
+        qty: item.qty,
+        net_unit_price: item.net_unit_price,
+        discount: item.discount ?? 0,
+        tax_rate: item.tax_rate ?? 0
+      })) ??
+      []
   );
   const [payments, setPayments] = useState<SalePaymentInput[]>([]);
 
@@ -86,16 +98,28 @@ export function SaleForm({ sale, onSuccess, onCancel }: SaleFormProps) {
 
   const form = useAppForm({
     defaultValues: {
-      customer_id: sale?.customer_id ? String(sale.customer_id) : '',
-      warehouse_id: sale?.warehouse_id ? String(sale.warehouse_id) : '',
-      biller_id: sale?.biller_id ? String(sale.biller_id) : NONE,
+      customer_id: sale?.customer_id
+        ? String(sale.customer_id)
+        : initialFromQuotation?.customer_id
+          ? String(initialFromQuotation.customer_id)
+          : '',
+      warehouse_id: sale?.warehouse_id
+        ? String(sale.warehouse_id)
+        : initialFromQuotation?.warehouse_id
+          ? String(initialFromQuotation.warehouse_id)
+          : '',
+      biller_id: sale?.biller_id
+        ? String(sale.biller_id)
+        : initialFromQuotation?.biller_id
+          ? String(initialFromQuotation.biller_id)
+          : NONE,
       currency_id: sale?.currency_id ? String(sale.currency_id) : NONE,
       sale_status: sale?.sale_status ?? 'completed',
-      order_tax_rate: sale?.order_tax_rate ?? 0,
+      order_tax_rate: sale?.order_tax_rate ?? initialFromQuotation?.order_tax_rate ?? 0,
       order_discount_type: sale?.order_discount_type ?? 'fixed',
-      order_discount_value: sale?.order_discount_value ?? 0,
-      shipping_cost: sale?.shipping_cost ?? 0,
-      sale_note: sale?.sale_note ?? '',
+      order_discount_value: sale?.order_discount_value ?? initialFromQuotation?.order_discount ?? 0,
+      shipping_cost: sale?.shipping_cost ?? initialFromQuotation?.shipping_cost ?? 0,
+      sale_note: sale?.sale_note ?? initialFromQuotation?.note ?? '',
       staff_note: sale?.staff_note ?? '',
       enable_installment: false,
       installment_name: '',

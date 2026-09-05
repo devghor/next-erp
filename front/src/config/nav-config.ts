@@ -178,6 +178,12 @@ export const navGroups: NavGroup[] = [
         permissions: ['LIST_PURCHASE_PURCHASES']
       },
       {
+        title: 'Quotations',
+        url: '/dashboard/quotation/quotations',
+        icon: 'quotation',
+        permissions: ['LIST_QUOTATION_QUOTATIONS']
+      },
+      {
         title: 'Sale',
         url: '/dashboard/sales',
         icon: 'sale',

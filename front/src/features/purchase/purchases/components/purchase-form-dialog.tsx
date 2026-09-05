@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQueryState, parseAsInteger } from 'nuqs';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
@@ -20,6 +21,8 @@ import { getQueryClient } from '@/lib/query-client';
 import { warehousesQueryOptions } from '@/features/settings/warehouses/api/queries';
 import { suppliersQueryOptions } from '@/features/people/suppliers/api/queries';
 import { productsQueryOptions } from '@/features/product/products/api/queries';
+import { quotationQueryOptions } from '@/features/quotation/quotations/api/queries';
+import type { Quotation } from '@/features/quotation/quotations/api/types';
 import { createPurchaseMutation, updatePurchaseMutation } from '../api/mutations';
 import { purchaseKeys } from '../api/queries';
 import { purchaseSchema } from '../schemas/purchase';
@@ -31,11 +34,18 @@ const NONE = 'none';
 
 interface PurchaseFormDialogProps {
   purchase?: Purchase;
+  /** Prefills a new purchase from a quotation being converted — client-side only, nothing quotation-related is sent to the backend. */
+  initialFromQuotation?: Quotation;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export function PurchaseFormDialog({ purchase, open, onOpenChange }: PurchaseFormDialogProps) {
+export function PurchaseFormDialog({
+  purchase,
+  initialFromQuotation,
+  open,
+  onOpenChange
+}: PurchaseFormDialogProps) {
   const isEdit = !!purchase;
 
   const { data: warehousesData } = useQuery({ ...warehousesQueryOptions({ per_page: 100 }), enabled: open });
@@ -61,7 +71,16 @@ export function PurchaseFormDialog({ purchase, open, onOpenChange }: PurchaseFor
       net_unit_cost: item.net_unit_cost,
       discount: item.discount ?? 0,
       tax_rate: item.tax_rate ?? 0
-    })) ?? []
+    })) ??
+      initialFromQuotation?.items?.map((item) => ({
+        product_id: item.product_id,
+        product_name: item.product_name,
+        qty: item.qty,
+        net_unit_cost: item.net_unit_price,
+        discount: item.discount ?? 0,
+        tax_rate: item.tax_rate ?? 0
+      })) ??
+      []
   );
 
   const createMutation = useMutation({
@@ -88,12 +107,20 @@ export function PurchaseFormDialog({ purchase, open, onOpenChange }: PurchaseFor
 
   const form = useAppForm({
     defaultValues: {
-      supplier_id: purchase?.supplier_id ? String(purchase.supplier_id) : NONE,
-      warehouse_id: purchase?.warehouse_id ? String(purchase.warehouse_id) : '',
-      order_tax: purchase?.order_tax ?? 0,
+      supplier_id: purchase?.supplier_id
+        ? String(purchase.supplier_id)
+        : initialFromQuotation?.supplier_id
+          ? String(initialFromQuotation.supplier_id)
+          : NONE,
+      warehouse_id: purchase?.warehouse_id
+        ? String(purchase.warehouse_id)
+        : initialFromQuotation?.warehouse_id
+          ? String(initialFromQuotation.warehouse_id)
+          : '',
+      order_tax: purchase?.order_tax ?? initialFromQuotation?.order_tax ?? 0,
       paid_amount: purchase?.paid_amount ?? 0,
       paying_method: 'Cash',
-      note: purchase?.note ?? ''
+      note: purchase?.note ?? initialFromQuotation?.note ?? ''
     },
     validators: {
       onSubmit: purchaseSchema
@@ -198,11 +225,30 @@ export function PurchaseFormDialog({ purchase, open, onOpenChange }: PurchaseFor
 
 export function PurchaseFormDialogTrigger() {
   const [open, setOpen] = useState(false);
+  const [fromQuotationId] = useQueryState('from_quotation', parseAsInteger);
+
+  const { data: prefillQuotation, isFetched } = useQuery({
+    ...quotationQueryOptions(fromQuotationId ?? 0),
+    enabled: !!fromQuotationId
+  });
+
+  useEffect(() => {
+    if (fromQuotationId && isFetched) setOpen(true);
+  }, [fromQuotationId, isFetched]);
+
+  const ready = !fromQuotationId || isFetched;
 
   return (
     <>
       <AddButton onClick={() => setOpen(true)} />
-      <PurchaseFormDialog open={open} onOpenChange={setOpen} />
+      {ready && (
+        <PurchaseFormDialog
+          key={fromQuotationId ?? 'new'}
+          open={open}
+          onOpenChange={setOpen}
+          initialFromQuotation={fromQuotationId ? prefillQuotation : undefined}
+        />
+      )}
     </>
   );
 }

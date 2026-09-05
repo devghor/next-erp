@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\V1\Product\ProductController;
 use App\Http\Controllers\Api\V1\Product\StockCountController;
 use App\Http\Controllers\Api\V1\Product\UnitController;
 use App\Http\Controllers\Api\V1\Purchase\PurchaseController;
+use App\Http\Controllers\Api\V1\Quotation\QuotationController;
 use App\Http\Controllers\Api\V1\Sale\CashRegisterController;
 use App\Http\Controllers\Api\V1\Sale\ChallanController;
 use App\Http\Controllers\Api\V1\Sale\CouponController;
@@ -413,6 +414,29 @@ Route::prefix('v1')
                                 Route::get('{id}', [PurchaseController::class, 'show'])->name('show');
                                 Route::put('{id}', [PurchaseController::class, 'update'])->name('update');
                                 Route::delete('{id}', [PurchaseController::class, 'destroy'])->name('destroy');
+                            });
+                    });
+
+                /**
+                 * Quotation Module
+                 */
+                Route::prefix('quotation')
+                    ->name('quotation.')
+                    ->group(function () {
+                        // Quotations
+                        Route::prefix('quotations')
+                            ->name('quotations.')
+                            ->group(function () {
+                                Route::post('bulk-delete', [QuotationController::class, 'bulkDestroy'])->name('bulk-delete');
+                                Route::get('export/pdf', [QuotationController::class, 'exportPdf'])->name('export.pdf');
+                                Route::get('export/excel', [QuotationController::class, 'exportExcel'])->name('export.excel');
+
+                                Route::get('/', [QuotationController::class, 'index'])->name('index');
+                                Route::post('/', [QuotationController::class, 'store'])->name('store');
+                                Route::get('{id}', [QuotationController::class, 'show'])->name('show');
+                                Route::put('{id}', [QuotationController::class, 'update'])->name('update');
+                                Route::delete('{id}', [QuotationController::class, 'destroy'])->name('destroy');
+                                Route::post('{id}/send-mail', [QuotationController::class, 'sendMail'])->name('send-mail');
                             });
                     });
 

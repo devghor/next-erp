@@ -159,6 +159,17 @@ enum PermissionEnum: string
     case DeletePurchasePurchases = 'DELETE_PURCHASE_PURCHASES';
 
     /**
+     * Quotation
+     */
+
+    // quotations
+    case ListQuotationQuotations = 'LIST_QUOTATION_QUOTATIONS';
+    case CreateQuotationQuotations = 'CREATE_QUOTATION_QUOTATIONS';
+    case ReadQuotationQuotations = 'READ_QUOTATION_QUOTATIONS';
+    case UpdateQuotationQuotations = 'UPDATE_QUOTATION_QUOTATIONS';
+    case DeleteQuotationQuotations = 'DELETE_QUOTATION_QUOTATIONS';
+
+    /**
      * Sale
      */
 

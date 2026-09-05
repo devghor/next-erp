@@ -144,6 +144,13 @@ class PermissionSeeder extends Seeder
             ['module' => 'Purchase', 'group' => 'Purchase > Purchases', 'name' => PermissionEnum::UpdatePurchasePurchases->value, 'label' => self::LABEL_UPDATE],
             ['module' => 'Purchase', 'group' => 'Purchase > Purchases', 'name' => PermissionEnum::DeletePurchasePurchases->value, 'label' => self::LABEL_DELETE],
 
+            // Quotation
+            ['module' => 'Quotation', 'group' => 'Quotation > Quotations', 'name' => PermissionEnum::ListQuotationQuotations->value, 'label' => self::LABEL_READ_ALL],
+            ['module' => 'Quotation', 'group' => 'Quotation > Quotations', 'name' => PermissionEnum::CreateQuotationQuotations->value, 'label' => self::LABEL_CREATE],
+            ['module' => 'Quotation', 'group' => 'Quotation > Quotations', 'name' => PermissionEnum::ReadQuotationQuotations->value, 'label' => self::LABEL_READ],
+            ['module' => 'Quotation', 'group' => 'Quotation > Quotations', 'name' => PermissionEnum::UpdateQuotationQuotations->value, 'label' => self::LABEL_UPDATE],
+            ['module' => 'Quotation', 'group' => 'Quotation > Quotations', 'name' => PermissionEnum::DeleteQuotationQuotations->value, 'label' => self::LABEL_DELETE],
+
             // Sale
             ['module' => 'Sale', 'group' => 'Sale > Sales', 'name' => PermissionEnum::ListSaleSales->value, 'label' => self::LABEL_READ_ALL],
             ['module' => 'Sale', 'group' => 'Sale > Sales', 'name' => PermissionEnum::CreateSaleSales->value, 'label' => self::LABEL_CREATE],

@@ -30,6 +30,8 @@ use App\Services\Product\UnitService;
 use App\Services\Product\UnitServiceInterface;
 use App\Services\Purchase\PurchaseService;
 use App\Services\Purchase\PurchaseServiceInterface;
+use App\Services\Quotation\QuotationService;
+use App\Services\Quotation\QuotationServiceInterface;
 use App\Services\Sale\CashRegisterService;
 use App\Services\Sale\CashRegisterServiceInterface;
 use App\Services\Sale\ChallanService;
@@ -88,6 +90,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BillerServiceInterface::class, BillerService::class);
         $this->app->bind(CustomFieldServiceInterface::class, CustomFieldService::class);
         $this->app->bind(PurchaseServiceInterface::class, PurchaseService::class);
+        $this->app->bind(QuotationServiceInterface::class, QuotationService::class);
         $this->app->bind(ProductServiceInterface::class, ProductService::class);
         $this->app->bind(BarcodeSettingServiceInterface::class, BarcodeSettingService::class);
         $this->app->bind(AdjustmentServiceInterface::class, AdjustmentService::class);
